@@ -13,6 +13,7 @@ Return "100".
 //my solution
 //first padding a or b to the longer length, then consider flag and 0, 1 situation
 //you can use flag to indicate a carrier
+// Don't try to convert the string into "int" or "long", the string can get too long to be converted.
 public class Solution {
     public String addBinary(String a, String b) {
         if(a.length() < b.length()){
@@ -61,5 +62,34 @@ public class Solution {
             res = '1' + res;
         }
         return res;
+    }
+}
+
+
+public class Solution {
+    public String addBinary(String a, String b) {
+        if(a == null || a.length() == 0){
+            return b;
+        }
+        
+        if(b == null || b.length() == 0){
+            return a;
+        }
+        
+        StringBuilder sb = new StringBuilder();
+        
+        int lastA = a.length() - 1;
+        int lastB = b.length() - 1;
+        int carry = 0;
+        
+        while(lastA >= 0 || lastB >= 0 || carry >0){
+            int num1 = lastA>=0? a.charAt(lastA--) - '0': 0;
+            int num2 = lastB>=0? b.charAt(lastB--) - '0': 0;
+            int current = (num1 + num2 + carry)%2;
+            carry = (num1 + num2 + carry)/2;
+            
+            sb.insert(0, current);
+        }
+        return sb.toString();
     }
 }
