@@ -32,10 +32,13 @@ Appends all of the elements in the specified collection to the end of this list,
 对array中的每个元素进行循环，每次在前一次循环得到的arraylist的基础上，append当前的integer,然后再将所有的结果append的到输出。
 注意一定要处理只有一个arraylist中只含有一个元素和空元素的情况
 注意多个arraylist嵌套的问题
+use of generics
 */
 
 public class Solution {
-    public List<List<Integer>> subsets(int[] S) {
+    //public List<List<Integer>> subsets(int[] S) {
+	public ArrayList<ArrayList<Integer>> subsets(int[] S) {
+
  		if(S == null) return null;
 
  		//sort the array
@@ -58,7 +61,7 @@ public class Solution {
 
  			//add S[i] as a single set
  			ArrayList<Integer> single = new ArrayList<Integer>();
- 			single.add(s[i]);
+ 			single.add(S[i]);
  			temp.add(single);
 
  			//append all the newly created arraylist to the result
@@ -70,4 +73,36 @@ public class Solution {
 
  		return result;
     }
+}
+
+
+
+
+public class Solution {
+    public ArrayList<ArrayList<Integer>> subsets(int[] S) {
+    	ArrayList<ArrayList<Integer>> alist = new ArrayList<ArrayList<Integer>>();
+
+    	if(s.length == 0) return false;
+    	Attays.sort(S);
+    	for(int i = 0; i < S.length; i++){
+    		ArrayList<Integer> ilist = new ArrayList<Integer>();
+    		getsubsets(S, ilist, alist, i, 0);
+    	}
+
+    	return alist;
+  	}
+
+  	public void getsubsets(int[] S, ArrayList<Integer> ilist, ArrayList<ArrayList<Integer>> alist, int len, int level){
+  		if(ilist.size() == len){
+  			ArrayList<Integer> temp = new ArrayList<Integer>(ilist);
+  			alist.add(temp);
+  			return;
+  		}
+
+  		for(int i=level; i < S.length; i++){
+  			ilist.add(S[i]);
+  			getsubsets(S, ilist, alist, len, i+1);
+  			ilist.remove(ilist.size() -1);
+  		}
+  	}
 }
