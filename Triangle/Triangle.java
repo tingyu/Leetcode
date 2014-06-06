@@ -28,6 +28,7 @@ so use pathSum to hold the bottom row's value, then from bottom to up, find mini
 加到最后，就是p[0],就是返回值了。复杂度比上一个小了好多。
 */
 //Bottom-Up, actually start from the bottom of the triangle.
+//http://www.programcreek.com/2013/01/leetcode-triangle-java/
 public class Solution {
     public int minimumTotal(List<List<Integer>> triangle) {
         int[] total = new int[triangle.size()];
@@ -45,4 +46,17 @@ public class Solution {
         }
         return total[0];
     }
+}
+
+
+//a in-place DP Solution
+public class Solution {
+    public int minimumTotal(List<List<Integer>> triangle) {
+    	for(int i = triangle.size() - 2; i>=0; i--){
+    		for(int j = 0; j < triangle.get(i+1).size() - 1; j++){
+    			triangle.get(i).set(j, triangle.get(i).get(j) + Math.min(triangle.get(i+1).get(j), triangle.get(i+1).get(j+1)));
+    		}
+    	}
+    	return triangle.get(0).get(0);
+  	}
 }
