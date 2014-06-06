@@ -66,6 +66,7 @@ public class Solution {
 }
 
 
+//convert char to int to compute using a.charAt(lastA--) - '0':
 public class Solution {
     public String addBinary(String a, String b) {
         if(a == null || a.length() == 0){
