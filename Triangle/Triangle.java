@@ -60,3 +60,29 @@ public class Solution {
     	return triangle.get(0).get(0);
   	}
 }
+
+//up to bottom
+//http://gongxuns.blogspot.com/2012/12/leetcodetriangle.html
+public class Solution {
+    public int minimumTotal(ArrayList<ArrayList<Integer>> triangle) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if(triangle==null || triangle.size()==0) return 0;
+        ArrayList<Integer> res = new ArrayList<Integer>();
+        for(int i=0;i<triangle.size();i++){
+            ArrayList<Integer> temp = triangle.get(i);
+            res.add(0,i>0?temp.get(0)+res.get(0):temp.get(0));
+            for(int j=1;j<res.size()-1;j++){
+                res.set(j,Math.min(res.get(j),res.get(j+1))+temp.get(j));
+            }
+            if(res.size()>1)
+                res.set(res.size()-1,res.get(res.size()-1)+temp.get(res.size()-1));
+        }
+        
+        int min=Integer.MAX_VALUE;
+        for(Integer temp:res){
+            min=Math.min(temp,min);
+        }
+        return min;
+    }
+}
