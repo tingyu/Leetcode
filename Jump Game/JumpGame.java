@@ -16,6 +16,11 @@ A = [3,2,1,0,4], return false.
 //http://rleetcode.blogspot.com/2014/02/jump-game-java.html
 // DP Solution: use int[] checker to record the max length current position can reach, if the length
 // passed the length of given array return true
+/*
+下面给出一种O（n）的算法：
+我们用maxlength 维护一个从开始位置能到达的最远距离，然后判断在当前位置是否能够到底最后一个位置和当前位置是否可达，
+如果两个条件都满足，那么返回true，如果当前位置是0，并且最远距离不能超过当前位置，那么只能返回false 了，更新最远距离
+*/
 
 public class Solution {
     public boolean canJump(int[] A) {
@@ -56,8 +61,30 @@ Thank you very much for Guangsen Wang point it out!
 // Greedy ALgorithm solution
 // depend on the question description, the num in the given array are non-negative number
 // so we can keep jump until to the end of the array if the num is not 0
+//this cannot work, why???
+/*
+public class Solution {
+    public boolean canJump(int[] A) {
+ 		if(A==null ||A.length ==0){
+ 			return false;
+ 		}
 
+ 		int current = 0;
 
+ 		while(current < A.length){
+ 			if(current == A.length-1){
+ 				return true;
+ 			}
+
+ 			if(A[current] == 0){
+ 				return false;
+ 			}
+
+ 			current +=A[current];
+ 		}
+ 		return true;
+    }
+}*/
 
 
 
