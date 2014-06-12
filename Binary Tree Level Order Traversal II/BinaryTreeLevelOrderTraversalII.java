@@ -7,6 +7,20 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+/*
+http://blog.csdn.net/u010500263/article/details/18128813
+ Analysis:
+
+Binary tree problem -> recursive approach.  
+Key problem is how to store all the nodes in the same level into the same array list.  
+After analyzing the approaches that are available in Internet, a "depth" parameter is needed for the recursive function 
+in order to record the depth/level of node that is processing.  Also, a concision is need to be specified for 
+creating the integer array list: if same depth, reuse the same integer array list; if new depth, use a new integer array list.
+
+Another key of this solution is to define the resulting array list as the parameter for recursive function, 
+so that this resulting array list can be updated time be time when recursive function repeatedly being called without newly created.
+
+*/
 public class Solution{
 	public ArrayList<ArrayList<Integer>> levelOrderBottom(TreeNode root){
 		ArrayList<ArrayList<Integer>> tree = new ArrayList<ArrayList<Integer>>();
