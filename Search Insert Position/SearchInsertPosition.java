@@ -76,7 +76,8 @@ public int searchInsert(int[] A, int target){
             if(A[mid] == target){
                 return mid;
             } else if(A[mid] < target){
-reps            } else{
+                l = mid+1;            
+            } else{
                 r = mid - 1;
             }
         }

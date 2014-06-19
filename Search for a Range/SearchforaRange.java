@@ -63,10 +63,6 @@ public class Solution {
         int[] result={-1,-1};
       
         int low=binarySearch(A,target-0.5);
-        // Be care for there , low>=A.length must be check first or 
-        // there may be a out of boundary exception cause 
-        // the binarySearch function in this question return low instead of null
-        // if the target are not in the array
         
         if (low>=A.length||A[low]!=target){
             return result;

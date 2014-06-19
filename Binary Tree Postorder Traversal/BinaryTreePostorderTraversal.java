@@ -153,3 +153,30 @@ which means this node has been processed.
 
 Note that the order of postorder traversal is left subtree->right subtree -> tree
 */
+
+
+//my solution 
+//why it is not right?????????
+public class Solution {
+    public List<Integer> postorderTraversal(TreeNode root) {
+        ArrayList<Integer> tree = new ArrayList<Integer>();
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+        if(root == null) return tree;
+        
+        stack.push(root);
+        while(stack.size() > 0){
+            TreeNode curr = stack.peek();
+            
+            TreeNode n = curr.right;
+            if(n !=null) stack.push(n);
+            
+            n = curr.left;
+            if(n !=null) stack.push(n);
+            
+            tree.add(stack.pop().val);
+        }
+        
+        return tree;
+    }
+}
+*/
