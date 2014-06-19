@@ -83,5 +83,30 @@ public class Solution {
 //http://www.programcreek.com/2013/01/leetcode-flatten-binary-tree-to-linked-list/
 //Go down through the left, when right is not null, push right to stack.
 //Iterative Code: DFS or pre-order traversal
+//如果碰到右结点，放到stack中
+//如果碰到左结点，把左子树放到p的右子树，把p的左子树置为空
+//如果左子树处理完了，把右子树attach到后面
+public class Solution {
+    public void flatten(TreeNode root) {
+ 		Stack<TreeNode> stack = new Stack<TreeNode>();
+ 		TreeNode p = root;//链表里面经常这样做。。
 
+ 		while(p != null || !stack.empty()){
+ 			//push right node
+ 			if(p.right != null){
+ 				stack.push(p.right);
+ 			}
+
+ 			//move left sub-tree to right, leave left subtree empty
+ 			if(p.left != null){
+ 				p.right = p.left;
+ 				p.left = null;
+ 			}else if(!stack.empty()){//all left are done, now attch right node to p
+ 				TreeNode temp = stack.pop();
+ 				p.right = temp;
+ 			}
+ 			p = p.right;
+ 		}
+    }
+}
 
