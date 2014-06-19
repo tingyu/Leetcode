@@ -25,3 +25,29 @@ public class Solution {
         return Math.max(maxDepth(root.left),maxDepth(root.right)) + 1;
     }
 }
+
+
+//another solution
+
+public class Solution {
+    public int maxDepth(TreeNode root) {
+        if(root == null)    return 0;
+         
+        // Non-recursive, use level order triversal
+        ArrayList<TreeNode> q = new ArrayList<TreeNode>();
+        q.add(root);
+        int depth = 0;
+         
+        while(!q.isEmpty()) {
+            ArrayList<TreeNode> next = new ArrayList<TreeNode>();
+            for(TreeNode node : q) {
+                if(node.left != null)   next.add(node.left);
+                if(node.right != null)  next.add(node.right);
+            }
+            q = new ArrayList<TreeNode>(next);
+            depth++;
+        }
+         
+        return depth;
+    }
+}
