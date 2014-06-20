@@ -125,6 +125,12 @@ public class Solution{
 
 
 //queue
+/*
+http://blog.csdn.net/ljphhj/article/details/22428939
+居然要层次遍历，那么我们如果一层层放入到queue中，然后取出这一层结点，并把值放入到一个ArrayList<Integer>中，
+并加入到最终集合list中，接着我们把这一层的孩子结点，即下一层的结点再放入到queue中，
+这样直到queue为empty的时候，我们便把所有层次都遍历完毕了,这样子我们将 list 进行翻转，便得到了题目想要的结果了！！
+*/
 public class Solution {
     public ArrayList<ArrayList<Integer>> levelOrderBottom(TreeNode root) {
         ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
