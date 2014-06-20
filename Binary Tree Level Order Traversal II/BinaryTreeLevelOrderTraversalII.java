@@ -7,6 +7,52 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+
+
+//my solution
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    //public List<List<Integer>> levelOrderBottom(TreeNode root) {
+    public ArrayList<ArrayList<Integer>> levelOrderBottom(TreeNode root) {
+        ArrayList<ArrayList<Integer>> rs = new ArrayList<ArrayList<Integer>>();
+        if(root == null) return rs;
+        helper(root, rs, 1);
+        rs = reverse(rs);
+        return rs;
+    }
+    
+    public void helper(TreeNode node, ArrayList<ArrayList<Integer>> rs, int depth){
+        if(node == null) return;
+        ArrayList<Integer> tmp = new ArrayList<Integer>();
+        
+        if(rs.size() < depth) rs.add(tmp);
+        else tmp = rs.get(depth - 1);
+        
+        tmp.add(node.val);
+        
+        helper(node.left, rs, depth + 1);
+        helper(node.right, rs, depth + 1);
+    }
+    
+    public ArrayList<ArrayList<Integer>> reverse(ArrayList<ArrayList<Integer>> rs){
+        ArrayList<ArrayList<Integer>> rev = new ArrayList<ArrayList<Integer>>();
+        ArrayList<Integer> tmp = new ArrayList<Integer>();
+        
+        for(int i = rs.size() -1; i >=0; i--){
+            tmp = (ArrayList<Integer>)rs.get(i).clone();
+            rev.add(tmp);
+        }
+        return rev;
+    }
+}
 /*
 http://blog.csdn.net/u010500263/article/details/18128813
  Analysis:

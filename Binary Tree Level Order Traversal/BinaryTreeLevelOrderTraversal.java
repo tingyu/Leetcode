@@ -46,10 +46,10 @@ public class Solution {
     	ArrayList<Integer> tmp = new ArrayList<Integer>();
 
     	//check if this level has already exist
-    	if(rs.size() < depth) rs.add(tmp);
-    	else tmp = rs.get(depth -1);
+    	if(rs.size() < depth) rs.add(tmp);//not exist, then add tmp to rs
+    	else tmp = rs.get(depth -1); //get tmp from rs to update
 
-    	tmp.add(node.val);
+    	tmp.add(node.val); //add node to current depthht
 
     	helper(node.left, rs, depth + 1);
     	helper(node.right, rs, depth + 1);
