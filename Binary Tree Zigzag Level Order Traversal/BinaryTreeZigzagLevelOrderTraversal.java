@@ -59,3 +59,55 @@ public class Solution {
         helper(res, node.right, depth + 1);
     }
 }
+
+
+
+
+
+//another solution
+//http://blog.csdn.net/muscler/article/details/23098359
+
+
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    //bfs 层序遍历，隔层reverse tmp
+    public ArrayList<ArrayList<Integer>> zigzagLevelOrder(TreeNode root) {
+        ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+        if (root == null) {
+            return res;
+        }
+        ArrayList<Integer> tmp = new ArrayList<Integer>();
+        Queue<TreeNode> queue = new LinkedList<TreeNode>();
+        queue.offer(root);
+        int num;
+        boolean reverse = false;
+        while (!queue.isEmpty()) {
+            num = queue.size();
+            tmp.clear();
+            for (int i = 0; i < num; i++) {
+                TreeNode node = queue.poll();
+                tmp.add(node.val);
+                if (node.left != null)
+                    queue.offer(node.left);
+                if (node.right != null)
+                    queue.offer(node.right);
+            }
+            if (reverse) {
+                Collections.reverse(tmp);
+                reverse = false;
+            }
+            else
+                reverse = true;
+            res.add(new ArrayList<Integer>(tmp));
+        }
+        return res;
+    }
+}
