@@ -55,3 +55,30 @@ public class Solution {
     	helper(node.right, rs, depth + 1);
     }
 }
+
+//use queue
+public class Solution {
+    public ArrayList<ArrayList<Integer>> levelOrder(TreeNode root) {
+        ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        Queue<TreeNode> queue = new LinkedList<TreeNode>();
+        if(root != null)
+            queue.offer(root);
+        int leftCount = 0;
+        while(!queue.isEmpty()){
+            if(leftCount == 0){
+                list = new ArrayList<Integer>();
+                res.add(list);
+                leftCount = queue.size();
+            }
+            TreeNode node = queue.poll();
+            list.add(node.val);
+            leftCount--;
+            if(node.left != null)
+                queue.offer(node.left);
+            if(node.right != null)
+                queue.offer(node.right);
+        }
+        return res;
+    }
+}
