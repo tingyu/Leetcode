@@ -19,6 +19,7 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+//Runtime: 480 ms
 public class Solution {
     //public List<List<Integer>> levelOrderBottom(TreeNode root) {
     public ArrayList<ArrayList<Integer>> levelOrderBottom(TreeNode root) {
@@ -53,6 +54,33 @@ public class Solution {
         return rev;
     }
 }
+
+//another my solution, inspired by the next mentioned method
+//key: use  Collections.reverse(rs);
+public class Solution {
+    //public List<List<Integer>> levelOrderBottom(TreeNode root) {
+    public ArrayList<ArrayList<Integer>> levelOrderBottom(TreeNode root) {
+        ArrayList<ArrayList<Integer>> rs = new ArrayList<ArrayList<Integer>>();
+        if(root == null) return rs;
+        helper(root, rs, 1);
+        //rs = reverse(rs);
+        Collections.reverse(rs);
+        return rs;
+    }
+    
+    public void helper(TreeNode node, ArrayList<ArrayList<Integer>> rs, int depth){
+        if(node == null) return;
+        ArrayList<Integer> tmp = new ArrayList<Integer>();
+        
+        if(rs.size() < depth) rs.add(tmp);
+        else tmp = rs.get(depth - 1);
+        
+        tmp.add(node.val);
+        
+        helper(node.left, rs, depth + 1);
+        helper(node.right, rs, depth + 1);
+    }
+}
 /*
 http://blog.csdn.net/u010500263/article/details/18128813
  Analysis:
@@ -64,7 +92,8 @@ in order to record the depth/level of node that is processing.  Also, a concisio
 creating the integer array list: if same depth, reuse the same integer array list; if new depth, use a new integer array list.
 
 Another key of this solution is to define the resulting array list as the parameter for recursive function, 
-so that this resulting array list can be updated time be time when recursive function repeatedly being called without newly created.
+so that this resulting array list can be updated time be time when recursive function repeatedly 
+being called without newly created.
 
 */
 public class Solution{
