@@ -31,13 +31,13 @@ public class Solution {
     private ArrayList<TreeNode> dfs(int start, int end){
     	ArrayList<TreeNode> res = new ArrayList<TreeNode>();
     	if(start > end){
-    		res.add(null);
+    		res.add(null);f
     		return res;
     	}
 
     	for(int i = start; i <= end; i++){
-    		ArrayList<TreeNode> lefts = dfs(start, i -1);
-    		ArrayList<TreeNode> rights = dfs(i + 1, end);
+    		ArrayList<TreeNode> lefts = dfs(start, i -1);//lefts里面保存从start到i-1的所有组合  
+    		ArrayList<TreeNode> rights = dfs(i + 1, end);//rights里面保存从i+1到endAr的所有组合
     		for(TreeNode left: lefts){
     			for(TreeNode right: rights){
     				TreeNode node = new TreeNode(i);
