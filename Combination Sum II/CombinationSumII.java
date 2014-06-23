@@ -42,9 +42,9 @@ public class Solution {
         }
         
         for(int i = start; i < num.length; i++){
-            if(i > start && num[i] == num[i-1])
+            if(i > start && num[i] == num[i-1])//避免因为数组中重复的元素，出现重复的元素集
                 continue;
-            item.add(num[i]);
+            item.add(num[i]);//因为有i>start，每次都允许加入当前的, i > 0的话就是要去除所有的重复的了
             
             helper(num, i+1, target - num[i], item, res);//避免重复使用当前元素
             item.remove(item.size() - 1);
