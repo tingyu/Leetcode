@@ -61,3 +61,23 @@ public class Solution {
         connect(root.right);
     }
 }
+
+
+
+ public class Solution {
+    public void connect(TreeLinkNode root) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if(root==null || root.left == null || root.right ==null) return;
+        TreeLinkNode current = root, rightSib;
+        while(current!=null){
+            if(current.next!=null)
+                rightSib = current.next.left;
+            else rightSib = null;
+            current.left.next = current.right;
+            current.right.next = rightSib;
+            current= current.next;
+        }
+        connect(root.left);
+    }
+}
