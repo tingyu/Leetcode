@@ -23,6 +23,7 @@ http://blog.csdn.net/linhuanmars/article/details/22452163
 
 对于brute force解法，代码比较简单，每次维护一个当前结果集，然后遍历剩下的所有子串，如果子串在字典中出现，
 则保存一下结果，并放入下一层递归剩下的字符。思路接近于我们在N-Queens这些NP问题中经常用到的套路。代码如下：
+Time Limit Exceeded
 */
 
 
@@ -126,5 +127,54 @@ public ArrayList<String> wordBreak(String s, Set<String> dict) {
         res.add(str.toString());
     }
     return res;
+}
+
+
+
+public class Solution {
+    public List<String> wordBreak(String s, Set<String> dict) {
+        ArrayList<String> res = new ArrayList<String>();
+        if(s == null || s.length() == 0)
+            return res;
+        boolean[][] dp = new boolean[s.length()][s.length()];
+        dp = getDP(s, dict);
+        for(int i = 0; i < s.length(); i++){
+            if(dp[i][s.length()-1]){
+                helper(s, dp, dict, 0, "", res);   
+            }    
+        }
+        return res;        
+    }
+    
+    private boolean[][] getDP(String s, Set<String> dict){
+        boolean[][] dp = new boolean[s.length()][s.length()];
+        for(int i = 0; i < s.length(); i++){
+            for(int j = i; j < s.length(); j++){
+                if(dict.contains(s.substring(i, j+1))){
+                    dp[i][j] = true;
+                }else{
+                    dp[i][j] = false;
+                }
+            }
+        }
+        return dp;
+    }
+
+    private void helper(String s, boolean[][] dp, Set<String> dict, int start, String item, ArrayList<String> res){
+        if(start == s.length()){
+            res.add(item);
+            return;
+        }
+
+        for(int i = start; i< s.length(); i++){
+           // for(int j = i + 1; j < s.length(); j++){
+                    if(dp[start][i]){
+                       // String str = s.substring(start, i+1);
+                        String newItem = item.length()>0?(item + " " + s.substring(start, i+1)):s.substring(start, i+1);
+                        helper(s, dp, dict, i+1, newItem, res);
+                }
+        //  }
+        }
+    }
 }
 
