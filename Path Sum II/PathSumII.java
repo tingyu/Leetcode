@@ -74,3 +74,96 @@ public class Solution {
         }
     }
 }
+
+
+/*
+以下是别人的写法，把sum不停的减掉当前值，直到==0
+这种写法不需要每次都tmp.remove
+*/
+public class Solution {
+	public ArrayList<ArrayList<Integer>> pathSum(TreeNode root, int sum) {
+		ArrayList<ArrayList<Integer>> result=new ArrayList<ArrayList<Integer>>();
+		if (root==null){
+			return result;
+		}	
+		ArrayList<Integer> current=new ArrayList<Integer>();
+		buildResult(root, sum, current, result);
+		return result;
+	}
+	
+	private void buildResult(TreeNode root,int sum, ArrayList<Integer> current, ArrayList<ArrayList<Integer>> result){
+		if (root==null){
+			return;
+		}
+		
+		int currentVal=root.val;
+		current.add(currentVal);
+		
+		if (root.left==null && root.right==null){
+			if (sum-currentVal==0){
+				ArrayList<Integer> temp=new ArrayList<Integer> (current);
+				result.add(temp);
+			}
+		}
+
+		buildResult(root.left, sum-currentVal, current, result);
+		buildResult(root.right, sum-currentVal, current, result);
+		current.remove(current.size()-1);
+	}
+}
+
+
+public class Solution {
+	public ArrayList<ArrayList<Integer>> pathSum(TreeNode root, int sum) {
+	// Start typing your Java solution below
+	// DO NOT write main() function
+	ArrayList <Integer> current=new ArrayList<Integer>();
+	ArrayList<ArrayList<Integer>> result=new ArrayList<ArrayList<Integer>>();
+	pathSumHelper(root, sum, current, result);
+	return result;
+	}
+
+	public void pathSumHelper(TreeNode root, int sum, ArrayList<Integer> current, ArrayList<ArrayList<Integer>> result)
+	{
+		if (root==null){
+		return;
+		}
+		current.add(root.val);
+		int current_sum=sum-root.val;
+		if (current_sum==0&& root.left==null && root.right==null){
+			ArrayList<Integer> temp=new ArrayList<Integer>();
+			for(int i:current){
+				temp.add(i);
+			}
+			result.add(temp);
+		}
+	pathSumHelper(root.left, current_sum, current, result);
+	pathSumHelper(root.right, current_sum, current, result);
+	current.remove(current.size()-1);
+	}
+}
+
+/*
+简单的recursive解法
+！注意：因为java是pass by reference, 所以需要特别注意送到recursive function是原来的instance还是一个clone的instance
+http://xpxu.net/blog/?p=22
+*/
+public class Solution {
+    public ArrayList> pathSum(TreeNode root, int sum) {
+        ArrayList> solution = new ArrayList>();
+        if (root == null) return solution;
+        findSum(root, sum, new ArrayList(), solution);
+        return solution;
+    }
+    void findSum(TreeNode root, int remain, ArrayList current, ArrayList> solution){
+        remain -= root.val;
+       // Cannot use current here, coz java is pass by reference!!
+        ArrayList cur = (ArrayList) current.clone();
+        cur.add(root.val);
+        //leaf node && sum == sum
+        if (root.left == null && root.right == null && remain == 0) solution.add(cur);
+        if (root.left != null) findSum(root.left, remain, cur, solution);
+        if (root.right != null) findSum(root.right, remain, cur, solution);
+    }
+}
+
