@@ -78,7 +78,7 @@ public class Solution {
         
         if(node.left == null && node.right == null){
             sum[0] = sum[0] + current;
-            return;
+            return；        
         }
         
         dfs(node.left, sum, current);
