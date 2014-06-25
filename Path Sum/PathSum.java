@@ -62,6 +62,11 @@ For example above, the queue would be: 5 - 4 - 8 - 11 - 13 - 4 - 7 - 2 - 1. It w
 
 This is a typical breadth first search(BFS) problem.
 非recursion的解法
+实现起来也是level order traversal
+注意这种BFS的写法，不断的poll，不断的往里面加入新的left child和right child
+
+BFS解法，使用两个数据结构nodes和accsums来记录所有的结点和累加和，这里是不断的加入叶子结点，然后不断poll出父节点。
+这种方法不熟悉但是很好，可以记下
 */
 
 public class Solution {
@@ -75,22 +80,67 @@ public class Solution {
 		nodes.add(root.val);
 
 		while(!nodes.isEmpty()){
-			TreeNode curr = nodes.poll();
-			int sumValue = accSums.poll();
+			TreeNode node = nodes.poll();
+			int accSum = accSums.poll();
 			if(node.left == null || node.right == null && accSums == sum){
 				return true;
 			}
 
 			if(node.left != null){
 				nodes.add(node.left);
-				accSums.add(accSums + node.left.val);
+				accSums.add(accSum + node.left.val);
 			}
 
 			if(node.right != null){
 				nodes.add(node.right);
-				accSums.add(accSums + node.right.val);
+				accSums.add(accSum + node.right.val);
 			}
 		} 
 		return false;
+    }
+}
+
+
+//DFS non-recursion solution
+//这里是DFS，preorder traversal。和前面BFS不同，仅仅由于采用了不同的数据结构。这里遍历的顺序也完全不同
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+ //DFS solution
+public class Solution {
+    public boolean hasPathSum(TreeNode root, int sum) {
+        if(root == null) return false;
+        
+        Stack<TreeNode> nodes = new Stack<TreeNode>();
+        Stack<Integer> accSums = new Stack<Integer>();
+        
+        nodes.add(root);
+        accSums.add(root.val);
+        
+        while(!nodes.isEmpty()){
+            TreeNode node = nodes.pop();
+            int accSum = accSums.pop();
+            
+            if(node.left == null && node.right ==null && accSum == sum){
+                return true;
+            }
+            
+            if(node.right != null){
+                nodes.add(node.right);
+                accSums.add(accSum + node.right.val);
+            }
+            
+            if(node.left != null){
+                nodes.add(node.left);
+                accSums.add(accSum + node.left.val);
+            }
+        }
+        return false;
     }
 }
