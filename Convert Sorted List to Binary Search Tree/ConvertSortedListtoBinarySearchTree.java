@@ -18,17 +18,30 @@ The bottom-up approach enables us to access the list in its order at the same ti
 http://joycelearning.blogspot.com/2013/09/leetcode-convert-sorted-list-to-binary.html
 
 Naive Solution:
-A naive way is to apply the previous solution directly. In each recursive call, you would have to traverse half of the list’s length to find the middle element. The run time complexity is clearly O(N lg N), where N is the total number of elements in the list. This is because each level of recursive call requires a total of N/2 traversal steps in the list, and there are a total of lg N number of levels (ie, the height of the balanced tree).
+A naive way is to apply the previous solution directly. In each recursive call, you would have to 
+traverse half of the list’s length to find the middle element. The run time complexity is clearly 
+O(N lg N), where N is the total number of elements in the list. This is because each level of recursive 
+call requires a total of N/2 traversal steps in the list, and there are a total of lg N number of levels 
+(ie, the height of the balanced tree).
 
 Hint:
-How about inserting nodes following the list’s order? If we can achieve this, we no longer need to find the middle element, as we are able to traverse the list while inserting nodes to the tree.
+How about inserting nodes following the list’s order? If we can achieve this, we no longer need to find 
+the middle element, as we are able to traverse the list while inserting nodes to the tree.
 
 Best Solution:
-As usual, the best solution requires you to think from another perspective. In other words, we no longer create nodes in the tree using the top-down approach. We create nodes bottom-up, and assign them to its parents. The bottom-up approach enables us to access the list in its order while creating nodes.
+As usual, the best solution requires you to think from another perspective. In other words, we no longer 
+create nodes in the tree using the top-down approach. We create nodes bottom-up, and assign them to its parents.
+ The bottom-up approach enables us to access the list in its order while creating nodes.
 
-Isn’t the bottom-up approach neat? Each time you are stucked with the top-down approach, give bottom-up a try. Although bottom-up approach is not the most natural way we think, it is extremely helpful in some cases. However, you should prefer top-down instead of bottom-up in general, since the latter is more difficult to verify in correctness.
+Isn’t the bottom-up approach neat? Each time you are stucked with the top-down approach, give bottom-up a try.
+ Although bottom-up approach is not the most natural way we think, it is extremely helpful in some cases. 
+ However, you should prefer top-down instead of bottom-up in general, since the latter is more difficult 
+ to verify in correctness.
 
-Below is the code for converting a singly linked list to a balanced BST. Please note that the algorithm requires the list’s length to be passed in as the function’s parameters. The list’s length could be found in O(N) time by traversing the entire list’s once. The recursive calls traverse the list and create tree’s nodes by the list’s order, which also takes O(N) time. Therefore, the overall run time complexity is still O(N).
+Below is the code for converting a singly linked list to a balanced BST. Please note that the algorithm 
+requires the list’s length to be passed in as the function’s parameters. The list’s length could be found 
+in O(N) time by traversing the entire list’s once. The recursive calls traverse the list and create tree’s 
+nodes by the list’s order, which also takes O(N) time. Therefore, the overall run time complexity is still O(N).
 
 */
 /**
