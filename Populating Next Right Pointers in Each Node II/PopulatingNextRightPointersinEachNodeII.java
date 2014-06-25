@@ -78,7 +78,68 @@ public class Solution {
     }
 }
 
+//my second solution
+//Runtime: 516 ms
+/*
+这个方法就是使用BFS，层序遍历，在遍历的时候不断的判断。
+前面recursion的方法超时通过不了，但是这个方法是可以通过的
+这个方法和Path Sum中的BFS方法类似。用两个LinkedList/ Queue来记录数据，一个是结点数据，一个是需要处理的相应问题的数据。
+在Path Sum中，该数据是累加和，在这里这个数据是高度。
 
+*/
+/**
+ * Definition for binary tree with next pointer.
+ * public class TreeLinkNode {
+ *     int val;
+ *     TreeLinkNode left, right, next;
+ *     TreeLinkNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public void connect(TreeLinkNode root) {
+        if(root == null) return;
+        
+        Queue<TreeLinkNode> nodes = new LinkedList<TreeLinkNode>();
+        Queue<Integer> heights = new LinkedList<Integer>();
+        
+        nodes.add(root);
+        heights.add(1);
+        
+        while(!nodes.isEmpty()){
+            //得到当前结点和相应高度
+            TreeLinkNode node = nodes.poll();
+            int height = heights.poll();
+            
+            //这里是判断下一个结点。因为是层序遍历，如果下一个结点存在，我们需要将pop出的结点指向下一个结点或者指向null
+            if(!nodes.isEmpty()){
+                //这里使用的是peek，不是pop，因为下一个循环需要pop出他们找他们的next
+                int nextNodeHeight = heights.peek();
+                TreeLinkNode nextNode = nodes.peek();
+                //如果下一个结点和当前结点不在同一层，这里说明当前结点已经到了这一层的最后一个，直接将当前结点指向null
+                if(nextNodeHeight != height){
+                    node.next = null;
+                }else{//下一个结点和当前结点在同一层，这里就讲当前结点指向下一个结点
+                    node.next = nextNode;
+                }
+            }else{//这里是处理特殊情况，当下一个结点不存在。这里有两种情况，一个是root的时候，因为还没来得及把root.left和root.right加进去
+                //还有种情况是所有层序遍历之后的最后一个结点。但是无论是哪种情况，当前结点都该指向null
+                node.next = null;
+            }
+
+            //当左子结点存在时，加入queue中，以便于后续处理
+            if(node.left !=null){
+                nodes.add(node.left);
+                heights.add(height+1);
+            }
+            
+            //当柚子节点存在时，加入queue中，以便于后续处理
+            if(node.right != null){
+                nodes.add(node.right);
+                heights.add(height + 1);
+            }
+        }
+    }
+}
 
 //a right solution
 //use the method like Populating Next Right Pointers in Each Node
@@ -120,5 +181,50 @@ public class Solution {
         //为什么这里要先right再left?????先left再right就出错、？？？
         connect(root.right);
         connect(root.left);
+    }
+}
+
+
+
+/*
+http://blog.csdn.net/perfect8886/article/details/20874913
+用层次遍历的方法可以比较直观的解决这题（解法1）。
+
+由于题目给出了next指针这个辅助空间，我们可以借助这个指针省去层次遍历里的队列，从而实现O(1)空间复杂度的解法（解法2）。
+*/
+
+public class Solution {
+    public void connect(TreeLinkNode root) {
+        if(root == null) return;
+
+        Queue<TreeLinkNode> queue = new LinkedList<TreeLinkNode>();
+        Queue<TreeLinkNode> nextQueue = new LinkedList<TreeLinkNode>();
+        queue.add(root);
+        TreeLinkNode left = null;
+
+        while(!queue.isEmpty()){
+            TreeLinkNode node = queue.poll();
+            if(left != null){
+                left.next = node;
+            }
+            left = node;
+
+            //左子结点
+            if(node.left !=null){
+                nextQueue.add(node.left);
+            }
+
+            if(node.right != null){
+                nextQueue.add(node.right);
+            }
+
+            if(queue.isEmpty()){
+                Queue<TreeLinkNode> temp = queue;
+                queue = nextQueue;
+                nextQueue = temp;
+                left = null;
+            }
+        }
+
     }
 }

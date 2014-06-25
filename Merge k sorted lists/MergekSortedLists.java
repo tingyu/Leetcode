@@ -24,6 +24,15 @@ First, take the first element of all the k sorted lists, and insert it into the 
 The smallest element must be one of these elements. Pop an element off from the priority queue, 
 call it m and append it to the sorted output. Then, if there exists one, 
 add the successor of m to the priority queue. Continue this process until all the k sorted lists are exhausted.
+
+这个解法的关键是使用了一个priorityQueue，来获得最小值。首先把每个list的第一个元素加入priorityQueue中，这样就q.poll()可以得到
+这些里面最小的值。我们用了一个tmp的临时变量，记录上次的最小值，top是当前最小值。通过tmp.next = top来改变这些ListNode的指向。
+然后每次都更新tmp等于当前的top，以便下一次使用。这里同时还要把top所在链表的下一个结点加入priorityQueue里面，也就是q.add(top.next);
+然后这样不停的循环，最后完全merge了。
+
+这种思路是对于merge比较通用的nlogn算法。注意把相关的这类题目都用这种算法写下。
+我的merge 2 sorted linked list使用的是另外一种思路，通过不断比较两个list哪个小然后加入，同时要处理各种特殊情况。这种解法也可以。不过
+在这种情况下用不了
 */
 
 public class Solution {
