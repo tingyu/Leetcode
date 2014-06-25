@@ -50,3 +50,34 @@ public class Solution {
         dfs(node.right, sum, calSum, exist);
     }
 }
+
+//other solutions
+//http://gongxuns.blogspot.com/2012/12/leetcodepath-sum.html
+
+/*
+Add all node to a queue and store sum value of each node to another queue. 
+When it is a leaf node, check the stored sum value.
+
+For example above, the queue would be: 5 - 4 - 8 - 11 - 13 - 4 - 7 - 2 - 1. It will check node 13, 7, 2 and 1.
+
+This is a typical breadth first search(BFS) problem.
+*/
+
+public class Solution {
+    public boolean hasPathSum(TreeNode root, int sum) {
+		if(root == null) return false;
+
+		LinkedList<TreeNode> nodes = new LinkedList<TreeNode>();
+		LinkedList<Integer> values = new LinkedList<Integer>();
+
+		nodes.add(root);
+		nodes.add(root.val);
+
+		while(!nodes.isEmpty()){
+			TreeNode curr = nodes.poll();
+			int sumValue = values.poll();
+
+			
+		} 
+    }
+}
