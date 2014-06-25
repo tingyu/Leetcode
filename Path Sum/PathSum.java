@@ -61,6 +61,7 @@ When it is a leaf node, check the stored sum value.
 For example above, the queue would be: 5 - 4 - 8 - 11 - 13 - 4 - 7 - 2 - 1. It will check node 13, 7, 2 and 1.
 
 This is a typical breadth first search(BFS) problem.
+非recursion的解法
 */
 
 public class Solution {
@@ -68,16 +69,28 @@ public class Solution {
 		if(root == null) return false;
 
 		LinkedList<TreeNode> nodes = new LinkedList<TreeNode>();
-		LinkedList<Integer> values = new LinkedList<Integer>();
+		LinkedList<Integer> accSums = new LinkedList<Integer>();
 
 		nodes.add(root);
 		nodes.add(root.val);
 
 		while(!nodes.isEmpty()){
 			TreeNode curr = nodes.poll();
-			int sumValue = values.poll();
+			int sumValue = accSums.poll();
+			if(node.left == null || node.right == null && accSums == sum){
+				return true;
+			}
 
-			
+			if(node.left != null){
+				nodes.add(node.left);
+				accSums.add(accSums + node.left.val);
+			}
+
+			if(node.right != null){
+				nodes.add(node.right);
+				accSums.add(accSums + node.right.val);
+			}
 		} 
+		return false;
     }
 }

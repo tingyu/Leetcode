@@ -83,6 +83,7 @@ public class Solution {
 //a right solution
 //use the method like Populating Next Right Pointers in Each Node
 //but need to handle more situations.
+//在遍历当前层时, 构建下一层。
 //dfs
 public class Solution {
     public void connect(TreeLinkNode root) {
