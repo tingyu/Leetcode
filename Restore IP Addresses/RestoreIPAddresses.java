@@ -36,7 +36,7 @@ Expected:	["0.10.0.10","0.100.1.0"]
 public class Solution {
     public List<String> restoreIpAddresses(String s) {
         ArrayList<String> res = new ArrayList<String>();
-        if(s == null || s.length() == 0) return res;
+        //if(s == null || s.length() == 0) return res;
         if(s.length() < 4 || s.length() > 12) return res;//tricky
         dfs(s,"", res, 0);
         return res;
