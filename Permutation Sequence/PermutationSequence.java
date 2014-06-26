@@ -77,7 +77,7 @@ public class Solution {
     		}
     		//更新k的值，准备找下一个位置
     		k %= sum;
-    		//更新sum的值，准备下次currNum = k /sum;
+    		//更新sum的值，准备下次currNum = k /sum; 
     		sum /= (n - i);
     	}
     	return sb.toString();

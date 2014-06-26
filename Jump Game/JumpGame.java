@@ -13,6 +13,9 @@ A = [2,3,1,1,4], return true.
 A = [3,2,1,0,4], return false.
 
 */
+
+
+
 //http://rleetcode.blogspot.com/2014/02/jump-game-java.html
 // DP Solution: use int[] checker to record the max length current position can reach, if the length
 // passed the length of given array return true
@@ -50,6 +53,34 @@ public class Solution {
         return true;
     }
 }
+
+/*
+http://blog.csdn.net/worldwindjp/article/details/18990777
+解题报告：数组中的每个数字代表可以跳的步数，看看能不能跳到最后。
+解法：动态规划，状态转移数组state[i]代表当前从当前节点可跳到的最大节点，如果state[i]<=i&&i!=0，返回false。
+注意state[i]里面存的是可以跳到的最大节点，而不是跳的长度
+state[i]<=i指的是怎么跳都跳不过当前位置
+*/
+public class Solution {
+    public boolean canJump(int[] A) {
+        int[] state = new int[A.length];
+        state[0] = A[0];
+        //第一个是0，并且长度不止1，这样就说明没有跳到最后，如果第一个是0，长度也是1，那么就已经达到了最后一个
+        if(state[0] == 0 && A.length > 1){
+            return false;
+        }
+
+        for(int i = 1; i < A.length; i++){
+            state[i] = Math.max(state[i-1], A[i] + i); //前一个状态能跳到的最远，和当前状态能跳到的最远距离选一个当做当前能跳到的最远距离
+            if(state[i] <= i && i!= A.length -1){ //不在最后一个，但是state始终走不出位置i
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
+
 
 /*
 This greedy solution below failed at test case {2,4,2,1,0,4}, there should be more test cases make
