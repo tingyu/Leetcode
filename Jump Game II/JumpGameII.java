@@ -20,6 +20,16 @@ http://blog.csdn.net/worldwindjp/article/details/19009575
 解题报告：基本思路就是求出每个元素可能跳到的最大坐标，然后串行统计一共需要多少次可以跳到末尾。
 以上面的输入为例，生成的每个元素可能跳到的最大坐标的数组为：2,4,4,4,8，统计跳的次数为：从0-2-4，一共需要跳2次。
 虽然用到了2次循环，但最多遍历一次数组中的元素，所以时间复杂度为：O(n)
+
+
+这个解法跟jump Game 1不同，没有采用DP。而是采用了贪心算法。
+首先设了一个区间的start, end。这样只要end还没到结尾的时候，就jump_times++;
+而每次要对这个[start, end]区间进行for循环，如果这个区间里面的某一个值可以跳的超过结尾if((A[i] + i) >= (A.length - 1))，
+那么就返回jump_times，如果不行的话，就不断的找里面可以跳到的最远点max。
+在这个区间循环完之后，不断的更新start和end的值，来对下一个区间进行循环
+start = 上一个end +1
+end = max
+这样就保证了每个区间不重复，并且这个end可以覆盖到可以跳到的最远距离
 */
 
 public class Solution {
@@ -111,6 +121,6 @@ public class Solution {
     		start = end + 1;
     		end = max;
     	}
-    	return minStep;
+    	return minStep;i
    	}
 }
