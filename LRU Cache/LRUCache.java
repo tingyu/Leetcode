@@ -10,7 +10,7 @@ When the cache reached its capacity, it should invalidate the least recently use
 */
 
 /*
-http://www.programcreek.com/2013/03/leetcode-lru-cache-java/
+cevsekp 
 The key to solve this problem is using a double linked list which enables us to quickly move nodes.
 */
 /*
