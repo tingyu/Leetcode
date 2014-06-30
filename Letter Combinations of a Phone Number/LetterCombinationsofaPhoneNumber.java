@@ -40,3 +40,44 @@ public class Solution {
         }
     }
 }
+
+
+
+public class Solution {
+    private HashMap<Character, String> map;
+
+    public List<String> letterCombinations(String digits) {
+        setup();
+        char[] cs = new char[digits.length()];
+        ArrayList<String> res = new ArrayList<String>();
+        helper(digits, 0 ,cs, res);
+        return res;
+    }
+
+    private void helper(String digits, int i, char[] cs, ArrayList<String> res){
+        if(i == digits.length()){
+            res.add(new String(cs));
+            return;
+        }
+
+        String letters = map.get(digits.charAt(i));
+        for(int j = 0; j < letters.length(); j++){
+            cs[i] = letters.charAt(j);
+            helper(digits, i + 1, cs, res);
+        }
+    }
+
+    private void setup(){
+        map = new HashMap<Character, String>();
+        map.put('1', "");
+        map.put('2', "abc");
+        map.put('3', "def");
+        map.put('4', "ghi");
+        map.put('5', "jkl");
+        map.put('6', "mno");
+        map.put('7', "pqrs");
+        map.put('8', "tuv");
+        map.put('9', "wxyz");
+        map.put('0', "");
+    }
+}
