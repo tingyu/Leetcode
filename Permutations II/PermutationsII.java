@@ -61,3 +61,65 @@ public class Solution {
     	a[j] = temp;
     }
 }
+
+/*
+another solution:
+http://www.darrensunny.me/leetcode-permutations-ii/
+
+This problem is almost identical to LeetCode - Permutations, except that numbers may 
+be duplicated and that unique permutations are needed. So we can adopt a similar idea as 
+in the earlier problem with minor modifications. For example, with the use of a boolean array, 
+do not consider to add a duplicate number to the next recursion if its earlier appearance has 
+not been considered yet. This will avoid duplicate permutations.
+*/
+
+package me.darrensunny.leetcode;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+/**
+ * LeetCode - Permutations II
+ * Created by Darren on 14-4-16.
+ */
+public class PermutationsII {
+
+    // 436ms for 30 test cases
+    public ArrayList<ArrayList<Integer>> permuteUnique(int[] num) {
+        if (num == null)
+            return null;
+        ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+        if (num.length == 0)
+            return result;
+        Arrays.sort(num);       // Sort the array in non-descending order
+        recursivePermute(num, new boolean[num.length], new ArrayList<Integer>(), result);
+        return result;
+    }
+
+    // If "current" is already a permutation of "num", add it to "result";
+    // otherwise, append each unused number to "current", and recursively try next unused number
+    private void recursivePermute(int[] num, boolean[] used, ArrayList<Integer> current,
+                                  ArrayList<ArrayList<Integer>> result) {
+        if (current.size() == num.length) {     // "current" is already a permutation of "num"
+            result.add(new ArrayList<Integer>(current));
+            return;
+        }
+        // Append each unused number to "current", and recursively try next unused number
+        for (int i = 0; i < num.length; i++) {
+            if (i > 0 && !used[i-1] && num[i]==num[i-1])
+                // Do not consider a duplicate number if its earlier appearance has
+                // not been considered yet
+                continue;
+            if (!used[i]) {
+                // Append an unused number
+                used[i] = true;
+                current.add(num[i]);
+                // Recursively append next unused number
+                recursivePermute(num, used, current, result);
+                // Get back to original state, get ready for appending another unused number
+                current.remove(current.size()-1);
+                used[i] = false;
+            }
+        }
+    }
+}
