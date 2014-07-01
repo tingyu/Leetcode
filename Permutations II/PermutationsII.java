@@ -123,3 +123,41 @@ public class PermutationsII {
         }
     }
 }
+
+//my solution.
+//why my solution is wrong??
+
+public class Solution {
+   // public List<List<Integer>> permuteUnique(int[] num) {
+    public ArrayList<ArrayList<Integer>> permuteUnique(int[] num) {
+        ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+        ArrayList<Integer> tmp = new ArrayList<Integer>();
+        Arrays.sort(num);
+        permuteUnique(num, 0, tmp, res);
+        return res;
+    }
+    
+    private void permuteUnique(int[] num, int start, ArrayList<Integer> tmp, ArrayList<ArrayList<Integer>> res){
+        if(start == num.length){
+            res.add(new ArrayList<Integer>(tmp));
+            return;
+        }
+        
+        for(int j = start; j < num.length; j++){
+            if(notContainsDuplicate(num, start, j)){
+                tmp.add(num[j]);
+                permuteUnique(num, start + 1, tmp, res);
+                tmp.remove(tmp.size() -1);
+            }
+        }
+    }
+    
+    private boolean notContainsDuplicate(int[] num, int start, int end){
+        for(int i = start; i < end; i++){
+            if(num[i] == num[i]){
+                return false;
+            }
+        }
+        return true;
+    }
+}
