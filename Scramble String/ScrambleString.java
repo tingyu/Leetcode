@@ -146,12 +146,13 @@ public class Solution {
           }
         }
 
-        for(int k = 2; k <= len; k++){
-          for(int i = len - k; i >=0; i--){
-            for(int j = len - k; j >= 0; j--){
+        for(int k = 2; k <= len; k++){// 子串的长度 
+          for(int i = len - k; i >=0; i--){// s1[i...i+k]  
+            for(int j = len - k; j >= 0; j--){ // s2[j...j+k]
                 boolean r = false;
-                for(int m = 1; m < k && !r; m++){
-                  r = (result[m - 1][i][j] && result[k-m-1][i+m][j+m])||(result[m-1][i][j+k-m]&&result[k-m-1][i+m][j]);
+                for(int m = 1; m < k && !r; m++){// 尝试以m为长度分割子串
+                  r = (result[m - 1][i][j] && result[k-m-1][i+m][j+m])// 前前后后匹配  
+                      ||(result[m-1][i][j+k-m]&&result[k-m-1][i+m][j]);// 前后后前匹配 
                 }
                 result[k-1][i][j] = r;
             }
