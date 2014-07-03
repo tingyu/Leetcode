@@ -43,11 +43,11 @@ public class Solution {
     		}
     	}
     	    	//trim starting zones
-    	while(sb.length() > 0 && sb.charAt(0) == '0'){
+    	while(sb.length() > 1 && sb.charAt(0) == '0'){
     		sb.deleteCharAt(0);
     	}	
 
-    	return sb.length() == 0 ? "0": sb.toString(); 
+    	return sb.toString(); 
     }
 }
 
@@ -60,8 +60,33 @@ public class Solution {
 所以时间复杂度是O((m+n)^2)。算法中不需要额外空间，只需要维护一个进位变量即可，所以空间复杂度是O(1)。
 */
 
-public class Solution {
-    public String multiply(String num1, String num2) {
-        
+public String multiply(String num1, String num2) {
+    if(num1 == null || num2 == null || num1.length()==0 || num2.length()==0)
+        return "";
+    if(num1.charAt(0)=='0')
+        return "0";
+    if(num2.charAt(0)=='0')
+        return "0";
+    StringBuilder res = new StringBuilder();
+    int num = 0;
+    for(int i=num1.length()+num2.length();i>0;i--)
+    {
+        for(int j=Math.min(i-1,num1.length());j>0;j--)
+        {
+            if(i-j<=num2.length())
+            {
+                num += (int)(num1.charAt(j-1)-'0')*(int)(num2.charAt(i-1-j)-'0');
+            }
+        }
+        if(i!=1 || num>0)
+            res.append(num%10);
+        num = num/10;
     }
+    return res.reverse().toString();
 }
+
+/*
+实现中有两个小细节，一个是循环中最后有一个if判断，其实就是看最高一位是不是0（最高第二位不可能是0，除非两个源字符串最高位带有0），
+如果是就不需要加入字符串中了。另一个小问题是我们是由低位到高位放入结果串的，所以最后要进行一次reverse，因为是一个O(m+n)的操作，不会影响算法复杂度。
+*/
+
