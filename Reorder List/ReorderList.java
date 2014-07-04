@@ -22,13 +22,83 @@ One straightforward middle step of such reordering is:
 {1,2,3,4,5,6}  --> {1,2,3,6,5,4} --> {1,6,2,5,3,4}
 {1,2,3,4,5,6,7}---> {1,2,3,4,7,6,5} ---> {1,7,2,6,3,5,4}
 
-By reversing the last part of the linked list, we do not need to worried about the "parent" pointer anymore. The final step is just insert the each element in the last part into the first part (every two element).
+By reversing the last part of the linked list, we do not need to worried about the "parent" pointer anymore. 
+The final step is just insert the each element in the last part into the first part (every two element).
 
 So the algorithm implemented below can be summarized as:
 Step 1  Find the middle pointer of the linked list (you can use the slow/fast pointers)
 Step 2  Reverse the second part of the linked list (from middle->next to the end)
 Step 3  Do the reordering. (inset every element in the second part in between the elements in the first part)
 */
+
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+/*
+http://blog.csdn.net/whuwangyi/article/details/14146461
+题目思路比较直接：
+
+1）把整个链表划分成2个等长的子链表，如果原链表长度为奇数，那么第一个子链表的长度多1。
+
+2）翻转第二个子链表；
+
+3）将两个子链表合并。
+
+代码里有些变量可以省去，为了看起来逻辑清晰，还是保留了。整个链表遍历了3次，但是没有使用额外空间。
+*/
+public class Solution {
+	public static void reorderList(ListNode head) {
+		if(head == null || head.next == null)
+			return;
+
+		//partition the list into 2 sublists of equal length
+		ListNode slow = head, fast = head;
+		while(fast.next != null){
+			fast = fast.next;
+			if(fast.next != null){
+				fast = fast.next;
+			}else{
+				break;
+			}
+			slow = slow.next;
+		}
+
+		//2 sublist heads
+		ListNode head1= head, head2 = slow.next;
+		//detach the two sublists;
+		slow.next = null;
+
+		//reverse the second sublist
+		ListNode cur = head2, post = cur.next;
+		cur.next = null;
+		while(post != null){
+			ListNode temp = post.next;
+			post.next =cur;
+			cur = post;
+			post = temp;
+		}
+		head2 = cur; // the new head of the reversed sublist
+
+		//merge the 2 sublists are required
+		ListNode p = head1, q = head2;
+		while(q!= null){
+			ListNode temp1 = p.next;
+			ListNode temp2 = q.next;
+			p.next = q;
+			q.next = temp1;
+			p = temp1;
+			q = temp2;
+		}
+	}
+}
 
 /**
  * Definition for singly-linked list.
@@ -76,3 +146,5 @@ public class Solution {
  		return;
     }
 }
+
+//http://www.programcreek.com/2013/12/in-place-reorder-a-singly-linked-list-in-java/
