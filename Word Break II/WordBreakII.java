@@ -12,6 +12,83 @@ dict = ["cat", "cats", "and", "sand", "dog"].
 A solution is ["cats and dog", "cat sand dog"].
 */
 
+// 正确解法：
+/*
+http://www.binglu.me/leetcode-word-break-and-word-break-ii/
+This question asks us to go a step further, which is printing all possible partition result. 
+I referred to other’s C++ solutions and figured out this Java solution.
+
+We solve this question still with the help of DP strategy, but there is no explicit DP status array.
+The idea is: creating an ArrayList for each characters, then working from right to left, 
+if a character is the start of a word, store the word’s ending character’s index
+(actually it’s plus one, for the sake of substring()) to its list. After one pass, 
+we can build all possible solutions based on the record. For example,
+
+s="catsand"
+ArrayList<ArrayList<Integer>> record is as below:
+
+ 0 1 2 3 4 5 6 
+ c a t s a n d 
+| | | | | | | |
+ 4     7 7
+ 3     
+Since the second argument of substring() is exclusive when get substring, the stored index is the actual ending index plus 1. We can use the ArrayList record to build solution set. The Java solution is listed below.
+这个算法十分新颖
+关键是对每个character构造了是单词的ending character的index，长度是length
+比如对c,里面存的时ending character的index的List,有3，有4
+首先初始化
+然后针对每个end做循环，从length到0，然后找他们的起始点，起始点这样循环for(int runner = end -1; runner>=0; runner--){
+*/
+public class Solution {
+    ArrayList<String> wordBreak(String s, Set<String> dict) {
+        int length = s.length();
+
+        //create the word ending character's index list for each character
+        ArrayList<ArrayList<Integer>> record = new ArrayList<ArrayList<Integer>>();
+        for(int i = 0; i < length; i++){
+            record.add(new ArrayList<Integer>());
+        }
+
+        //each character can be the ending of some word
+        for(int end = length; end >= 0; end--){
+            //如果没有下面的判断就会超时，这里相当于剪枝的效果。为什么这样写？最开始的时候肯定都是空的？
+            if(end < length && record.get(end).isEmpty())
+                continue;
+
+            //find the starting character for the current ending character
+            for(int runner = end -1; runner>=0; runner--){
+                if(dict.contains(s.substring(runner, end)))
+                    record.get(runner).add(end); //add current end to start character's list
+            }
+        }
+
+        ArrayList<String> solutionSet = new ArrayList<String>();
+        buildSolution(record, 0, s, "", solutionSet);
+
+        return solutionSet;
+    }
+
+    void buildSolution(ArrayList<ArrayList<Integer>> record, int current, String s, String solution, ArrayList<String> solutionSet){
+        //iterate on current character's word ending list
+        for(Integer end: record.get(current)){
+
+            String sub = s.substring(current, end);
+
+            /*
+            since the loop may have many iterations, we should keep the reference
+            of "solution", rather than writing as "solution + = .."
+            */
+
+            String newSolution = solution + (current == 0? sub: " " + sub);
+
+            if(end == s.length()){
+                solutionSet.add(newSolution);
+            }else{//直接跳到end
+                buildSolution(record, end, s, newSolution, solutionSet);
+        }
+    }
+}
+
 /*
 http://blog.csdn.net/linhuanmars/article/details/22452163
 
@@ -24,6 +101,13 @@ http://blog.csdn.net/linhuanmars/article/details/22452163
 对于brute force解法，代码比较简单，每次维护一个当前结果集，然后遍历剩下的所有子串，如果子串在字典中出现，
 则保存一下结果，并放入下一层递归剩下的字符。思路接近于我们在N-Queens这些NP问题中经常用到的套路。代码如下：
 Time Limit Exceeded
+
+这个solution是错的。为什么？？？？
+Submission Result: Wrong Answer
+
+Input:  "aaaaaaa", ["aaaa","aaa"]
+Output: ["aaa aaaa","aaaa aaa","aaa aaaa","aaaa aaa"]
+Expected:   ["aaaa aaa","aaa aaaa"]
 */
 
 
@@ -130,7 +214,14 @@ public ArrayList<String> wordBreak(String s, Set<String> dict) {
 }
 
 
+/*
+这个solution是错的。为什么？？？？
+Submission Result: Wrong Answer
 
+Input:  "aaaaaaa", ["aaaa","aaa"]
+Output: ["aaa aaaa","aaaa aaa","aaa aaaa","aaaa aaa"]
+Expected:   ["aaaa aaa","aaa aaaa"]
+*/
 public class Solution {
     public List<String> wordBreak(String s, Set<String> dict) {
         ArrayList<String> res = new ArrayList<String>();
