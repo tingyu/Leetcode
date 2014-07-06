@@ -46,11 +46,13 @@ public class Solution {
 		int tmp;
 
 		for(int i = 2; i <= s.length(); i++){
+			//检查当前字符是不是'0'  
 			tmp = Integer.parseInt(s.substring(i - 1, i));
 			if(tmp != 0){
 				number[i] = number[i -1];
 			}
 
+			//检查当前字符和前一个字符组合在一起是否在1-26之间 
 			if(s.charAt(i - 2) != '0'){
 				tmp = Integer.parseInt(s.substring(i -2, i));
 				if(tmp > 0 && tmp <= 26){
@@ -61,3 +63,55 @@ public class Solution {
 		return number[s.length()];
     }
 }
+
+//another solution
+//http://gongxuns.blogspot.com/2012/12/leetcodedecode-ways.html
+//Time is O(n) and space is O(1). 
+public class Solution {
+    public int numDecodings(String s) {
+    	if(s.length() == 0) return 0;
+    	int[] hist = new int[2];
+    	hist[0] = 1;
+    	hist[1] = 1;
+
+    	for(int i = 0; i < s.length(); i++){
+    		int temp = 0;
+    		if(s.charAt(i) != '0')
+    			temp += hist[1];
+    		if(i > 0){
+    			int a = Integer.parseInt(s.substring(i - 1, i + 1));
+    			if(s.charAt(i - 1)!= '0' && a <= 26 && a > 0)
+    				temp+ = hist[0];
+    		}
+    		hist[0] = hits[1];
+    		hist[1] = temp;
+    	}
+    	return hist[1];
+    }
+}
+
+
+public class Solution {
+    public int numDecodings(String s) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        int res = 1, prev=1;
+        if(s.equals("") || s.length()==0||s.charAt(0)=='0') return 0;
+        if(s.equals("1")) return 1;
+        for(int i =1;i<s.length();i++){
+            int temp = res;
+            int num = (s.charAt(i-1)-'0') *10 + (s.charAt(i)-'0');
+            if(s.charAt(i)=='0') res=0;
+            if(num>=10 && num<=26)
+                res +=prev;//climbing stair and fib problem
+            prev = temp;
+            //two zeros
+            if(res ==0 && prev == 0)
+                return 0; 
+        }
+        return res;
+    }
+}
+//another solution
+//http://rleetcode.blogspot.com/2014/01/decode-ways-java.html
+
