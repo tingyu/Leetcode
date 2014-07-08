@@ -149,4 +149,45 @@ public class Solution {
 ///run dfs on all four side(the first outer layer of the matrix) mark +
 //scan whole matrix, if see O, mark X else if +, mark O
 //dfs
+//LTE
 
+
+public class Solution {
+    public void solve(char[][] board) {
+		if(board == null || board.length == 0) return;
+		int row = board.length - 1;
+		int col = board[0].length - 1;
+		for(int i = 0; i <= row; i++){
+			if(board[i][0] == 'O')
+				dfs(board, i, 0);//left
+			if(board[i][col] == 'O')
+				dfs(board, i, col);//right
+		}
+
+		for(int j = 1; j < col; j++){
+			if(board[0][j] == 'O')
+				dfs(board, 0, j);//top
+			if(board[row][j] == 'O')
+				dfs(board, row, j);//bottom
+		}
+
+		for(int i = 0; i <= row; i++){
+			for(int j = 0; j <= col; j++){
+				if(board[i][j] == '0') board[i][j] = 'X';
+				else if(board[i][j] == '+') board[i][j] = 'O';
+			}
+		}
+	}
+
+	public void dfs(char[][] board, int x, int y){
+		board[x][y] = '+';
+		if(x-1>=0 && board[x-1][y] == 'O')
+			dfs(board, x-1, y);
+		if(y-1>=0 && board[x][y-1] == '0')
+			dfs(board, x, y-1);
+		if(x+1<=board.length && board[x+1][y] == '0')
+			dfs(board, x+1, y);
+		if(y+1<=board[0].length && board[x][y+1] == '0')
+			dfs(board, x, y+1)；
+	}
+}
