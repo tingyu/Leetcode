@@ -24,6 +24,13 @@ http://blog.csdn.net/fightforyourdream/article/details/16917563
 发现Java里面的LinkedList实现了栈和队列的所有方法，而且还有重复的！值得注意的是，LinkedList中的pop()对应的是remove()或者removeHead()  
 即从链表头移除，而不是removeLast()。所以在LinkedList中，进栈(push())出栈(pop())都是在链表头部进行，
 进队列（add()）是从尾部进入，出队列是从头部被移除(remove())。
+
+The simplification of an absolute path can be done by first separating the path by "/" and 
+interpreting each segment as subdirectory, current directory, or its parent directory. 
+For ease of going back to the parent directory, we can use a stack to which a segment 
+is pushed as long as it represents a subdirectory. Finally, the stack is converted into an array, 
+and the simplified path is the concatenation of the segments in the stack preceded by a "/".
+
 */
 
 public class Solution {
@@ -35,7 +42,7 @@ public class Solution {
 		LinkedList<String> stack = new LinkedList<String>();
 
 		for(String s: splits){
-			if(s.length() == 0 || s.quals(".")){
+			if(s.length() == 0 || s.equals(".")){
 				continue;
 			}else if(s.equals("..")){// Go up to its parent
 				if(!stack.isEmpty()){
@@ -50,17 +57,25 @@ public class Solution {
 		if(stack.isEmpty()){// No subdirectory
 			stack.push("");
 		}        
-		String ret = "";
+		String ret = "";//有很多是加个/这里应该是先初始化
 		while(!stack.isEmpty()){
 			ret += "/" + stack.removeLast();
 		}
 		return ret;
     }
 }
+/*s.length() == 0 指的是""，而空格指的是" "，空格的话要push。""有可能出现在//这种情况
+如果不要这个判断会出现如下问题
+Submission Result: Wrong Answer
 
+Input:	"/..."
+Output:	"//..."
+Expected:	"/..."
+*/
 
 
 //http://rleetcode.blogspot.com/2014/01/simplify-path-java.html
+//先pop出来的都是sub-dir，所以要不断insert到0位置，这样就不断加到前面。前面那种方法通过stack.removeLast()就直接把栈底的根目录拿出来
 public class Solution {
     public String simplifyPath(String path) {
        
