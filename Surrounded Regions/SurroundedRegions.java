@@ -25,7 +25,7 @@ X O X X
 http://mattcb.blogspot.com/2013/02/surrounded-regions.html
 */
 
-
+//这个解法超时了
 public class Solution {
     public void solve(char[][] board) {
     	if(board == null || board.length == 0) return;
