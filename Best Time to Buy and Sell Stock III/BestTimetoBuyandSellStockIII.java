@@ -69,6 +69,9 @@ public class Solution {
     	int min = prices[0]; //最低买入价
 
     	//左边递推公式
+        //用到了Best Time to Buy and Sell Stock里面的方法。left和right是相反的，想想就明白这两个是互补的。
+        //一般来说。中间的时间越往左移，那么left的最大值越小，right的最大值越大。越往右移，那么left的profit越大，right的profit越小。
+        //深入理解就是越往左移，右边的最大值越容易找到个更小的让diff越大，profit越大。而left的找到的最大值越小。反之同理
     	for(int i = 1; i < left.length; i++){
     		left[i] = Math.max(left[i -1], prices[i] - min); //i的最大利润为（i -1的利润）和（当前卖出价和之前买入价之差）的较大的那个
     		min = Math.min(min, prices[i]); //更新最小买入价
