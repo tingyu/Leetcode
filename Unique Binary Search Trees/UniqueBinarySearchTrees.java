@@ -46,7 +46,7 @@ Count[3] = Count[0]*Count[2]  (1为根的情况)
 
 所以，由此观察，可以得出Count的递推公式为
 Count[i] = ∑ Count[0...k] * [ k+1....i]     0<=k<i-1
-问题至此划归为一维动态规划。
+问题至此划归为一维动态规划。*/
 public class Solution {
 	public int numTrees(int n) {
 		if(n == 0) return 1;
