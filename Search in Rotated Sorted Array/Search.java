@@ -38,12 +38,11 @@ public class Solution{
 			middle = (left + right)/2;
 			if(A[middle] == target) return middle;
 
-			if(A[middle]>= A[left]){ //upper hald sorted
+			if(A[middle]>= A[left]){ //upper hald sorted，说明前半段是有序的
 				if(target < A[middle] && target > A[left]) right = middle -1;
 				else left = middle +1;
-			}t
-
-			else{//bottom half sorted
+			}
+			else{//bottom half sorted，注意这里是A[middle]<A[left]的情况，说明前半段无序，那么后半段有序
 				if(target>A[middle] && target <= A[right]) left = middle +1;
 				else right = middle -1;
 			}

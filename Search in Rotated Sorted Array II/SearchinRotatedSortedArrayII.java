@@ -25,6 +25,29 @@ Write a function to determine if a given target is in the array.
 
 public class Solution {
     public boolean search(int[] A, int target) {
+        if(A == null || A.length == 0) return false;
+        int l = 0;
+        int r = A.length - 1;
+        
+        while(l <= r){
+            int m = (l + r)/2;
+            if(A[m] == target) return true;
+            if(A[l] < A[m]){
+                if(target < A[m] && target >= A[l]) r =m -1;
+                else l = m + 1;
+            }else if(A[m] < A[l]){//注意这里全部都是A[m]和A[l]的处理，不涉及A[m]和A[r]。写成A[r]的会出错，具体分析见1
+                if(target > A[m] && target <= A[r]) l = m + 1;
+                else r = m - 1;
+            }else{//如果A[m] == A[l]不断移动l直到不一样
+                l++;
+            }
+        }
+        return false;
+    }
+}
+
+public class Solution {
+    public boolean search(int[] A, int target) {
         if(A==null||A.length ==0) return false;
         int l = 0;
         int r = A.length - 1;
