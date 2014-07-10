@@ -64,7 +64,7 @@ public class Solution {
       
         int low=binarySearch(A,target-0.5);
         
-        if (low>=A.length||A[low]!=target){
+        if (low>=A.length||A[low]!=target){//特殊情况
             return result;
         }
         result[0]=low;

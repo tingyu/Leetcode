@@ -20,6 +20,30 @@ Consider the following matrix:
 
 Given target = 3, return true.
 */
+//my solution
+//1把二维数组展开称为一维数组，然后用二分查找
+public class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        int[] temp = new int[matrix.length* matrix[0].length];
+        int count = 0;
+        for(int i = 0; i < matrix.length; i++){
+            for(int j = 0; j < matrix[0].length; j++){
+                temp[count++] = matrix[i][j];
+            }
+        }
+        
+        int l = 0;
+        int r = temp.length -1;
+        while(l <= r){
+            int m = (l + r)/2;
+            if(temp[m] == target) return true;
+            if(target < temp[m]) r = m - 1;
+            if(target > temp[m]) l = m + 1;
+        }
+        return false;
+    }
+}
+
 
 public class Solution {
     public boolean searchMatrix(int[][] matrix, int target) {
@@ -52,7 +76,9 @@ public class Solution {
 }
 
 
-
+//采用类似于数值运算的方法，reverse Integer的方法，来确定这个mid在二维数组中的具体位置
+//            int midX = mid/n;
+//            int midY = mid%n;
 public class Solution {
     public boolean searchMatrix(int[][] matrix, int target) { 
         

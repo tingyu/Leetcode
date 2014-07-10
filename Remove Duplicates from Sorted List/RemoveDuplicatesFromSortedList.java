@@ -7,6 +7,8 @@ For example,
 Given 1->1->2, return 1->2.
 Given 1->1->2->3->3, return 1->2->3.
 */
+
+//这里delete一个node，只需要把前一个结点的指针指向下一个就可以了。不需要把要去掉的node.next = null
 public class Solution{
 	public ListNode deleteDuplicates(ListNode head) {
 		if(head == null || head.next == null) return head;
@@ -25,7 +27,7 @@ public class Solution{
 	}
 }
 
-
+//这种解法用更少的变量
 public class Solution{
 	public ListNode deleteDuplicates(ListNode head){
 		if(head ==null || head.next ==null)
@@ -90,6 +92,28 @@ public class Solution {
                   node = node.next;   
             }
         }
+        return head;
+    }
+}
+
+//my solution
+public class Solution {
+    public ListNode deleteDuplicates(ListNode head) {
+        if(head == null) return null;
+        ListNode pre = head;
+        ListNode cur = head.next;
+        while(cur != null){
+            while(cur != null && pre.val == cur.val){
+                ListNode temp = cur.next;
+                pre.next = temp;
+                cur.next = null;
+                cur = temp;
+            }
+            pre = cur;
+            if(cur == null || cur.next == null) return head;
+            cur = cur.next;
+        }
+        
         return head;
     }
 }
