@@ -56,7 +56,7 @@ public class Solution {
             return false;
             
         for(int i = 0; i < m; i++){
-        	if(i+1<m){
+        	if(i+1<m){e
                 if(target > matrix[i][n-1] && target <matrix[i+1][0])
                     return false;
         	}

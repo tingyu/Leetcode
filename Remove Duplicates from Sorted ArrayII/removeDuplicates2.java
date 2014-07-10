@@ -11,6 +11,12 @@ Your function should return length = 5, and A is now [1,1,2,2,3].
 Have you been asked this question in an interview? 
 */
 
+
+/*
+这种允许多个重复的，一般的解法都是用一个变量保存重复的次数，然后在某些情况下++，某些情况下重置，然后判断在某个阈值内赋值
+
+当然这些是最基本的解法。然后考虑优化，比如说如果不要额外的空间，in-place怎么
+*/
 //Runtime: 396 ms
 public class Solution {
     public int removeDuplicates(int[] A) {
@@ -75,4 +81,33 @@ int removeDuplicates(int A[], int n) {
         itor++;
     }
     return len;
+}
+
+
+
+//my solution
+public class Solution {
+    public int removeDuplicates(int[] A) {
+        if(A == null || A.length == 0) return 0;
+        int pre = A[0];
+        int cur = 0;
+        int index = 0;
+        int count = 1;
+        for(int i = 1; i< A.length; i++){
+            cur = A[i];
+            if(pre == cur){
+                count++;
+                if(count <= 2){
+                    A[++index]  = A[i];
+                }else{
+                    continue;
+                }
+            }else{
+                A[++index]  = A[i];
+                pre = cur;
+                count = 1;
+            }
+        }
+        return index + 1;
+    }
 }

@@ -105,5 +105,6 @@ public class Solution {
 			current = current.next;
 		}
 		return sentinel.next;
+		//这里如果返回head，那么久跟原来的数组一样
     }
 }
