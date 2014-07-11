@@ -29,7 +29,8 @@ public class Solution{
 
 /*
 2. Solution #2, Divide and conquer, O(n) also?
-The max range can be in the left half, or in the right half, or across the mid of the array, so we just divide it to tree parts and recursive until we get the max value of each part, and then get the largest value.
+The max range can be in the left half, or in the right half, or across the mid of the array, s
+o we just divide it to tree parts and recursive until we get the max value of each part, and then get the largest value.
 */
 //Devide and conquer
 public class Solution{
@@ -59,7 +60,7 @@ public class Solution{
 		}
 		//mid -> right
 		int midRightMax = 0; sum = 0;
-		for(int i = mid + 1; i < right; i++){ 
+		for(int i = mid + 1; i <= right; i++){ 
 			sum += A[i];
 			if(sum > midRightMax) midRightMax = sum;
 		}
@@ -68,5 +69,40 @@ public class Solution{
 		maxSum = Math.max(maxSum, midLeftMax + midRightMax + A[mid]);
 
 		return maxSum;
+	}
+}
+
+//solution 3:
+//Dynamic Programming Solution
+
+//We should ignore the sum of the previous n-1 elements if nth element is greater than the sum.
+// 一维DP，可省略掉dp数组 
+public class Solution {
+	public int maxSubArray(int[] A) {
+		int max = A[0];
+		int[] sum = new int[A.length];
+		sum[0] = A[0];
+
+		for(int i = 1; i < A.length; i++){
+			// 要么不用前面的结果和当前的和，要么用当前值，求两者较大的
+			sum[i] = Math.max(A[i], sum[i -1] + A[i]);
+			max = Math.max(max, sum[i]);
+		}
+		return max;
+	}
+}
+
+//memory优化版，不用数组存了
+//http://blog.csdn.net/fightforyourdream/article/details/14515425
+public class Solution {
+	public int maxSubArray(int[] A) {
+		int max = A[0];
+		int maxEndHere = A[0];
+
+		for(int i = 1; i < A.length; i++){
+			maxEndHere = Math.max(A[i], maxEndHere + A[i]);
+			max = Math.max(max, maxEndHere);
+		}
+		return max;
 	}
 }
