@@ -37,6 +37,8 @@ good choice.
 use this array to count the appear times of 1 at each bit, use %3 to ignore the number appear 3 times
 then use | to build left number, because only one number appear onece, so the left number is the number is which
 we want.
+
+这里用32位，因为int是32位的。[00.....000]32位。比如3就是11，就是把这个数组里面两位置为1。
 */
 public class Solution {
  
@@ -50,9 +52,8 @@ public class Solution {
         for (int i=0; i<32; i++){
             for(int j=0; j<A.length; j++){
                 bits[i]+=A[j]>>i&1;
-                bits[i]%=3;
             }
-            
+            bits[i]%=3;
             result|=(bits[i]<<i);
         }
         

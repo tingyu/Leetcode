@@ -24,6 +24,71 @@ There exist two distinct solutions to the 4-queens puzzle:
 
 */
 
+//mysolution 
+public class Solution {
+    public List<String[]> solveNQueens(int n) {
+        ArrayList<String[]> res = new ArrayList<String[]>();
+        int[] position = new int[n];
+        helper(res, position, 0, n);
+        return res;
+    }
+    
+    private void helper(ArrayList<String[]> res, int[] position, int row, int n){
+        if(row == n){
+            String[] tmp = new String[n];
+            for(int i =0; i < n; i++){
+                StringBuilder strRow = new StringBuilder();
+                for(int j = 0; j < n; j++){
+                    if(position[i] == j){
+                        strRow.append('Q');
+                    }else{
+                        strRow.append('.');
+                    }
+                }
+                tmp[i] = strRow.toString();
+            }
+            res.add(tmp);
+            return;
+        }
+        
+        for(int j = 0; j < n; j++){
+            position[row] = j;
+            if(check(position, row)){
+                helper(res, position, row + 1, n);
+            }
+        }
+    }
+    
+    private boolean check(int[] position, int row){
+        for(int i = 0; i < row; i++){
+            if(position[i] == position[row] || Math.abs(position[row] - position[i]) == (row -i)){
+                return false;
+            }
+        }
+        return true;
+    }
+}
+/*
+如果这么放的话
+ if(isValid(position, row, j, n)){
+                    position[row] = j;
+                    dfs(res, position, row+1, n);
+                }
+会得到错误的结果。为什么这个是错误的？？？？？？？？
+Submission Result: Wrong Answer
+
+Input:  2
+Output: [["Q.",".Q"],[".Q","Q."]]
+Expected:   []
+
+如果没有Math.abs(position[row] - position[i]) == row - i
+Submission Result: Time Limit Exceeded
+
+Last executed input:    8
+
+*/
+
+
 /*
 http://blog.csdn.net/linhuanmars/article/details/20667175
 原题链接: http://oj.leetcode.com/problems/n-queens/ 

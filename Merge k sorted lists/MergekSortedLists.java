@@ -30,8 +30,7 @@ add the successor of m to the priority queue. Continue this process until all th
 然后每次都更新tmp等于当前的top，以便下一次使用。这里同时还要把top所在链表的下一个结点加入priorityQueue里面，也就是q.add(top.next);
 然后这样不停的循环，最后完全merge了。
 
-这种思路是对于merge比较通用的nlogn算法。注意把相关的这类题目都用这种算法写下。
-我的merge 2 sorted linked list使用的是另外一种思路，通过不断比较两个list哪个小然后加入，同时要处理各种特殊情况。这种解法也可以。不过
+ 我的merge 2 sorted linked list使用的是另外一种思路，通过不断比较两个list哪个小然后加入，同时要处理各种特殊情况。这种解法也可以。不过
 在这种情况下用不了
 */
 
@@ -39,8 +38,8 @@ public class Solution {
     public ListNode mergeKLists(List<ListNode> lists) {
 		Comparator<ListNode> cmp = new NodeComparator();
 		//PriorityQueue(int initialCapacity, Comparator<? super E> comparator) 
-		PriorityQueue<ListNode> q = new PriorityQueue<ListNode>(list.size()+1, cmp);//把comparator传到priority queue里面
-		//why??list.size()+1
+		PriorityQueue<ListNode> q = new PriorityQueue<ListNode>(lists.size()+1, cmp);//把comparator传到priority queue里面
+		//why??list.size()+1 。   按理来说应该是size的，但是这里用size+1，是为了防止是空，然后初始化q的capacity是0的情况，+1之后至少是1
 		//priority queue里面这里实现的是小根堆，每次只对根进行操作，根得到的是最小值。
 
 		//这里是做初始化，把k个List的头加到priority queue里面。
@@ -68,6 +67,9 @@ public class Solution {
     }
 
     //实现最小堆。根分为大根堆和小根堆：小根堆（根小于所有的子节点），大根堆（根大于所有的子节点）
+    //因为PriorityQueue默认是最大堆，priority是根据权重来看，所以是最大权重的在前面，所以是最大堆。
+    //所以如果不写compare里面都是默认的n1<n2。就像排序默认都是从小到大排的。
+    //这里写了反过来就是最小堆了。别人一般是最大堆的。
     class NodeComparator implements Comparator<ListNode>{
     	public int compare(ListNode n1, ListNode n2){
     		if(n1.val > n2.val) return 1;
