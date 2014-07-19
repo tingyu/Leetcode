@@ -38,3 +38,27 @@ public class Solution {
         rec(n, left, right +1, s + ")", list);
     }
 }
+
+//my solution
+public class Solution {
+    public List<String> generateParenthesis(int n) {
+        ArrayList<String> res = new ArrayList<String>();
+        helper(n, 0, 0, "", res);
+        return res;
+    }
+    
+    private void helper(int n, int left, int right, String tmp, ArrayList<String> res){
+        if(right > left) return;
+        if(left == n && right == n){
+            res.add(tmp);
+        }
+        
+        if(left == n){
+            helper(n, left, right + 1, tmp + ")", res);
+        }else{
+            helper(n, left + 1, right, tmp + "(", res);
+            helper(n, left, right + 1, tmp + ")", res);
+        }
+        
+    }
+}
