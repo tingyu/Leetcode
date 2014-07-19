@@ -1,4 +1,4 @@
-/*
+i/*
 
 Symmetric Tree Total Accepted: 10338 Total Submissions: 32439 My Submissions
 Given a binary tree, check whether it is a mirror of itself (ie, symmetric around its center).
@@ -35,7 +35,7 @@ confused what "{1,#,2,3}" means? > read more on how binary tree is serialized on
  *     TreeNode(int x) { val = x; }
  * }
  */
-
+//先分离出两个node,再比较这两个node的a.left, b.right， a.right, b.left
 public class Solution{
 	public boolean isSymmetric(TreeNode root){
 		if(root ==null) return true;

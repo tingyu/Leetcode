@@ -57,6 +57,10 @@ cur从0到j扫描，
 
 3.A[i]==1时，i++
 复制代码
+
+//自己写的时候一直忽视了对i > redIdx和 i< blueIdx这里面两个sub情况的讨论。然后总是写的出错。
+//注意里面还是要分情况讨论的。在A[i] == 0的时候，要注意这时候if(i > redIdx)只有这种情况需要交换，然后只增加redIdx，不增加i.
+//如果if(i <= redIdx)的时候就不需要交换了。因为已经是0了。所以只需要redIdx++, i++就好了。
 */
 public class Solution{
     public void sortColors(int[] A){
@@ -77,7 +81,7 @@ public class Solution{
             }
             else if(A[i]==2){
                 if(i<blueIdx){
-                    swap(A, i, blueIdx--);
+                    swap(A, i, blueIdx-);
                 }
                 else{
                     return;
@@ -144,6 +148,43 @@ public class Solution {
             else{
                 i++;
             }
+        }
+    }
+}
+
+
+//my solution
+//自己写的时候一直忽视了对i > redIdx和 i< blueIdx这里面两个sub情况的讨论。然后总是写的出错。
+//注意里面还是要分情况讨论的。在A[i] == 0的时候，要注意这时候if(i > redIdx)只有这种情况需要交换，然后只增加redIdx，不增加i.
+//如果if(i <= redIdx)的时候就不需要交换了。因为已经是0了。所以只需要redIdx++, i++就好了。
+public class Solution {
+    public void sortColors(int[] A) {
+        if(A==null||A.length==0||A.length==1) return;
+        int redIdx = 0;
+        int blueIdx = A.length - 1;
+        int i = 0;
+        
+        while(i< A.length){
+            if(A[i] == 0){
+                if(i > redIdx){
+                    A[i] = A[redIdx];
+                    A[redIdx] = 0;
+                    redIdx++;
+                }else{
+                    redIdx++;
+                    i++;   
+                }
+            }else if(A[i] == 2){
+                if(i < blueIdx){
+                    A[i] = A[blueIdx];
+                    A[blueIdx] = 2;
+                    blueIdx--;   
+                }else{
+                    return;
+                }
+            }else{
+                i++;
+            }                
         }
     }
 }

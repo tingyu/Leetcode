@@ -24,7 +24,7 @@ Your algorithm should use only constant space. You may not modify the values in 
 
 public class Solution{
 	public ListNode swapPairs(ListNode head){
-		if(head == null || head.next == null) return head;
+		if(head == null || head.next == null) return head; //注意是return head,不是null
 		//create fake header node
 		ListNode fake = new ListNode(0);
 		fake.next = head;

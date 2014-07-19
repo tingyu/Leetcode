@@ -41,8 +41,10 @@ Try one more example, n = 3:
 
 100 - 4 
 
-Comparing n = 2: [0,1,3,2] and n=3: [0,1,3,2,6,7,5,4], we found that the first four numbers in case n=3 are the same as the the numbers in case n=4.  
-Besides, [6,7,5,4] = [2+4,3+4,1+4,0+4].  Which means remaining numbers in case n=3 can also be calculated from the numbers in case n=4 in reversing order.  
+Comparing n = 2: [0,1,3,2] and n=3: [0,1,3,2,6,7,5,4], we found that the first four numbers in case n=3 
+are the same as the the numbers in case n=4.  
+Besides, [6,7,5,4] = [2+4,3+4,1+4,0+4].  Which means remaining numbers in case n=3 can also be calculated 
+from the numbers in case n=4 in reversing order.  
 Therefore, we decided to use recursive approach to form the resulting ArrayList.
 */
 

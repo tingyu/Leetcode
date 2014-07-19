@@ -14,7 +14,7 @@ Given an array where elements are sorted in ascending order, convert it to a hei
  *     TreeNode(int x) { val = x; }
  * }
  */
-
+//把一个sorted array变成BST，关键是找到中间，然后作为root，然后找左子树和右子树，这样不停的递归。这个过程
 public class Solution {
 	public TreeNode sortedArrayToBST(int[] num){
 		if(num.length == 0)
@@ -24,7 +24,7 @@ public class Solution {
 	}
 
 	public TreeNode sortedArrayToBST(int[] num, int start, int end){
-		if(start > end)
+		if(start > end)//这很重要，不要忘了
 			return null;
 
 		int mid = (start + end) /2;
