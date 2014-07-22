@@ -1,4 +1,4 @@
-i/*
+/*
 
 Symmetric Tree Total Accepted: 10338 Total Submissions: 32439 My Submissions
 Given a binary tree, check whether it is a mirror of itself (ie, symmetric around its center).

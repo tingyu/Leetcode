@@ -68,7 +68,8 @@ public class Solution {
 
 // Solution #3: loop, O(n^2) time, O(n) space
 // loop, similar as min path sum, O(n^2) time, O(n) space
-// loop, similar as min path sum, O(n^2) time, O(n) space
+//第二种方法不用二维数组存dp的值，而是采用一维数组。然后不断更新这个一维数组。具体的是一行一行的更新。
+//当前值等于左边的值加上上面的值，所以直接写成这样就可以了res[j] = res[j - 1] + res[j];
 public class Solution {
     public int uniquePaths(int m, int n) {
         int[] res = new int[n];
@@ -79,10 +80,10 @@ public class Solution {
         }
          
         // add values
-        for(int i = 1; i < m; i++) {
+        for(int i = 1; i < m; i++) {//注意这里是从1开始，注意细节。不然就错了。
             // reset the head to 1 (simulate the next row head)
             // similar to set all left most elements in a 2D array to 1
-            res[0] = 1;
+            res[0] = 1;//其实这个是没必要存在的。如果把这个注释了也是成立的。
             for(int j = 1; j < n; j++) {
                 res[j] = res[j - 1] + res[j];
             }
@@ -90,3 +91,4 @@ public class Solution {
          
         return res[n - 1];
     }
+}
