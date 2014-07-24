@@ -56,7 +56,7 @@ public class Solution {
             return false;
             
         for(int i = 0; i < m; i++){
-        	if(i+1<m){e
+        	if(i+1<m){
                 if(target > matrix[i][n-1] && target <matrix[i+1][0])
                     return false;
         	}
@@ -79,6 +79,7 @@ public class Solution {
 //采用类似于数值运算的方法，reverse Integer的方法，来确定这个mid在二维数组中的具体位置
 //            int midX = mid/n;
 //            int midY = mid%n;
+//二分法，不断的找mid在二维数组中的位置。
 public class Solution {
     public boolean searchMatrix(int[][] matrix, int target) { 
         

@@ -37,13 +37,13 @@ public class Solution {
     public ArrayList<ArrayList<Integer>> levelOrder(TreeNode root) {
         ArrayList<ArrayList<Integer>> rs = new ArrayList<ArrayList<Integer>>();
         if(root == null) return rs;
-        helper(root, rs, 1);
+        helper(root, rs, 1);//注意这里是1
         return rs;
     }
 
     public void helper(TreeNode node, ArrayList<ArrayList<Integer>> rs, int depth){
     	if(node == null) return;
-    	ArrayList<Integer> tmp = new ArrayList<Integer>();
+    	ArrayList<Integer> tmp = new ArrayList<Integer>();//这个是可以放在这个里面的，因为tmp每次都被添加进了rs中
 
     	//check if this level has already exist
     	if(rs.size() < depth) rs.add(tmp);//not exist, then add tmp to rs
@@ -82,3 +82,12 @@ public class Solution {
         return res;
     }
 }
+
+//Line 15: error: Queue is abstract; cannot be instantiated
+//这里使用queue.offer(root);和add都是没有区别的
+//可以先把一个空的list加到res中，然后再修改这个空的List,res中的内容会随之发生变化
+/*
+居然要层次遍历，那么我们如果一层层放入到queue中，然后取出这一层结点，并把值放入到一个ArrayList<Integer>中，
+并加入到最终集合list中，接着我们把这一层的孩子结点，即下一层的结点再放入到queue中，这样直到queue为empty的时候，
+我们便把所有层次都遍历完毕了,这样子我们将 list 进行翻转，便得到了题目想要的结果了！！
+*/

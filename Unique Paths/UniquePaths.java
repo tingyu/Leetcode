@@ -83,7 +83,7 @@ public class Solution {
         for(int i = 1; i < m; i++) {//注意这里是从1开始，注意细节。不然就错了。
             // reset the head to 1 (simulate the next row head)
             // similar to set all left most elements in a 2D array to 1
-            res[0] = 1;//其实这个是没必要存在的。如果把这个注释了也是成立的。
+            res[0] = 1;//其实这个是没必要存在的。如果把这个注释了也是成立的。如果留下的话适合于比较通用的模板，因为minimun Path Sum中这里是更新的
             for(int j = 1; j < n; j++) {
                 res[j] = res[j - 1] + res[j];
             }

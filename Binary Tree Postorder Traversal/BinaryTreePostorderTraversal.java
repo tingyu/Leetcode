@@ -16,6 +16,29 @@ return [3,2,1].
 
 Note: Recursive solution is trivial, could you do it iteratively?
 */
+
+//http://lei.case.edu/wordpress/2013/12/27/leetcode-preinpost-order-traversal-of-binary-tree/
+
+public class Solution {
+    public List<Integer> postorderTraversal(TreeNode root) {
+        ArrayList<Integer> lst = new ArrayList<Integer>();
+        
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+        TreeNode p = root;
+        while(!stack.isEmpty() || p != null){
+            if(p != null){
+                lst.add(p.val);
+                stack.push(p);
+                p = p.right;
+            }else{
+                p = stack.pop();
+                p = p.left;
+            }
+        }
+        Collections.reverse(lst);
+        return lst;
+    }
+}
 /*
 http://www.programcreek.com/2012/12/leetcode-solution-of-iterative-binary-tree-postorder-traversal-in-java/
 The key to to iterative postorder traversal is the following:
@@ -24,7 +47,9 @@ The key to to iterative postorder traversal is the following:
     Find the relation between the previously visited node and the current node
     Use a stack to track nodes
 
-As we go down the tree, check the previously visited node. If it is the parent of the current node, we should add current node to stack. When there is no children for current node, pop it from stack. Then the previous node become to be under the current node for next loop.
+As we go down the tree, check the previously visited node. If it is the parent of the current node, 
+we should add current node to stack. When there is no children for current node, pop it from stack. 
+Then the previous node become to be under the current node for next loop.
 */
 
 /**
@@ -62,7 +87,8 @@ public class Solution {
     				lst.add(curr.val);
     			}
     		}else if(curr.left == prev){
-    			//go up the tree from left node, need to check if there is a right child, if yes, push it to stack, otherwise, process parent and pop stack
+    			//go up the tree from left node, need to check if there is a right child, if yes, 
+                //push it to stack, otherwise, process parent and pop stack
     			if(cur.right !=null){
     				stack.push(curr.right);
     			}else{
@@ -117,6 +143,17 @@ public class Solution {
     	return;
     }
 }
+
+/*        ArrayList<Integer> res = new ArrayList<Integer>();
+        if(root == null) return null;
+如果是这样写那么就是错的
+Submission Result: Wrong Answer
+
+Input:  {}
+Output: null
+Expected:   []
+注意一定要返回res，而不是null。返回的是空，而不是null
+*/
 
 /*
 Using iteration approach is much more difficult (for me) to get the idea.  
