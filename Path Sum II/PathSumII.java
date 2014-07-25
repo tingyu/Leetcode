@@ -19,7 +19,53 @@ return
 ]
 */
 
-
+//my solution: this solutio similar to Path Sum
+public class Solution {
+    public ArrayList<ArrayList<Integer>> pathSum(TreeNode root, int sum) {
+        ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+        if(root == null) return res;
+        ArrayList<Integer> tmp = new ArrayList<Integer>();
+        int accSum = 0;
+        helper(root, res, tmp, accSum, sum);
+        return res;
+    }
+    
+    private void helper(TreeNode node, ArrayList<ArrayList<Integer>> res, ArrayList<Integer> tmp, int accSum, int sum){
+        if(node == null) return;
+        
+        accSum = accSum + node.val;
+        tmp.add(node.val);
+        if(node.left == null && node.right == null && accSum == sum){
+            res.add(new ArrayList<Integer>(tmp));
+        }
+        
+        helper(node.left, res, tmp, accSum, sum);
+        helper(node.right, res, tmp, accSum, sum);
+        tmp.remove(tmp.size() -1);
+    }
+}
+/*
+上面的解法，把最后部分改成
+        if(node.left != null){
+            helper(node.left, res, tmp, accSum, sum);
+            tmp.remove(tmp.size() -1);
+        }
+        if(node.right != null){
+            helper(node.right, res, tmp, accSum, sum);
+            tmp.remove(tmp.size() -1);
+        }
+也是对的
+改成
+        if(node.left != null){
+            helper(node.left, res, tmp, accSum, sum);
+        }
+        if(node.right != null){
+            helper(node.right, res, tmp, accSum, sum);
+        }
+        
+        tmp.remove(tmp.size() -1);
+也是对的
+*/
 /*
 Solution:  DFS
 
@@ -36,6 +82,7 @@ Apply DFS check every possible combination, record result if meet requirement
  *     TreeNode(int x) { val = x; }
  * }
  */
+//下面这种解法和上面不同的是，上面dfs的时候用了个accSum来记录sum。这里是在叶子节点的时候遍历tmp来求和。思想上貌似更为直观些
 public class Solution {
     //public List<List<Integer>> pathSum(TreeNode root, int sum) {
     public ArrayList<ArrayList<Integer>> pathSum(TreeNode root, int sum) {
@@ -74,7 +121,23 @@ public class Solution {
         }
     }
 }
+/*
+但是这里如果
+        if(node.left != null){
+            dfs(node.left, sum, tmp, res);
+        }
+        if(node.right != null){
+            dfs(node.right, sum, tmp, res);
+        }
+        tmp.remove(tmp.size() -1); 
 
+        或者
+
+        dfs(node.left, sum, tmp, res);
+        dfs(node.right, sum, tmp, res);
+        tmp.remove(tmp.size() -1); 
+就错了
+*/
 
 /*
 以下是别人的写法，把sum不停的减掉当前值，直到==0

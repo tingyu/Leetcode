@@ -17,6 +17,8 @@ return true, as there exist a root-to-leaf path 5->4->11->2 which sum is 22.
 */
 
 //my solution
+//dfs的解法，采用经典的recursion的方法。注意要传入boolean[] exist = {false};以及只有在当前是叶子节点的时候判断是不是target
+//这里没有看到remove之类的方法
 /**
  * Definition for binary tree
  * public class TreeNode {
@@ -38,7 +40,7 @@ public class Solution {
     private void dfs(TreeNode node, int sum, int calSum, boolean[] exist){
         if(node == null) return;
         calSum += node.val;
-        if(node.left == null && node.right ==null){
+        if(node.left == null && node.right ==null){//注意要判断这个
         	//只要有一个true就好了
             if(calSum == sum){
                 exist[0] = true;

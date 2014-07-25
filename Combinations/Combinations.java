@@ -15,6 +15,29 @@ If n = 4 and k = 2, a solution is:
   [1,4],
 ]
 */ 
+//my solution
+public class Solution {
+    public ArrayList<ArrayList<Integer>> combine(int n, int k) {
+        ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+        if(n < k) return res;
+        ArrayList<Integer> tmp = new ArrayList<Integer>();
+        helper(res, tmp, n, k, 1);
+        return res;
+    }
+    
+    private void helper(ArrayList<ArrayList<Integer>> res, ArrayList<Integer> tmp, int n, int k, int start){
+        if(tmp.size() == k){
+            res.add(new ArrayList<Integer>(tmp));
+            return;
+        }
+        
+        for(int i = start; i <= n; i++){
+            tmp.add(i);
+            helper(res, tmp, n, k, i+1);
+            tmp.remove(tmp.size() - 1);
+        }
+    }
+}
 
 /*
 http://blog.csdn.net/u010500263/article/details/18435495
