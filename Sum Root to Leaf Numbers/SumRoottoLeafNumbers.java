@@ -85,3 +85,35 @@ public class Solution {
         dfs(node.right, sum, current);
     }
 }
+
+
+//another solutionpublic 
+class Solution {
+    public int sumNumbers(TreeNode root) {
+        if(root == null) return 0;
+        ArrayList<String> res = new ArrayList<String>();
+        StringBuilder tmp = new StringBuilder();
+        helper(root, res, tmp);
+        return convertToSum(res);
+    }
+    
+    private void helper(TreeNode node, ArrayList<String> res, StringBuilder tmp){
+        if(node == null) return;
+        tmp.append(node.val);
+        if(node.left == null && node.right == null){
+            res.add(tmp.toString());
+        }
+        
+        helper(node.left, res, tmp);
+        helper(node.right, res, tmp);
+        tmp.deleteCharAt(tmp.length()- 1);
+    }
+    
+    private int convertToSum(ArrayList<String> res){
+        int sum = 0;
+        for(String s : res){
+            sum += Integer.valueOf(s);
+        }
+        return sum;
+    }
+}
