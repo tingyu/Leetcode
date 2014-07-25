@@ -46,3 +46,11 @@ public class Solution {
         return count;
     }
 }
+
+//my solution3, similar to 1
+public class Solution {
+    public int lengthOfLastWord(String s) {
+        String[] words = s.trim().toLowerCase().split(" ");
+        return words[words.length-1].length();
+    }
+}

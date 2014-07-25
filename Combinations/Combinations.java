@@ -31,7 +31,7 @@ public class Solution {
             return;
         }
         
-        for(int i = start; i <= n; i++){
+        for(int i = start; i <= n; i++){//这样写是关键
             tmp.add(i);
             helper(res, tmp, n, k, i+1);
             tmp.remove(tmp.size() - 1);
