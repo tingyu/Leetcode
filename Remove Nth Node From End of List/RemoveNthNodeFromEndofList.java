@@ -58,6 +58,32 @@ public class Solution {
     }
 }
 
+//another similar solution, using fakeHead
+public class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        if(head == null) return null;
+        ListNode p = head;
+        int count = 0;
+        while(p!= null){
+            count++;
+            p = p.next;
+        }
+        
+        
+        int k = count -n;
+        ListNode fakeHead = new ListNode(0);
+        fakeHead.next = head;
+        head = fakeHead;
+        p = head;
+        for(int i = 0; i < k; i++){
+            p = p.next;
+        }
+        
+            p.next = p.next.next;    
+
+        return head.next;
+    }
+}
 
 //my solution 2 : One pass solution   420 ms
 //经典题。双指针，一个指针先走n步，然后两个同步走，直到第一个走到终点，第二个指针就是需要删除的节点。唯一要注意的就是头节点的处理，比如，
