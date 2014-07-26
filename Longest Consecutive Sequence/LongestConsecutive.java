@@ -79,3 +79,34 @@ public class Solution {
         return max;
     }
 }
+
+
+//my soltion for O(n)
+public class Solution {
+    public int longestConsecutive(int[] num) {
+        //HashSet<Integer> set = new HashSet<Integer>(Arrays.asList(new int[num.length](num))));//这种初始化咋弄
+        HashSet<Integer> set = new HashSet<Integer>();
+        for(int e: num){
+            set.add(e);
+        }
+        
+        int max = 0;
+        for(int e: num){
+            int count = 1;
+            int left = e-1;
+            int right = e+1;
+            while(set.contains(left--)){
+                count++;
+                set.remove(left);
+            }
+            while(set.contains(right++)){
+                count++;
+                set.remove(right);
+            }
+            max = Math.max(max, count);
+        }
+        return max;
+    }
+}
+//for(int e: set){开始写成这样会报错。不要一边遍历，一边在set里面删除东西
+//java.util.ConcurrentModificationException

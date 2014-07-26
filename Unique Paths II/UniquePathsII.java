@@ -19,7 +19,47 @@ The total number of unique paths is 2.
 
 Note: m and n will be at most 100.
 */
-
+//my solution
+public class Solution {
+    public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        int row = obstacleGrid.length;
+        int col = obstacleGrid[0].length;
+        
+        int[][] dp = new int[row][col];
+        
+        for(int i = 0; i < row; i++){
+            if(obstacleGrid[i][0] != 1){
+                dp[i][0] = 1; 
+            }else break;
+        }
+        
+        for(int j = 0; j < col; j++){
+            if(obstacleGrid[0][j] != 1){
+                dp[0][j] = 1;
+            }else break;
+        }
+        
+        for(int i = 1; i < row; i++){
+            for(int j = 1; j < col; j++){
+                if(obstacleGrid[i][j] == 1){
+                    dp[i][j] = 0;
+                    continue;
+                }
+                
+                if(obstacleGrid[i-1][j] != 1 && obstacleGrid[i][j-1] != 1){
+                    dp[i][j] = dp[i-1][j] + dp[i][j-1];
+                }else if(obstacleGrid[i-1][j] != 1){
+                    dp[i][j] = dp[i-1][j];
+                }else if(obstacleGrid[i][j-1] != 1){
+                    dp[i][j] = dp[i][j-1];
+                }else{
+                    dp[i][j] = 0;
+                }
+            }
+        }
+        return dp[row-1][col-1];
+    }
+}
 /*
 思路和unique Path很像，但是不同的是需要多考虑很多特殊情况，比如说如果该点有obstacle，
 那么就把该点的dp[i][j]设为0，因为走不了，然后在第一列和第一行的时候出现了特殊情况，如果一个是0，那么它后面的也都是0.
@@ -71,6 +111,39 @@ public class Solution {
     }
 }
 
+//上述解法中的整个的loop部分比我的写的好。因为obstacleGrid[i][j] == 1已经得到了dp[i][j] = 0，所以没必要再各种判断了
+//根据上述解法，refactor my solution如下
+public class Solution {
+    public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        int row = obstacleGrid.length;
+        int col = obstacleGrid[0].length;
+        
+        int[][] dp = new int[row][col];
+        
+        for(int i = 0; i < row; i++){
+            if(obstacleGrid[i][0] != 1){
+                dp[i][0] = 1; 
+            }else break;
+        }
+        
+        for(int j = 0; j < col; j++){
+            if(obstacleGrid[0][j] != 1){
+                dp[0][j] = 1;
+            }else break;
+        }
+        
+        for(int i = 1; i < row; i++){
+            for(int j = 1; j < col; j++){
+                if(obstacleGrid[i][j] == 1){
+                    dp[i][j] = 0;
+                }else{
+                    dp[i][j] = dp[i-1][j] + dp[i][j-1];
+                }
+            }
+        }
+        return dp[row-1][col-1];
+    }
+}
 
 //一个写的更短的解法，但是本质上是差不多的,不过没前面的方法好懂
 //https://github.com/rffffffff007/leetcode/blob/master/Unique%20Paths%20II.java
@@ -98,6 +171,33 @@ public class Solution {
         }else{
             return sum[m - 1][n - 1];
         }
+    }   
+}
+
+//优化从dp二维数组变成了一维数组，减少了空间复杂度
+public class Solution {
+    public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        int row = obstacleGrid.length;
+        int col = obstacleGrid[0].length;
+        
+        int[] dp = new int[col];
+        
+        for(int j = 0; j < col; j++){
+            if(obstacleGrid[0][j] != 1){
+                dp[j] = 1;
+            }else break;
+        }
+        
+        for(int i = 1; i < row; i++){
+            if(obstacleGrid[i][0] == 1) dp[0] = 0;
+            for(int j = 1; j < col; j++){
+                if(obstacleGrid[i][j] == 1){
+                    dp[j] = 0;
+                }else{
+                    dp[j] = dp[j- 1] + dp[j];
+                }
+            }
+        }
+        return dp[col-1];
     }
-    
 }
