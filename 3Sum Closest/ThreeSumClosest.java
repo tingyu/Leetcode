@@ -12,7 +12,9 @@ Given an array S of n integers, find three integers in S such that the sum is cl
 /*
 Thoughts
 
-This problem is similar with 3 Sum. This kind of problem can be solve by using similar approach, i.e., two pointers from both left and right. 
+This problem is similar with 3 Sum. This kind of problem can be solve by using similar approach, 
+i.e., two pointers from both left and right. 
+注意这种两个指针的解法实在是太多了。常常想不出解法的时候可以考虑往DP或者这方面想一下。设左右指针，然后在一定情况下移动其中某一个
 */
 
 public class Solution {
@@ -35,7 +37,7 @@ public class Solution {
 					result = sum;
 				} 
 
-				if(sum <= target){
+				if(sum <= target){//注意这里是<=，如果是<没有算上=的话就会出现time limited的错误
 					j++;
 				}else{
 					k--;

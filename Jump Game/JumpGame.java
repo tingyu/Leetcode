@@ -14,7 +14,23 @@ A = [3,2,1,0,4], return false.
 
 */
 
-
+//my solution
+public class Solution {
+    public boolean canJump(int[] A) {
+        if(A == null || A.length == 0) return false;
+        int[] checker = new int[A.length];
+        checker[0] = A[0];
+        for(int i = 1; i < A.length; i++){
+            if(i <= checker[i-1]){
+                checker[i] = Math.max(checker[i-1], i + A[i]);
+                if(checker[i] >= A.length - 1) return true;
+            }else{
+                return false;
+            }
+        }
+        return true;
+    }
+}
 
 //http://rleetcode.blogspot.com/2014/02/jump-game-java.html
 // DP Solution: use int[] checker to record the max length current position can reach, if the length

@@ -12,6 +12,7 @@ Given
        2   5
       / \   \
      3   4   6
+
 The flattened tree should look like:
    1
     \
@@ -27,7 +28,8 @@ The flattened tree should look like:
 click to show hints.
 
 Hints:
-If you notice carefully in the flattened tree, each node's right child points to the next node of a pre-order traversal.
+If you notice carefully in the flattened tree, each node's right child points to the 
+next node of a pre-order traversal.
 */
 
 /**
@@ -46,10 +48,12 @@ If you notice carefully in the flattened tree, each node's right child points to
 /*
 solution 1:
 utilize custom preorder recursion
-storing the last visited pre-order traversal node in a static "lastVisited" TreeNode, and re-assigning its children
+storing the last visited pre-order traversal node in a static "lastVisited" TreeNode, 
+and re-assigning its children
 But, It's not good to use recursive approach, as it's not in-place.
 
 recursion solution
+关键是用了个lastVisited代表上一个结点，不停地更新
 */
 public class Solution {
     private static TreeNode lastVisited = null;

@@ -19,6 +19,10 @@ The above elevation map is represented by array [0,1,0,2,1,0,1,3,2,1,2,1]. In th
 //计算当前这个区域的面积。如果后面的高度比left大，那么久把这些累加的area放到sum中，更新left的位置，然后讲area置为0.
 //里面有个特殊情况，就是在left到达最高点之后，右边的不可能有值比left要高，所以一直到结束都会不停累加area的值，但是不会加到sum中。
 //此时需要再从右边往左边检查。采用类似的方法，一直到left位置即可。将右边累加的area加到left中间。
+
+/*
+扫一遍的就是用两个指针，同时从左往右，然后从右往左。每次比较，移动比较小的那个
+*/
 public class Solution {
     public int trap(int[] A) {
         if(A == null || A.length == 0) return 0;
