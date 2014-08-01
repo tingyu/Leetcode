@@ -87,6 +87,7 @@ public class Solution {
 }
 
 
+//another solution
 public class Solution {
     public int sumNumbers(TreeNode root) {
         if(root == null) return 0;

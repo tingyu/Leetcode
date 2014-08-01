@@ -109,3 +109,39 @@ public class Solution {
           return result;
       }
 }
+
+//another wrong solutionpublic 
+class Solution {
+    public ArrayList<ArrayList<Integer>> subsetsWithDup(int[] num) {
+        ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+        if(num == null || num.length == 0) return res;
+        Arrays.sort(num);
+        
+        //ArrayList<ArrayList<Integer>> prev = new
+        int pre = num[0];
+        
+        for(int i = 0; i < num.length; i++){
+            ArrayList<ArrayList<Integer>> tmp = new ArrayList<ArrayList<Integer>>();
+            
+            for(ArrayList<Integer> a: res){
+                tmp.add(a);
+            }
+            
+            for(ArrayList<Integer> a: tmp){
+                if(pre != num[i] || a.size() == num.length - 1){
+                    a.add(num[i]);      
+                }
+            }
+            
+            if(num[i] != pre){
+                ArrayList<Integer> single = new ArrayList<Integer>();
+                single.add(num[i]);
+                tmp.add(single);                
+            }
+            pre = num[i];
+            res.addAll(tmp);
+        }
+        res.add(new ArrayList<Integer>());
+        return res;
+    }
+}

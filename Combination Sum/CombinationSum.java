@@ -16,7 +16,33 @@ A solution set is:
 
 */
 
-
+//my solution
+public class Solution {
+//    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+    public ArrayList<ArrayList<Integer>> combinationSum(int[] candidates, int target) {
+        ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+        if(candidates == null || candidates.length == 0) return res;
+        ArrayList<Integer> tmp = new ArrayList<Integer>();
+        Arrays.sort(candidates);
+        helper(candidates, res, tmp, target, 0);
+        return res;
+    }
+    
+    private void helper(int[] candidates, ArrayList<ArrayList<Integer>> res, ArrayList<Integer> tmp, int target, int start){
+        if(target == 0){
+            res.add(new ArrayList<Integer>(tmp));
+            return;
+        }else if(target < 0){
+            return;
+        }
+        
+        for(int i = start; i < candidates.length; i++){
+            tmp.add(candidates[i]);
+            helper(candidates, res, tmp, target - candidates[i], i);
+            tmp.remove(tmp.size() - 1);
+        }
+    }
+}
 /*
 http://blog.csdn.net/linhuanmars/article/details/20828631 
 这个题是一个NP问题，方法仍然是N-Queens中介绍的套路。基本思路是先排好序，然后每次递归中把剩下的元素一一加到结果集合中，

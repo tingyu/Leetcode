@@ -58,8 +58,7 @@ public class Solution {
     }
 }
 
-//my another solution
-//use dummy head
+//another similar solution, using fakeHead
 public class Solution {
     public ListNode removeNthFromEnd(ListNode head, int n) {
         if(head == null) return null;
@@ -80,10 +79,8 @@ public class Solution {
             p = p.next;
         }
         
-        if(p.next != null){
             p.next = p.next.next;    
-        }
-        
+
         return head.next;
     }
 }

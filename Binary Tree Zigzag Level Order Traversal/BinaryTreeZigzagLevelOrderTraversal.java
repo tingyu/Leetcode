@@ -62,7 +62,43 @@ public class Solution {
 
 
 
-
+//my iterative solution
+public class Solution {
+    //public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+    public ArrayList<ArrayList<Integer>> zigzagLevelOrder(TreeNode root) {
+        ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+        if(root == null) return res;
+        Queue<TreeNode> queue = new LinkedList<TreeNode>();
+        ArrayList<Integer> tmp = new ArrayList<Integer>();
+        queue.add(root);
+        int count = 0;
+        boolean reverse = true;
+        while(!queue.isEmpty()){
+            if(count == 0){
+                tmp = new ArrayList<Integer>();
+                if(reverse) reverse = false;
+                else reverse = true;
+                res.add(tmp);
+                count = queue.size();
+            }
+            
+            TreeNode node = queue.poll();
+            if(reverse){
+                tmp.add(0, node.val);
+            }else{
+                tmp.add(node.val);    
+            }
+            count--;
+            if(node.left != null){
+                queue.add(node.left);
+            }
+            if(node.right != null){
+                queue.add(node.right);
+            }
+        }
+        return res;
+    }
+}
 
 //another solution
 //http://blog.csdn.net/muscler/article/details/23098359
