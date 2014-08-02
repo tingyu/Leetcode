@@ -8,6 +8,12 @@ You may assume that duplicates do not exist in the tree.
 */
 
 /*
+几个traversal， pre-order, in-order, post-order, 前缀都指的是root的位置
+pre: root -> left -> right
+in:    left  -> root -> right
+post: left -> right -> root
+
+
 Throughts
 Solution: Divide and Conquer
 
@@ -70,3 +76,5 @@ public class Solution {
 
     }
 }
+
+//里面的for循环也可以改成 for(int i = inStart; i <= inEnd; i++){

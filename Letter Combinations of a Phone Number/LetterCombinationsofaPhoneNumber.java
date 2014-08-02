@@ -14,6 +14,39 @@ Note:
 Although the above answer is in lexicographical order, your answer could be in any order you want.
 */
 
+//my solution
+public class Solution {
+    String[] letters = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+    public List<String> letterCombinations(String digits) {
+        ArrayList<String> res = new ArrayList<String>();
+        if(digits == null || digits.length() == 0){
+            res.add("");
+            return res;
+        } 
+        StringBuilder tmp = new StringBuilder();
+        helper(digits, res, tmp, 0, 0);
+        return res;
+    }
+    
+    private void helper(String digits, ArrayList<String> res, StringBuilder tmp, int start, int count){
+        if( digits.length() == count){
+            res.add(new String(tmp.toString()));
+            return;
+        }
+        
+        for(int i = start; i < digits.length(); i++){
+            //int index = Integer.valueOf(digits.charAt(i));注释掉的这种写法是错的
+            //String s = letters[index];
+            String s = letters[digits.charAt(i) - '0'];
+            for(int j = 0; j < s.length(); j++){
+                tmp.append(s.charAt(j));
+                helper(digits, res, tmp, i + 1, count + 1);
+                tmp.deleteCharAt(tmp.length() - 1);
+            }
+        }
+    }
+}
+
 
 public class Solution {
     public List<String> letterCombinations(String digits) {

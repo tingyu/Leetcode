@@ -57,3 +57,5 @@ public class Solution {
         return root;
     }
 }
+
+//里面的for循环也可以改成 for(int i = inStart; i <= inEnd; i++){

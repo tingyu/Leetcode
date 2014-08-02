@@ -25,6 +25,7 @@ Given m, n satisfy the following condition:
  * }
  */
 //my solution
+//这个解法是交换相应位置的数值，而不是移动链表指向
 //408 ms
 public class Solution {
     public ListNode reverseBetween(ListNode head, int m, int n) {

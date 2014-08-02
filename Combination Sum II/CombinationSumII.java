@@ -17,6 +17,49 @@ A solution set is:
 [1, 1, 6] 
 */
 
+//my solutions
+public class Solution {
+  //  public List<List<Integer>> combinationSum2(int[] num, int target) {
+    public ArrayList<ArrayList<Integer>> combinationSum2(int[] num, int target) {
+        ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+        if(num == null || num.length == 0) return res;
+        ArrayList<Integer> tmp = new ArrayList<Integer>();
+        Arrays.sort(num);
+        helper(num, res, tmp, target, 0);
+        return res;
+    }
+    
+    private void helper(int[] num, ArrayList<ArrayList<Integer>> res, ArrayList<Integer> tmp, int target, int start){
+        if(target == 0){
+            res.add(new ArrayList<Integer>(tmp));
+            return;
+        }else if(target < 0){
+            return;
+        }
+        
+        for(int i = start; i < num.length; i++){
+            if(i > start && num[i] == num[i-1]) continue;
+            tmp.add(num[i]);
+            helper(num, res, tmp, target - num[i], i +1);
+            tmp.remove(tmp.size() -1);
+        }
+    }
+}
+/*
+为什么一定要i > start 在if(i > start && num[i] == num[i-1]) continue里面。如果是 i > 1就会报错
+Submission Result: Wrong Answer
+Input:  [1,1], 1
+Output: [[1],[1]]
+Expected:   [[1]]
+若是if(i > 0 && num[i] == num[i-1]) continue;
+Submission Result: Wrong Answer
+
+Input:  [1,1], 2
+Output: []
+Expected:   [[1,1]]
+
+*/
+
 /*
 这道题跟Combination Sum非常相似，不了解的朋友可以先看看，唯一的区别就是这个题目中单个元素用过就不可以重复使用了。
 乍一看好像区别比较大，但是其实实现上只需要一点点改动就可以完成了，就是递归的时候传进去的index应该是当前元素的下一个。代码如下： 
