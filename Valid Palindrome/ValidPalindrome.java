@@ -17,6 +17,22 @@ For the purpose of this problem, we define empty string as valid palindrome.
 //my solution
 public class Solution {
     public boolean isPalindrome(String s) {
+        if(s.length() == 0) return true;
+        s = s.trim().replaceAll("[^a-zA-Z0-9]","").toLowerCase();
+        //or s = s.trim().replaceAll("\\W","").toLowerCase();
+        int len = s.length();
+        for(int i = 0; i < len/2; i++){
+            if(s.charAt(i) != s.charAt(len -1- i)){
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
+//my solution
+public class Solution {
+    public boolean isPalindrome(String s) {
         if(s == null) return false;
         if(s ==" ") return true;
         
@@ -31,6 +47,40 @@ public class Solution {
             i++;
             j--;
         }
+        return true;
+    }
+}
+
+//my stack solution
+public class Solution {
+    public boolean isPalindrome(String s) {
+        if(s.length() == 0) return true;
+        s = s.trim().replaceAll("\\W","").toLowerCase();
+
+        Stack<Character> stack = new Stack<Character>();
+        int index = 0;
+        for(index = 0; index < s.length()/2; index++){
+            stack.push(s.charAt(index));
+        }
+        
+        if(s.length() %2 == 1){
+            index++;
+        }
+        
+        while(index < s.length()){
+            if(stack.isEmpty()){
+                return false;
+            }
+            char tmp = stack.pop();
+            if(s.charAt(index) != tmp){
+                return false;
+            }
+            index++;
+        }
+        if(!stack.isEmpty()){
+            return false;
+        }
+        
         return true;
     }
 }
