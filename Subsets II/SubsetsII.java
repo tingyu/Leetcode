@@ -46,7 +46,7 @@ public class Solution {
                 temp.add(0, num[i]);
             }
             
-            //add each single number as a set, only if current element is different with previous
+            
             if(i == num.length - 1|| num[i] !=num[i+1]){
                 ArrayList<Integer> temp = new ArrayList<Integer>();
                 temp.add(num[i]);

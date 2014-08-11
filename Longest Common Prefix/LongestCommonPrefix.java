@@ -34,7 +34,7 @@ public class Solution {
             if(array[0] == array[strs.length -1]){
                 res = res + array[0];
             }else{
-                return res;
+                return res; //or use break
             }
         }
         return res;

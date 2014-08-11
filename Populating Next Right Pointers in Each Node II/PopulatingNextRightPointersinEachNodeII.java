@@ -130,8 +130,8 @@ public class Solution {
             if(node.left !=null){
                 nodes.add(node.left);
                 heights.add(height+1);
-            }
             
+
             //当柚子节点存在时，加入queue中，以便于后续处理
             if(node.right != null){
                 nodes.add(node.right);
@@ -161,7 +161,7 @@ public class Solution {
                     p = p.next;
                 }
                 if(p != null){
-                    root.left.next = p.left == null? p.right: p.left;
+                    root.left.next = pleft == null? p.right: p.left;
                 }
             }
         }
@@ -190,7 +190,7 @@ public class Solution {
 http://blog.csdn.net/perfect8886/article/details/20874913
 用层次遍历的方法可以比较直观的解决这题（解法1）。
 
-由于题目给出了next指针这个辅助空间，我们可以借助这个指针省去层次遍历里的队列，从而实现O(1)空间复杂度的解法（解法2）。
+由于题目给出了next指针这个辅助空间，我们可以借助这个指针省去层次遍历里的队列，从而实现O(1)空间复杂度的解法（解法2）。iqqn
 */
 
 public class Solution {

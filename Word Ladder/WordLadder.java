@@ -73,7 +73,8 @@ Expected:	2
 /*
 2. Breath First Search
 
-So we quickly realize that this looks like a tree searching problem for which breath first guarantees the optimal solution.
+So we quickly realize that this looks like a tree searching problem for which breath first guarantees
+ the optimal solution.
 
 Assuming we have all English words in the dictionary, and the start is "hit" as shown in the diagram below.
 
@@ -137,3 +138,53 @@ public class Solution {
     Use two queues, one for words and another for counting
 
 */
+
+//a wrong solution
+//using dfs to solve bfs
+/*
+    Submission Result: Runtime Error
+
+Runtime Error Message:  Line 18: java.lang.StackOverflowError
+Last executed input:    "hot", "dog", ["hot","cog","dog","tot","hog","hop","pot","dot"]
+*/
+
+public class Solution {
+    int res = 0;
+    public int ladderLength(String start, String end, Set<String> dict) {
+        helper(start, end, dict, 1, 0);
+        return res;
+    }
+    
+    private void helper(String start, String end, Set<String> dict, int tmp, int num){
+        if(dict.size() == num){
+            return;
+        }
+
+        if(diff(start, end) == 1){
+            res = Math.min(tmp, res);
+            return;
+        }
+        
+        for(String s: dict){
+            int count = diff(start, s);
+            num++;
+            if(count == 1){
+                tmp++;
+                //dict.remove(s);
+                helper(s, end, dict, tmp, num);
+                num--;
+                //dict.add(s);
+            }
+        }
+    }
+    
+    private int diff(String start, String end){
+        int count = 0;
+        for(int i = 0; i < start.length(); i++){
+            if((start.charAt(i) - end.charAt(i)) != 0){
+                count++;
+            } 
+        }
+        return count;
+    }
+}

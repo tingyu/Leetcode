@@ -24,7 +24,7 @@ public class Solution {
 	}
 
 	public TreeNode sortedArrayToBST(int[] num, int start, int end){
-		if(start > end)//这很重要，不要忘了
+		if(start > end)
 			return null;
 
 		int mid = (start + end) /2;

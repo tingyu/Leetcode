@@ -14,6 +14,52 @@ Return
   ]
 */
 
+
+//my solution
+/*简单的DFS的做法。对于每个recursion中的string，不断的取从0开始的substring，判断是不是Palindrome。如果是的话，就加到tmp中，
+然后就不停helper(s.substring(i+1), res, tmp);，在从递归里面推出之后要tmp.remove(tmp.size() - 1);
+判断palindrome就是对string长度取一半，然后判断前后位置的char是不是相等
+
+这里没有用start，当然也可以用start，然后找
+start常用在找subsets之类的时候
+*/
+public class Solution {
+//    public List<List<String>> partition(String s) {
+    public ArrayList<ArrayList<String>> partition(String s) {
+        ArrayList<ArrayList<String>> res = new ArrayList<ArrayList<String>>();
+        ArrayList<String> tmp = new ArrayList<String>();
+        helper(s, res, tmp);
+        return res;
+    }
+    
+    private void helper(String s, ArrayList<ArrayList<String>> res, ArrayList<String> tmp){
+        if(s.length() == 0){
+            res.add(new ArrayList<String>(tmp));
+            return;
+        }
+        
+        for(int i = 0; i < s.length(); i++){
+            String sub = s.substring(0, i+1);
+            if(isPalindrome(sub)){
+                tmp.add(sub);
+                helper(s.substring(i+1), res, tmp);
+                tmp.remove(tmp.size() - 1);
+            }
+        }
+    }
+    
+    private boolean isPalindrome(String sub){
+        int len = sub.length();
+        for(int i = 0; i < len/2; i++){
+            if(sub.charAt(i) != sub.charAt(len - 1 -i)){
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
+
 /*
 这道题是求一个字符串中回文子串的切割，并且输出切割结果，其实是Word Break II和Longest Palindromic Substring结合，
 该做的我们都做过了。首先我们根据Longest Palindromic Substring重大方法建立一个字典，得到字符串中的任意子串是不是回文串的字典，
