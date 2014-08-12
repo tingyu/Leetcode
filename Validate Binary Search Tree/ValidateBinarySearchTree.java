@@ -76,3 +76,5 @@ public class Solution {
 		return validate(root.left, min, root.val) && validate(root.right, root.val, max);
 	}
 }
+
+
