@@ -7,6 +7,8 @@ Given n points on a 2D plane, find the maximum number of points that lie on the 
 /*
 http://www.aichengxu.com/article/Java/18179_2.html
 固定一点，计算每一条经过这个店的直线斜率，用一个hashmap记录。记录下最多的斜率个数。对每个点做一次这样的搜索，这样复杂度就是O(n^2)
+经过一点，然后还有相同的斜率，说明他们在同一条线上
+要注意相同点的情况
 */
 
 /**
@@ -57,6 +59,15 @@ public class Solution {
 		return max;      
     }
 }
+
+/*
+				float slope = (points[i].y - points[j].y)/(points[i].x - points[j].x);
+Submission Result: Runtime Error
+
+Runtime Error Message:	Line 25: java.lang.ArithmeticException: / by zero
+Last executed input:	[(0,0),(0,1)]
+
+*/
 
 /*
 if there is no same + 1 >max

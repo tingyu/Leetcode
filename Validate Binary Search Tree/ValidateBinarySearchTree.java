@@ -12,6 +12,27 @@ confused what "{1,#,2,3}" means? > read more on how binary tree is serialized on
 
 */
 
+
+//上来先Brute force吧，没啥好说的。检查每个node的左子树的所有node都小于这个node，右子树的所有node都大于这个node。
+//对于每个节点都要检查sSubTreeLessThan(root.left, root.val)&&isSubTreeGreaterThan(root.right, root.val)&&isValidBST(root.left)&&isValidBST(root.right);
+public class Solution {
+	public static boolean isValidBST(TreeNode root) {
+	    if(root == null) return true;
+	    return isSubTreeLessThan(root.left, root.val)&&isSubTreeGreaterThan(root.right, root.val)&&isValidBST(root.left)&&isValidBST(root.right);
+	}
+	
+    private static boolean isSubTreeLessThan(TreeNode node, int max){
+        if(node == null) return true;
+        return node.val<max&&isSubTreeLessThan(node.left, max)&&isSubTreeLessThan(node.right, max);
+    }
+    
+    private static boolean isSubTreeGreaterThan(TreeNode node, int min){
+        if(node == null) return true;
+        return node.val>min&&isSubTreeGreaterThan(node.left, min)&&isSubTreeGreaterThan(node.right, min);
+    }
+}
+
+
 /*
 http://www.programcreek.com/2012/12/leetcode-validate-binary-search-tree-java/
 Thoughts about This Problem
