@@ -93,7 +93,40 @@ public class Solution {
         }  
         else  
             return false;  
-    }  
-      
-      
+    }        
 }  
+
+/*
+还有一种方法：如果一棵树是BST，那么如果做一个in order traversal的话产生的数组应该是排好序的。
+这样就一边进行in order traversal,一边比较当前值是不是比前一个值大就行了。这里用了个static变量来记录之前的值，使其在递归时能被记住。
+如果用C++的话按引用传递就不需要static了。
+*/
+public class Solution {  
+    public static int previous = Integer.MIN_VALUE;  
+    public boolean isValidBST(TreeNode root) {  
+        if(root == null)  
+            return true;  
+        //the left sub tree  
+        if(isValidBST(root.left) == false)  
+            return false;  
+            
+        //the current node  
+        if(root.val <= previous)  
+            return false;  
+        previous = root.val;  
+      
+          
+        //the right subtree  
+        if(isValidBST(root.right) == false){  
+            return false;  
+        }  
+        return true;  
+    }  
+}  
+/*这种解法为什么会出错？？？
+Submission Result: Wrong Answer
+
+Input:	{0,-1}
+Output:	false
+Expected:	true
+*/
