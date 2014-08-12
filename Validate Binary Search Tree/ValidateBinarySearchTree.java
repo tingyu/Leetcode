@@ -78,3 +78,22 @@ public class Solution {
 }
 
 
+public class Solution {  
+    public boolean isValidBST(TreeNode root) {  
+        return isBST(root, Integer.MIN_VALUE, Integer.MAX_VALUE);  
+          
+    }  
+      
+    public boolean isBST(TreeNode node, int alpha, int beta){  
+        if(node == null){  
+            return true;  
+        }  
+        if(alpha < node.val && node.val < beta){  
+            return isBST(node.left, alpha, node.val) && isBST(node.right, node.val, beta);  
+        }  
+        else  
+            return false;  
+    }  
+      
+      
+}  
