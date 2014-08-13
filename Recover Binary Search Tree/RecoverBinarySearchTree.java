@@ -26,8 +26,10 @@ store the previous element, in order to  compare if the current element is valid
 In the code below, you will find, the last step is to replace the wrong pair's value. 
 And the inOrder function is to search the whole BST and find the wrong pairs.
 
-Note that, (1)the previous element is NOT the root node of the current element but 
-the previous element in the "inOrder" order; (2) To store the wrong pair, 
+Note that, 
+(1)the previous element is NOT the root node of the current element but 
+the previous element in the "inOrder" order; 
+(2) To store the wrong pair, 
 the first found wrong element is stored in first pointer, while the next is stored in the second pointer.
 
 e.g. The correct BST is below:

@@ -102,7 +102,7 @@ public class Solution {
 如果用C++的话按引用传递就不需要static了。
 */
 public class Solution {  
-    public static int previous = Integer.MIN_VALUE;  
+    int previous = Integer.MIN_VALUE;  
     public boolean isValidBST(TreeNode root) {  
         if(root == null)  
             return true;  
@@ -123,7 +123,7 @@ public class Solution {
         return true;  
     }  
 }  
-/*这种解法为什么会出错？？？
+/*这种解法为什么会出错？？？因为之前previous之前用static
 Submission Result: Wrong Answer
 
 Input:	{0,-1}
