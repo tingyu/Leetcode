@@ -37,6 +37,7 @@ public class Solution {
         if(nRows == 1){
             return s;
         }
+        
         StringBuilder res = new StringBuilder();
         int size = 2*nRows - 2;
         for(int i = 0; i < nRows; i++){

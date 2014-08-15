@@ -30,13 +30,15 @@ and 2) the second char of pattern is not "*".
 
 For the 1st case, if the first char of pattern is not ".", the first char of pattern and string should be the same. 
 Then continue to match the left part.
-此时，s和p往后便宜的量不一样
+此时，s和p往后偏移的量不一样
 
 For the 2nd case, if the first char of pattern is "." or first char of pattern == the first i char of string, 
 continue to match the left.
-此时，s和p往后便宜的量一样
+此时，s和p往后偏移的量一样
 
 Be careful about the offset.
+
+注意各种特殊情况：
 
 */
 
@@ -67,6 +69,21 @@ public class Solution {
     	}
 	} 
 }
+/*
+第二种情况可以用下面的例子来解决
+abcda a*bcda
+每次都是初始化int i = -1; 
+while里面：所以i < 0，是每次进入这个else里面一定会走的，另外一种情况就是p里面第二个元素是*，然后第一个元素要不是'.'要不和s里面的第一个一样
+然后判断isMatch，如果是i = -1，s.substring(i+1)那么就是s还是原来的s不变，然后p改变
+就是s = "abcda" p = "bcda"
+这时判断是不是match。明显不match。返回前面。所以i++，s往后移动一位
+变成s = "bcda" p = "bcda"
+在while里面判断，然后属于p.charAt(0) == s.charAt(i)
+然后在isMatch的时候判断，s = "bcda", p = 
+
+i是用来不停的往后面移动来看a*里面到底有几个a才可以让后面的匹配
+*/
+
 
 
 //另外两种解法
