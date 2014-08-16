@@ -100,11 +100,11 @@ First consider the atomic operation in this problem: reverse several nodes.
 How to reverse? Let's take an example, we have linked list 3->2->1->4->5->6->7
 We wan to reverse 4->5->6 to 6->5->4, so we do the following:
 (1) 3->2->1->4->5->6->7
-               p              q
+          p        q
 (2) 3->2->1----->5->6->4->7
-               p             q
+          p         q
 (3) 3->2->1--------->6->5->4->7
-               p             q
+          p          q
 
 The 1st step is to find the locations q and q, where we want to reverse from p->next to q.
 Then while p->next != q,  we do:
@@ -130,43 +130,40 @@ find the end node for the new reverse, if meet the end, no more reverse needed, 
  */
 public class Solution {
     public ListNode reverseKGroup(ListNode head, int k) {
-    	if(head == null) return null;
-    	ListNode p = new ListNode(0);
-    	p.next = head;
-    	head = p ;
-    	ListNode q = p;
+        if(head == null) return null;
+        ListNode p = new ListNode(0);
+        p.next = head;
+        head = p ;
+        ListNode q = p;
 
-    	while(ture){
-    		int i = 0;
-    		while(q!=null && i < k){ //move q to the certain position
-    			q = q.next;
-    			i++;
-    		}
+        while(true){
+            int i = 0;
+            while(q!=null && i < k){ //move q to the certain position
+                q = q.next;
+                i++;
+            }
 
-    		if(q == null){ //if less than k, then return the original one
-    			return head.next;
-    		} else{
-    			while(p.next!= q){
-    				ListNode d = p.next;
-    				ListNode l = q.next;
-    				p.next = p.next.next;
-    				q.next = d;
-    				d.next = l;
-    			}
-    			//last reverse done, move p to the new position
-    			for(int j = 0; j < k; j++){
-    				p = p.next;
-    			}
-    			q = p; //move q to p too
-    		}
-    	}
+            if(q == null){ //if less than k, then return the original one
+                break;
+            } else{
+                while(p.next!= q){
+                    ListNode d = p.next;
+                    ListNode l = q.next;
+                    p.next = p.next.next;
+                    q.next = d;
+                    d.next = l;
+                }
+                //last reverse done, move p to the new position
+                for(int j = 0; j < k; j++){
+                    p = p.next;
+                }
+                q = p; //move q to p too
+            }
+        }
 
-    	return head.next;
+        return head.next;
     }
 }
-
-
-
 
 
 
