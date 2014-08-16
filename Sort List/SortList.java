@@ -53,13 +53,14 @@ public class Solution {
 
     private ListNode merge(ListNode left, ListNode right){
         //process 
+        /*
         if(left == null){
             return right;
         }
         
         if(right == null){
             return left;
-        }
+        }*/
         
         //use a fake node as head to store the result
         ListNode preHead = new ListNode(-1);

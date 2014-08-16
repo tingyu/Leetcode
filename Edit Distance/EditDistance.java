@@ -75,7 +75,7 @@ public class Solution {
         
         for(int i=1; i<=word1.length(); i++){
             for(int j=1; j<=word2.length(); j++){
-                if(word1.charAt(i-1)==word2.charAt(j-1)) dp[i][j] = dp[i-1][j-1];
+                if(word1.charAt(i-1)==word2.charAt(j-1)) dp[i][j] = dp[i-1][j-1]; 
                 else{
                     int replace=1+dp[i-1][j-1];
                     int insert=1+dp[i][j-1];
@@ -88,3 +88,8 @@ public class Solution {
         return dp[word1.length()][word2.length()];
     }
 }
+
+/*
+注意是if(word1.charAt(i-1)==word2.charAt(j-1))而不是if(word1.charAt(i)==word2.charAt(j)) 
+还有上面的双重循环中间是i<=word1.length()和j<=word2.length()
+*/
