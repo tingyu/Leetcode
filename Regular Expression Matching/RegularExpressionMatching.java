@@ -39,7 +39,19 @@ continue to match the left.
 Be careful about the offset.
 
 注意各种特殊情况：
-
+1. the second char of pattern is not "*"时，还需要考虑p.length() == 1 。
+也就是应该这样判断if(p.length() == 1 || p.charAt(1)!= '*')
+    此时false应该有几种情况if(s.length() < 1 || (p.charAt(0) != '.' && s.charAt(0) != p.charAt(0)))
+    否则的话，说明第一个character是匹配的，那么就判断后面的。然后递归求解return isMatch(s.substring(1), p.substring(1));
+    这种情况是s和p往后偏移量是一样的，都是一个一个的往后偏移检查。
+2. Second character of p is '*'。此时注意s和p往后偏移量是不一样的
+    用一个变量i表示s里面的偏移量。初始值为-1。
+    当第一个元素匹配的时候，注意里面有个特殊情况i < 0 的时候，就是说如果第一个元素不是匹配，但是是第一次进入这个while循环。
+    while(i < len && (i < 0 || p.charAt(0) == '.' || p.charAt(0) == s.charAt(i))){
+    判断除去s中匹配过的和p中*部分之后的是不是匹配，if(isMatch(s.substring(i +1), p.substring(2)))
+    递归求解，如果是匹配的，那么就返回true
+    如果不是就i++。不匹配的话在s中往后面移动一个，增加一位。因为*是匹配一个或者多个元素的。
+    出了while循环之外就是false
 */
 
 public class Solution {

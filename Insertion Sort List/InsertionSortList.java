@@ -28,27 +28,58 @@ Sort a linked list using insertion sort.
  */
 public class Solution {
     public ListNode insertionSortList(ListNode head) {
-        if(head == null){
-        	return null;
-        }
-
-        ListNode helper = new ListNode(0);
-        ListNode pre = helper;
+        if(head == null) return head;
+        ListNode fakeNode = new ListNode(Integer.MIN_VALUE);
+        
+        ListNode prev = fakeNode;
         ListNode cur = head;
-
         while(cur != null){
-        	ListNode next = cur.next;
-        	pre = helper;
-        	while(pre.next != null && pre.next.val < cur.val){
-        		pre = pre.next;
-        	}
-        	cur.next = pre.next;
-        	pre.next = cur;
-        	cur = next;
+            ListNode next = cur.next;
+            prev = fakeNode;
+            //find out the inserting position
+            while(prev.next != null && prev.next.val < cur.val){
+                prev = prev.next;
+            }
+            
+            //insert into the sorted part 
+            cur.next = prev.next;
+            prev.next = cur;
+            
+            cur = next;
         }
-        return helper.next;
+        return fakeNode.next;
     }
 }
 
-
+//my solution
+//如果把fakeHead和head连接起来这道题就错了。为什么啊啊啊啊啊啊
+//这道题的关键是只需要一个next临时变量记录cur的下一个。而不需要记录cur先前的一个节点pre来记录
+//如果不明白，看下这个里面的图示。讲的很好http://www.binglu.me/leetcode-question-insertion-sort-list/
+//这里不需要连起来是因为fakeNode是想用来构建另外一个linkedList，而不是在原来的LinkedList里面做修改。
+//这样想起来就明白多了
+public class Solution {
+    public ListNode insertionSortList(ListNode head) {
+        if(head == null) return head;
+        ListNode fakeNode = new ListNode(0);
+        /*
+        fakeNode.next = head;
+        head = fakeNode;
+        
+        ListNode pre = head;
+        ListNode cur = head.next;*/
+        ListNode pre = fakeNode;
+        ListNode cur = head;
+        while(cur != null){
+            ListNode next = cur.next;
+            pre = fakeNode;
+            while(pre.next != null && pre.next.val < cur.val){
+                pre = pre.next;
+            }
+            cur.next = pre.next;
+            pre.next = cur;
+            cur = next;
+        }
+        return fakeNode.next;
+    }
+}
 
