@@ -29,6 +29,15 @@ So the algorithm implemented below can be summarized as:
 Step 1  Find the middle pointer of the linked list (you can use the slow/fast pointers)
 Step 2  Reverse the second part of the linked list (from middle->next to the end)
 Step 3  Do the reordering. (inset every element in the second part in between the elements in the first part)
+
+while(fast.next != null && fast.next.next !=null){
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+一般都是这样处理fast和slow的。这样的话如果是
+1->2->3->4->null 可以最后slow到2位置
+1->2->3->4->5->null最后slow到3位置
+始终保证了前半段>=后半段
 */
 
 /**
@@ -54,6 +63,47 @@ http://blog.csdn.net/whuwangyi/article/details/14146461
 
 代码里有些变量可以省去，为了看起来逻辑清晰，还是保留了。整个链表遍历了3次，但是没有使用额外空间。
 */
+//my solution
+public class Solution {
+	public static void reorderList(ListNode head) {
+        if(head == null || head.next == null) return;
+        
+        ListNode fast = head;
+        ListNode slow = head;
+        while(fast.next != null && fast.next.next!= null){
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        
+		//2 sublist heads
+		ListNode head1= head, head2 = slow.next;
+		//detach the two sublists;
+		slow.next = null;
+        
+        //reverse the second sublist
+        ListNode cur = head2, post = cur.next;
+        cur.next = null;
+        while(post != null){
+           ListNode temp = post.next;
+           post.next = cur;
+           cur = post;
+           post = temp;
+        }
+        head2 = cur; // the new head of the reversed sublist
+        
+        //merge the 2 sublists are required
+        ListNode p = head1, q = head2;
+        while(q != null){
+            ListNode temp1 = p.next;
+            ListNode temp2 = q.next;
+            p.next = q;
+            q.next = temp1;
+            p = temp1;
+            q = temp2;
+        }
+	}
+}
+
 public class Solution {
 	public static void reorderList(ListNode head) {
 		if(head == null || head.next == null)

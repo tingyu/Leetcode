@@ -11,7 +11,6 @@ Some examples:
 */
 
 /*
-
 Reverse Polish notation (RPN) is a mathematical notation in which every operator follows all of its operands, 
 in contrast to Polish notation, which puts the operator in the prefix position. 
 It is also known as postfix notation and is parenthesis-free as long as operator arities are fixed. 
@@ -32,6 +31,42 @@ http://joycelearning.blogspot.com/2014/03/leetcode-evaluate-reverse-polish.html
 3. if s is an valid operator, pop two nums, calculate, push back
 4. after loop, pop the last num as res
 */
+
+//my solution
+public class Solution {
+    public int evalRPN(String[] tokens) {
+        Stack<String> stack = new Stack<String>();
+        //stack.push(tokens[0]);
+        
+        for(int i = 0; i < tokens.length; i++){
+            if(!tokens[i].equals("+") &&!tokens[i].equals("-") &&!tokens[i].equals("*") &&!tokens[i].equals("/")){
+                stack.push(tokens[i]);
+            }else{
+                int right = Integer.parseInt(stack.pop());
+                int left  = Integer.parseInt(stack.pop());
+                int res = 0;
+                switch(tokens[i]){
+                    case "+":
+                        res = left + right;
+                        break;
+                    case "-":
+                        res = left - right;
+                        break;
+                    case "*":
+                        res = left * right;
+                        break;
+                    case "/":
+                        res = left/right;
+                        break;
+                }
+                stack.push(String.valueOf(res));
+            }
+        }
+        return Integer.parseInt(stack.pop());
+    }
+}
+
+
 
 public class Solution {
     public int evalRPN(String[] tokens) {

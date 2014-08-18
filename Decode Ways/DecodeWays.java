@@ -28,6 +28,9 @@ http://blog.csdn.net/worldwindjp/article/details/19938131
 
 1010，生成的number数组为：[1,1,1,1,1]
 10000，生成的number数组为：[1,1,1,0,0,0,0,0,0]
+
+number[i-1]应该是一下走一步的情况，前面一个character有一个解码方式，下面的一个character单独的也只有一个解码方式
+number[i-2]应该是一下子走两步的情况，所以如果这两个character里面第一个不是0的时候才算数。然后还要检查他们是不是在有效字母之间
 */
 
 public class Solution {

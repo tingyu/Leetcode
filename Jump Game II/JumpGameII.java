@@ -124,3 +124,33 @@ public class Solution {
     	return minStep;i
    	}
 }
+
+
+//a wrong solution。但是感觉可以从checker里面挖掘出些东西
+public class Solution {
+    public int jump(int[] A) {
+        if(A == null || A.length == 0){
+            return -1;
+        }
+        
+        int[] checker = new int[A.length];
+        checker[0] = A[0];
+        
+        for(int i = 1; i < A.length; i++){
+            if(i <= checker[i-1]){
+                checker[i] = Math.max(checker[i-1], A[i] + i);
+            }else{
+                return -1;
+            }
+        }
+        
+        int min = 1;
+        if(A.length == 1) return 0;
+        for(int i = 1; i < checker.length-1; i++){
+            if(checker[i] < A.length -1 && checker[i] != checker[i-1]){
+                min++;
+            }
+        }
+        return min;
+    }
+}

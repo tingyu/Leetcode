@@ -44,6 +44,9 @@ It would be helpful if you draw a diagram and visualize the problem.
 使用Map的主要意义在于充当BFS中Visited数组，它也可以去环问题，例如A--B有条边，当处理完A的邻居node，然后处理B节点邻居node时发现A已经处理过了
 处理就结束，不会出现死循环！
 queue中放置的节点都是未处理neighbors的节点！！！
+
+关键的一点就是在clone neighbors的时候，如果neighbors存在，就直接clone
+如果不存在那么就先把neighbor放到map里面，然后再clone
 */
 
 
@@ -72,6 +75,7 @@ public class Solution {
             //ArrayList<UndirectedGraphNode> currNeighbors = curr.neighbors;
             List<UndirectedGraphNode> currNeighbors = curr.neighbors;
             
+            
             for(UndirectedGraphNode aNeighbor: currNeighbors){
                 if(!map.containsKey(aNeighbor)){
                     UndirectedGraphNode copy = new UndirectedGraphNode(aNeighbor.label);
@@ -93,6 +97,8 @@ http://rleetcode.blogspot.com/2014/01/clone-graph-java.html
 Solution2: DFS
 Solution: DFS traverse all nodes, meanwhile use HashMap to record the node which has been cloned. 
 use label as key and the new created node as value
+
+这里dfs，回到起始点就说明clone完了？？？
 */
 
 public class Solution {

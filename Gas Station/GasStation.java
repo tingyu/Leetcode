@@ -21,7 +21,8 @@ https://oj.leetcode.com/discuss/1043/this-question-needs-more-clarification
     costs is always positive.
     You can solve the problem as sufficient as you can. For example, if you implement in a O(N^2) solution, 
     you get time limit exceed, you might think about a better solution. I think when you having interview, 
-    the best solution may come out iteratively. If interviewee tell you the test case scale, it maybe a cheat to come up the best solution.
+    the best solution may come out iteratively. If interviewee tell you the test case scale, 
+    it maybe a cheat to come up the best solution.
 */
 
 /*
@@ -72,4 +73,40 @@ public class Solution {
 		}
 		return start;
 	}
+}
+
+
+//why the solution is wrong
+/*
+Submission Result: Wrong Answer
+
+Input:	[2,4], [3,4]
+Output:	1
+Expected:	-1
+
+*/
+public class Solution {
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+        int start = -1;
+        int remain = 0;
+        for(int i = 0; i < gas.length; i++){
+            int sum = 0;
+            if(gas[i] - cost[i] >= 0){
+                start = i;
+            }
+            for(int j = start; j < gas.length; j++){
+                sum = sum + gas[i] - cost[i];
+                if(sum < 0){
+                    break;
+                }
+            }
+            for(int j = 0; j < start; j++){
+                sum = sum + gas[i] - cost[i];
+                if(sum < 0){
+                    break;
+                }               
+            }
+        }
+        return start;
+    }
 }

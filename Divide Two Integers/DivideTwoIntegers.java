@@ -86,7 +86,16 @@ public class Solution {
     	return count*sign;
     }
 }
+/*
+   long a = Math.abs(dividend);
+    long b = Math.abs(divisor);
+    这样会报错
+    Submission Result: Wrong Answer
 
+Input:  -2147483648, 1
+Output: 0
+Expected:   -2147483648
+*/
 
 //http://rleetcode.blogspot.com/2014/01/divide-two-integers.html
 //3rd solution: use the bit manipulation, similar to the 2nd solution. To be continued...

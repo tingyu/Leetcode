@@ -9,6 +9,22 @@ return 4->5->1->2->3->NULL.
 
 */
 
+/*
+    int count = 1;
+        while(p.next!=null){
+            p = p.next;
+            count++;        
+        }
+    得到的count和
+    int count = 0;
+        while(p!=null){
+            p = p.next;
+            count++;        
+        }
+    得到的count相同
+    不过不同的是一样p已经是null一个是最后一个元素
+*/ 
+
 /**
  * Definition for singly-linked list.
  * public class ListNode {

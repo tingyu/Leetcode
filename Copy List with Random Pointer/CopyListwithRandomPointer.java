@@ -20,12 +20,12 @@ break the list to two
 
 
 This is an interesting question. Deep copy a single linked list with only next reference is easy. 
-but, the tricky point is how to connect the random reference, we can not know if the 
+but, the tricky point is how to connect the random reference, we can not know whether the 
 node connected by the random reference exists or not when we copy node one by one. 
 So to solve this problem, I think hashmap should be a good solution. 
 With hashMap,do first while loop,  we copy every node in given list and keep them as a 
 <originalNode, copiedNode> pair. then do another while loop connect these copied nodes together.
-
+注意一个个拷贝挨着拷贝的时候不知道被random reference指向的node存不存在
 */
 
 /**

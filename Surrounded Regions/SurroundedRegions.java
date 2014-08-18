@@ -19,80 +19,77 @@ X O X X
 */
 
 //很好的BFS的题目。解题的guanj
-
+/*
+找到四条边上的0并且遍历其周围的0。可以通过bfs或者DFS遍历。这里如果采用dfs会
+超时。将这些0标记位#。最后遍历一遍整个二维数组，如果是0，那么变为X,如果是#，
+变为0
+注意因为记录的是2维数组，需要用一定的数据结构来存，可以是Pair，new Integer[]{x,y}
+*/
 //a pass solution
 public class Solution {
-	class Pair{
-		int i;
-		int j;
-
-		Pair(int i, int j){
-			this.i = i;
-			this.j = j;
-		}
-	}
-
-	private int M;
-	nprivate int N;
-
-    public void solve(char[][] board) {
-    	if(board == null || board.length <= 0){
-    		return;
-    	}
-
-    	this.M = board.length;
-    	this.N = board[0].length;
-
-    	Queue<Pair> queue = new LinkedList<Pair>();
-    	for(int i = 0; i < M; i++){
-    		if(board[i][0] == '0'){
-    			queue.add(new Pair(i, 0));
-    			bfs(queue, board);
-    		}
-    		if(board[i][N - 1] == '0'){
-    			queue.add(new Pair(i, N - 1));
-    			bfs(queue, board);
-    		}
-    	}
-
-    	for(int j = 1; j < N - 1; ++j){
-    		if(board[0][j] == '0'){
-    			queue.add(new Pair(0, j));
-    			bfs(queue, board);
-    		}
-    		if(board[M - 1][j] == '0'){
-    			queue.add(new Pair(M - 1, j));
-    			bfs(queue, board);
-    		}
-    	}
-
-    	for(int i = 0; i < M; ++i){
-    		for(int j = 0; j < N; ++j){
-    			if(board[i][j] == '0'){
-    				board[i][j] = 'X';
-    			}else if(board[i][j] == '#'){
-    				board[i][j] = '0';
-    			}
-    		}
-    	}
+    class Pair{
+        int i;
+        int j;
+        Pair(int i, int j){
+            this.i = i;
+            this.j = j;
+        }
     }
-
+    
+    private int M;
+    private int N;
+    
+    public void solve(char[][] board) {
+        if(board == null || board.length == 0) return;
+        this.M = board.length;
+        this.N = board[0].length;
+        
+        Queue<Pair> queue = new LinkedList<Pair>();
+        for(int i = 0; i < M; i++){
+            if(board[i][0] == 'O'){//left
+                queue.add(new Pair(i, 0));
+                bfs(queue, board);
+            }
+            if(board[i][N-1] == 'O'){//right
+                queue.add(new Pair(i, N-1));
+                bfs(queue, board);
+            }
+        }
+        
+        for(int j = 1; j < N-1; j++){//top, caution!!!
+            if(board[0][j] == 'O'){
+                queue.add(new Pair(0, j));
+                bfs(queue, board);
+            }
+            if(board[M-1][j] == 'O'){
+                queue.add(new Pair(M-1, j));
+                bfs(queue, board);
+            }
+        }
+        
+        for(int i = 0; i < M; i++){
+            for(int j = 0; j < N; j++){
+                if(board[i][j] == 'O') board[i][j] = 'X';
+                else if(board[i][j] == '#') board[i][j] = 'O';
+            }
+        }
+    }
+    
     private void bfs(Queue<Pair> queue, char[][] board){
-    	while(!queue.isEmpty()){
-    		Pair pair = queue.poll();
-    		int i = pair.i;
-    		int j = pair.j;
-
-    		if(i < 0 || i >= M || j < 0 || j >= N || board[i][j] != '0'){
-    			continue;
-    		}
-
-    		board[i][j] = '#';
-    		queue.add(new Pair(i - 1, j));
-    		queue.add(new Pair(i + 1, j));
-    		queue.add(new Pair(i, j - 1));
-    		queue.add(new Pair(i, j + 1));
-    	}
+        while(!queue.isEmpty()){
+            Pair pair = queue.poll();
+            int i = pair.i;
+            int j = pair.j;
+            
+            if(i < 0 || i >= M || j < 0 || j >= N || board[i][j] !='O') //caution!!
+                continue;
+            
+            board[i][j] = '#';
+            queue.add(new Pair(i - 1, j));
+            queue.add(new Pair(i + 1, j));
+            queue.add(new Pair(i, j - 1));
+            queue.add(new Pair(i, j + 1));
+        }
     }
 }
 
@@ -148,6 +145,14 @@ public class Solution {
         }
     }
 }
+/*
+上面这个代码错了
+Submission Result: Time Limit Exceeded
+
+Last executed input:    ["XOOOOOOOOOOOOOOOOOOO","OXOOOOXOOOOOOOOOOOXX","OOOOOOOOXOOOOOOOOOOX","OOXOOOOOOOOOOOOOOOXO","OOOOOXOOOOXOOOOOXOOX","XOOOXOOOOOXOXOXOXOXO","OOOOXOOXOOOOOXOOXOOO","XOOOXXXOXOOOOXXOXOOO","OOOOOXXXXOOOOXOOXOOO","XOOOOXOOOOOOXXOOXOOX","OOOOOOOOOOXOOXOOOXOX","OOOOXOXOOXXOOOOOXOOO","XXOOOOOXOOOOOOOOOOOO","OXOXOOOXOXOOOXOXOXOO","OOXOOOOOOOXOOOOOXOXO","XXOOOOOOOOXOXXOOOXOO","OOXOOOOOOOXOOXOXOXOO","OOOXOOOOOXXXOOXOOOXO","OOOOOOOOOOOOOOOOOOOO","XOOOOXOOOXXOOXOXOXOO"]
+*/
+
+
 ///run dfs on all four side(the first outer layer of the matrix) mark +
 //scan whole matrix, if see O, mark X else if +, mark O
 //dfs
@@ -196,6 +201,6 @@ public class Solution {
 		if(x+1<=board.length && board[x+1][y] == '0')
 			dfs(board, x+1, y);
 		if(y+1<=board[0].length && board[x][y+1] == '0')
-			dfs(board, x, y+1)；
+			dfs(board, x, y+1);
 	}
 }

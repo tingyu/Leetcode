@@ -24,10 +24,8 @@ The key to solve this problem is using a double linked list which enables us to 
    1) map.size == capacity
    2) map.size < capacity
 
-
 LinkedList插入删除比较快，分散空间
 Array查找比较快。连续空间
-
 */
 
 import java.util.HashMap;

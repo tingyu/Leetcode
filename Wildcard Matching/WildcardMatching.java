@@ -24,7 +24,6 @@ isMatch("aab", "c*a*b") → false
 /*
 http://blog.csdn.net/perfect8886/article/details/22689147
 
-
 通过率很低的一题，Java没指针写起来是不顺畅。
 
 贪心的策略，能匹配就一直往后遍历，匹配不上了就看看前面有没有'*'来救救场，再从'*'后面接着试。
