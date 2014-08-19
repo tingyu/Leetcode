@@ -12,7 +12,8 @@ You should return the indices: [0,9].
 */
 
 /*
-想法一：假设L中的单位长度为n，依次从S中取长度为n的子串，如果在L中，就记下来。需要借助hash或map，如果整个L都匹配完了，就算是一个concatenation；当匹配错误的时候，S右移一个位置。
+想法一：假设L中的单位长度为n，依次从S中取长度为n的子串，如果在L中，就记下来。需要借助hash或map，如果整个L都匹配完了，就算是一个concatenation；
+当匹配错误的时候，S右移一个位置。
 
 想法二：事先把L的所有concatenation组合出来，放到hash或map里，然后遍历S的时候直接看。
 
@@ -46,7 +47,7 @@ public class Solution {
 		int i = 0;
 		while(l - i >= m*n){
 			Map<String, Integer> temp = new HashMap<String, Integer>(covered);
-			for(int j = 0; j < n; j++){
+			for(int j = 0; j < n; j++){//对于每个开始i，检查接下来的j个m长的string在不在tmp中，如果在的话就count,不在就移动i
 				String testStr = s.substring(i + j*m, i + (j+1)*m);
 				if(temp.containsKey(testStr)){
 					if(temp.get(testStr) -1== 0){
@@ -69,7 +70,8 @@ public class Solution {
 /*
 这道题看似比较复杂，其实思路和Longest Substring Without Repeating Characters差不多。
 因为那些单词是定长的，所以本质上和单一个字符一样。和Longest Substring Without Repeating Characters的区别只在于我们需要维护一个字典，
-然后保证目前的串包含字典里面的单词有且仅有一次。思路仍然是维护一个窗口，如果当前单词在字典中，则继续移动窗口右端，否则窗口左端可以跳到字符串下一个单词了。
+然后保证目前的串包含字典里面的单词有且仅有一次。思路仍然是维护一个窗口，如果当前单词在字典中，则继续移动窗口右端，
+否则窗口左端可以跳到字符串下一个单词了。
 假设源字符串的长度为n，字典中单词的长度为l。因为不是一个字符，所以我们需要对源字符串所有长度为l的子串进行判断。
 做法是i从0到l-1个字符开始，得到开始index分别为i, i+l, i+2*l, ...的长度为l的单词。这样就可以保证判断到所有的满足条件的串。
 因为每次扫描的时间复杂度是O(2*n/l)(每个单词不会被访问多于两次，一次是窗口右端，一次是窗口左端)，
