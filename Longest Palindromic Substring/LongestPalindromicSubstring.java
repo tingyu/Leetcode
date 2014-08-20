@@ -40,7 +40,7 @@ public static String longestPalindrome1(String s) {
 
 public static boolean isPalindrome(String s){
 	for(int i = 0; i < s.length() - 1; i++){
-		if(s.charAt(i) != s.charAt(s.length()-i-1)){//why -1?
+		if(s.charAt(i) != s.charAt(s.length()-i-1)){//why -1?因为需要的是index 
 			return false;
 		}
 	}
@@ -49,7 +49,7 @@ public static boolean isPalindrome(String s){
 
 
 2. Dynamic Programming
-
+/*
 Let s be the input string, i and j are two indices of the string.
 
 Define a 2-dimension array "table" and let table[i][j] denote whether substring from i to j is palindrome.
@@ -62,7 +62,7 @@ Changing condition:
 
 table[i][j] == 1 => table[i+1][j-1] == 1 && s.charAt(i) == s.charAt(j)
 Time O(n^2) Space O(n^2)
-
+*/
 
 public static String longestPalindrome2(String s) {
 	if(s == null) return null;
@@ -137,7 +137,7 @@ From the table, we can clear see that the longest string is in cell table[1][5].
 3. Simple Algorithm
 
 Time O(n^2), Space O(1)
-
+遍历数组，分别以每个点为中心（分i 和i ,i +1）的情况，来得到相应的longest substring
 public String longestPalindrome(String s) {
 	if(s.isEmpty()){
 		return null;
@@ -181,3 +181,45 @@ public String helper(String s, int begin, int end){
 Manacher's algorithm is much more complicated to figure out, even though it will bring benefit of time complexity of O(n).
 
 Since it is not typical, there is no need to waste time on that.
+
+
+
+//my solution, why it is wrong??
+public class Solution {
+    public String longestPalindrome(String s) {
+        int[][] dp = new int[s.length()][s.length()];
+        String res = "";
+        for(int i = 0; i < s.length(); i++){
+            dp[i][i] = 1;
+        }
+        
+        for(int i = 0; i < s.length(); i++){
+            for(int j = i+1; j < s.length(); j++){
+                if(j == i + 1 && s.charAt(j) == s.charAt(i)){
+                    dp[i][j] = 1;
+                }
+            }
+        }
+        
+        for(int i = 0; i < s.length(); i++){
+            for(int j = i+1; j < s.length(); j++){
+                if(dp[i+1][j-1] == 1 && s.charAt(j) == s.charAt(i)){
+                    dp[i][j] = 1;
+                }
+            }
+        }
+        
+        int max = 0;
+        for(int i = 0; i < s.length(); i++){
+            for(int j = 0; j < s.length(); j++){
+                if(dp[i][j] == 1){
+                    if(max < j - i + 1){
+                        max = j - i + 1;
+                        res = s.substring(i, j + 1);   
+                    }
+                }
+            }
+        }
+        return res;
+    }
+}

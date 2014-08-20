@@ -112,3 +112,56 @@ public class Solution {
     }
 }
 
+//my Solution
+/*
+Submission Result: Time Limit Exceeded
+*/
+public class Solution {
+    public String minWindow(String S, String T) {
+        HashMap<Character, Integer> map = new HashMap<Character, Integer>();
+        int min = Integer.MAX_VALUE;
+        String res = "";
+        for(int i = 0; i < T.length(); i++){
+            char c = T.charAt(i);
+            if(map.containsKey(c)){
+                map.put(c, map.get(c) + 1);
+            }else{
+                map.put(c, 1);
+            }
+        }
+        
+        for(int i = 0; i < S.length(); i++){
+            HashMap<Character, Integer> tmp = new HashMap<Character, Integer>(map);
+            if(tmp.containsKey(S.charAt(i))){
+                if(tmp.get(S.charAt(i)) == 1){
+                    tmp.remove(S.charAt(i));
+                }else{
+                    tmp.put(S.charAt(i), tmp.get(S.charAt(i)) -1);
+                }
+            }else{
+                continue;
+            }
+            for(int j = i+1; j < S.length(); j++){
+                char c = S.charAt(j);
+                if(tmp.containsKey(c)){
+                    if(tmp.get(c) == 1){
+                        tmp.remove(c);
+                    }else{
+                        tmp.put(c, tmp.get(c) -1);
+                    } 
+                }else{
+                    continue;
+                }
+                
+                if(tmp.isEmpty()){
+                    if(j - i + 1 < min){
+                        min = j - i + 1;
+                        res = S.substring(i, j+1);
+                    }
+                    break;
+                }
+            }
+        }
+        return res;
+    }
+}

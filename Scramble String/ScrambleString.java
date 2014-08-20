@@ -97,7 +97,7 @@ public class Solution {
 
         //在去掉上面那些特殊情况之后，再进一步判断s2是不是由s1转换而来的。注意这里用的是s1, s2不是c1, c2，也就是没有排序的
         boolean result = false;
-        for(int i = 1; i < l1 && !result; i++){
+        for(int i = 1; i < l1 && !result; i++){//why !result??
           String s11 = s1.substrings(0, i);
           String s12 = s1.substrings(i);
           String s21 = s2.substrings(0, i);
@@ -116,13 +116,7 @@ public class Solution {
     }
 }
 
-/*
-解法二（动态规划）
-减少重复计算的方法就是动态规划。动态规划是一种神奇的算法技术，不亲自去写，是很难完全掌握动态规划的。
 
-这里我使用了一个三维数组boolean result[len][len][len],其中第一维为子串的长度，第二维为s1的起始索引，第三维为s2的起始索引。
-result[k][i][j]表示s1[i...i+k]是否可以由s2[j...j+k]变化得来。
-*/
 
 public class Solution {
     public boolean isScramble(String s1, String s2) {
