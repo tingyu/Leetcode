@@ -8,6 +8,43 @@ Return the minimum cuts needed for a palindrome partitioning of s.
 For example, given s = "aab",
 Return 1 since the palindrome partitioning ["aa","b"] could be produced using 1 cut.
 */
+//my solution，用的是1中类似的方法，但是超时了
+public class Solution {
+    int min = Integer.MAX_VALUE;
+    public int minCut(String s) {
+        ArrayList<String> res = new ArrayList<String>();
+        ArrayList<String> tmp = new ArrayList<String>();
+        helper(s, res, tmp, 0);
+        return min;
+    }
+    
+    private void helper(String s, ArrayList<String> res, ArrayList<String> tmp, int start){
+        if(start == s.length()){
+            if(tmp.size() < min){
+                res = new ArrayList<String>(tmp);
+                min = tmp.size();
+            }
+        }
+        
+        for(int i = start; i < s.length(); i++){
+            String sub = s.substring(start, i+1);
+            if(isValid(sub)){
+                tmp.add(sub);
+                helper(s, res, tmp, i+1);
+                tmp.remove(tmp.size() -1);
+            }
+        }
+    }
+    
+    private boolean isValid(String s){
+        for(int i = 0; i < s.length() /2; i++){
+            if(s.charAt(i) != s.charAt(s.length() - i - 1)){
+                return false;
+            }
+        }
+        return true;
+    }
+}
 /*
 [Thoughts]
 凡是求最优解的，一般都是走DP的路线。这一题也不例外。首先求dp函数，
@@ -16,12 +53,12 @@ Return 1 since the palindrome partitioning ["aa","b"] could be produced using 1 
 D[i,n] = 区间[i,n]之间最小的cut数，n为字符串长度
 
  a   b   a   b   b   b   a   b   b   a   b   a
-                     i                                  n
+          i                                  n
 如果现在求[i,n]之间的最优解？应该是多少？简单看一看，至少有下面一个解
 
 
  a   b   a   b   b   b   a   b   b   a   b   a
-                     i                   j   j+1     n
+             i                   j   j+1     n
 
 此时  D[i,n] = min(D[i, j] + D[j+1,n])  i<=j <n。这是个二维的函数，实际写代码时维护比较麻烦。所以要转换成一维DP。
 如果每次，从i往右扫描，每找到一个回文就算一次DP的话，就可以转换为

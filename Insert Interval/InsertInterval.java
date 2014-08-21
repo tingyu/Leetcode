@@ -29,6 +29,7 @@ Quickly summarize 3 cases. Whenever there is intersection, created a new interva
 如果遍历一直到末尾也没发生区间重合，就把新区间插入到原来ArrayList的末尾。
 里面用到了几个通过iterator操作ArrayList的函数：在遍历ArrayList的过程中想删除其中某个element、遍历的过程中插入某个element，有空慢慢总结一下。
 
+下面解法是不断更新newInterval，直到最后一个等于newInterval然后加入
  * Definition for an interval.
  * public class Interval {
  *     int start;
@@ -62,5 +63,31 @@ public class Solution {
         }
         result.add(newInterval);
         return result;
+    }
+}
+
+public class Solution {
+    public List<Interval> insert(List<Interval> intervals, Interval newInterval) {
+        ArrayList<Interval> res = new ArrayList<Interval>();
+        if(intervals == null || intervals.size() == 0){
+            res.add(newInterval);
+            return res;
+        }
+        for(Interval interval: intervals){
+            if(newInterval.end < interval.start){
+                res.add(newInterval);
+                newInterval = interval;
+            }else if(newInterval.start > interval.end){
+                res.add(interval);
+            }else if(newInterval.start >= interval.start && newInterval.end <= interval.end
+                    || newInterval.start >= interval.start && newInterval.end > interval.end
+                    || newInterval.start < interval.start && newInterval.end <= interval.end){
+                newInterval.start = Math.min(interval.start, newInterval.start);
+                newInterval.end = Math.max(interval.end, newInterval.end);
+            }
+            
+        }
+        res.add(newInterval);
+        return res;
     }
 }
