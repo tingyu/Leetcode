@@ -9,6 +9,16 @@ For example,
 Given 1->4->3->2->5->2 and x = 3,
 return 1->2->2->4->3->5. 
 */
+/*
+自己开始写的解法错了。看来准确性急需要提高。
+自己解法里面指针指来指去就错了。只能用利用值创建一个新链表的方法，空间是O(n),时间也是O(n)
+                //p1.next = p;
+                p1.next = new ListNode(p.val);
+CC150书上面有两种解法
+1. We iterate through the linked list, inserting elements into our before list or our after list. 
+Once we reach the end of the linked list and have completed this splitting, we merge 
+the two lists.
+*/
 //my solution
 //开始想的是插入和删除的操作，弄两个新的链表。但是这样很容易出错。所以，如果是弄两个fakeHead，然后不断new新的结点在后面，然后把两个链表合并，
 //这样会容易的多
@@ -84,4 +94,59 @@ public class Solution {
         
         return fakeHead1;
     }
+}
+
+
+/*
+CC150书上面有两种解法
+/*
+If this were an array,we would need to be careful about how we shifted elements. Array shifts are very expensive.
+However, in a linked list, the situation is much easier. Rather than shifting and swapping elements, 
+we can actually create two different linked lists: one for elements less than x, 
+and one for elements greater than or equal to x.
+We iterate through the linked list, inserting elements into our before list or our after list. 
+Once we reach the end of the linked list and have completed this splitting, we merge the two lists.
+The code below implements this approach
+*/
+
+//pass in the head of the linked list and value to partition around
+public LinkedListNode partition(LinkedListNode node, int x){
+    LinkedListNode beforeStart = null;
+    LinkedListNode beforeEnd = null;
+    LinkedListNode afterStart = null;
+    LinkedListNode afterEnd = null;
+
+    //Partition list
+    while(node != null){
+        LinkedListNode next = node.next;
+        node.next = null;
+        if(node.data < x){
+            //insert node into end of before list
+            if(beforeStart == null){
+                beforeStart = node;//node.next = null
+                beforeEnd = beforeStart; //move beforeEnd position to beforeEnd
+            } else{
+                beforeEnd.next = node;//node.next = null, insert after beforeEnd
+                beforeEnd = node;//move beforeEnd position to the current tail
+            }
+        }else{
+            //insert node into end of after list
+            if(afterStart == null){
+                afterStart = node;
+                afterEnd = afterStart;
+            } else{
+                afterEnd.next = node; //node.next = null, insert after afterEnd
+                afterEnd = node;//move afterEnd position to the current tail
+            }
+        }
+        node = next; // have store next before assign it to null
+    }
+
+    if(beforeStart == null){
+        return afterStart;
+    }
+
+    //merge before list and after list
+    beforeEnd.next = afterStart;
+    return beforeStart;
 }
