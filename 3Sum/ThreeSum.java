@@ -23,6 +23,25 @@ Note:
 Naive solution is 3 loops, and this gives time complexity O(n^3). Apparently this is not an acceptable solution, 
 but a discussion can start from here.
 */
+public class Solution {
+    public ArrayList<ArrayList<Integer>> threeSum(int[] num) {
+        ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+        for(int i = 0; i < num.length; i++){
+            for(int j = i + 1; j < num.length; j++){
+                for(int k = j + 1; k < num.length; k++){
+                    if(num[j] + num[k] + num[i] == 0){
+                        ArrayList<Integer> tmp = new ArrayList<Integer>();
+                        tmp.add(num[i]);
+                        tmp.add(num[j]);
+                        tmp.add(num[k]);
+                        res.add(new ArrayList<Integer>(tmp));
+                    }
+                }
+            }
+        }
+        return res;
+    }
+}
 
 public class Solution {
     public ArrayList<ArrayList<Integer>> threeSum(int[] num) {
@@ -35,7 +54,7 @@ public class Solution {
         	if(num[i] > 0) break;
 
             for(int j = i +1; j < num.length; j++){
-            	if(num[i] + num[j] >0 && num[j] >0) break;
+            	if(num[i] + num[j] >0 && num[j] >0) break;//?????
 
                 for(int k =j +1; k < num.length; k++){
                     if(num[i] + num[j] + num[k] == 0){
@@ -79,7 +98,7 @@ public ArrayList<ArrayList<Integer>> threeSum(int[] num) {
 
 	for(int i = 0; i < num.length -2; i++){
 		//avoid duplicate solution
-		if(i ==0 || num[i] > num[i -1]){
+		if(i ==0 || num[i] > num[i -1]){//只有在不等的时候才考虑，去除了duplicates
 			int negate = -num[i];
 
 			int start = i + 1;

@@ -27,8 +27,8 @@ public class Solution {
 	public boolean isValid(char[][] board, int a, int b){
 		boolean[] flag = new boolean[9];
 
-		Set<character> contained = new HashSet<character>();
-		for(int j = 0; i < 9; j++){
+		Set<Character> contained = new HashSet<Character>();
+		for(int j = 0; j < 9; j++){
 			if(contained.contains(board[a][j])) return false;
 			if(board[a][j] > '0' && board[a][j] <='9')
 				contained.add(board[a][j]);
@@ -69,7 +69,6 @@ public class Solution {
 		return true;
 	}
 }
-
 
 public void sovleSudoku(char[][] board){
 	helper(board, 0, 0);

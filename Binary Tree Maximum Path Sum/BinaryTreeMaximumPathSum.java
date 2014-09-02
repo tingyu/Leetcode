@@ -50,7 +50,7 @@ public class Solution {
 		int left = Math.max(findMax(node.left), 0);
 		int right = Math.max(findMax(node.right), 0);
 
-r		max = Math.max(node.val + left + right, max);
+		max = Math.max(node.val + left + right, max);
 
 		//return sum of largest path of current node
 		return node.val + Math.max(left, right);

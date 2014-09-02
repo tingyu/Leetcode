@@ -9,6 +9,29 @@ dict = ["leet", "code"].
 
 Return true because "leetcode" can be segmented as "leet code".
 */
+//my navie solution, LTE
+
+public class Solution {
+    public boolean wordBreak(String s, Set<String> dict) {
+        return helper(s, dict);
+    }
+    
+    private boolean helper(String s, Set<String> dict){
+        if(s.length() == 0){
+            return true;
+        }
+        
+        for(int i = 1; i <= s.length(); i++){
+            if(dict.contains(s.substring(0, i))){
+                helper(s.substring(i), dict);
+            }else{
+                continue;
+            }
+        }
+        
+        return false;
+    }
+}
 
 /*
 http://www.programcreek.com/2012/12/leetcode-solution-word-break/

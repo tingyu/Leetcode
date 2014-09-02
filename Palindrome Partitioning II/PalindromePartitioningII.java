@@ -79,7 +79,8 @@ P[i][j] = str[i] == str[j] && P[i+1][j-1];
 类似于：LeetCode Word Break， 也是利用动态规划。
 定义状态数组：cut_num_array[s.length()+1]，其中：cut_num_array[i]代表：string[i..n]字符串从i开始到末尾的最小划分数。 
 状态转移方程： cut_num_array[i] = Math.min(cut_num_array[i], cut_num_array[j+1]+1);  i<j<n
-状态转移方程的意思是，string[i..j]是一个回文字符串，所以不用再划分。所以从i开始到末尾以j为划分点的最小划分数为： cut_num_array[j+1]+1 和 cut_num_array[i]中的最小值。
+状态转移方程的意思是，string[i..j]是一个回文字符串，所以不用再划分。所以从i开始到末尾以j为划分点的最小划分数为： 
+cut_num_array[j+1]+1 和 cut_num_array[i]中的最小值。
 cut_num_array[i]的初值设为：s.length() - i; 也就是按照字符串中的每个字母都单独被划分来计算。
 判断string[i..j]是一个回文串，用LeetCode Palindrome Partitioning中的方法
 */
@@ -106,3 +107,12 @@ public class Solution {
         return cut_num_array[0] -1; //??? why???
     }
 }
+
+
+/*
+若int[] cut_num_array = new int[s.length()];
+Submission Result: Runtime Error
+
+Runtime Error Message:  Line 16: java.lang.ArrayIndexOutOfBoundsException: 1
+Last executed input:    "a"
+*/

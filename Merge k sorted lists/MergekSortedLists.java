@@ -45,14 +45,14 @@ public class Solution {
 		//这里是做初始化，把k个List的头加到priority queue里面。
 		for(int i = 0; i < lists.size(); i++){
 			if(lists.get(i) != null){
-				q.add(Lists.get(i));
+				q.add(Lists.get(i));//?
 			}
 		}
 
 		if(q.isEmpty()) return null;
 
 		//root即是最小值
-		ListNode root = q.peek();
+		ListNode root = q.peek(); //?
 		ListNode tmp = null;
 
 		//q不为空时
