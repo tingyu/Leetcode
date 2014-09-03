@@ -25,8 +25,14 @@ Have you been asked this question in an interview?
  */
 
 /*
+和判断是否有cycle类似。在fast和slow相等之后，就把slow移到Head，然后fast和slow
+继续以相同的pace移动，直到下次相遇的位置就是cycle的起始位置。
+注意很容易出现bug的是忽略了没有cycle的情况，所以没有判断
+
+解释可以见下面博客
 http://fisherlei.blogspot.com/2013/11/leetcode-linked-list-cycle-ii-solution.html
-首先，比较直观的是，先使用Linked List Cycle I的办法，判断是否有cycle。如果有，则从头遍历节点，对于每一个节点，查询是否在环里面，是个O(n^2)的法子。但是仔细想一想，发现这是个数学题。
+首先，比较直观的是，先使用Linked List Cycle I的办法，判断是否有cycle。
+如果有，则从头遍历节点，对于每一个节点，查询是否在环里面，是个O(n^2)的法子。但是仔细想一想，发现这是个数学题。
 
 如下图，假设linked list有环，环长Y，环以外的长度是X。
 
@@ -36,7 +42,7 @@ image
 
 那么       指针一  走的路是      t = X + nY + K        ①
 
-             指针二  走的路是     2t = X + mY+ K       ②          m,n为未知数
+          指针二  走的路是     2t = X + mY+ K       ②          m,n为未知数
 
 把等式一代入到等式二中, 有
 
@@ -82,3 +88,52 @@ public class Solution {
 }
 
 //其实  //no cycle的判断不要也是对的
+
+//下面两种些微变换的写法也是对的
+public class Solution {
+    public ListNode detectCycle(ListNode head) {
+        if(head == null || head.next == null) return null;
+        ListNode fast = head;
+        ListNode slow = head;
+        
+        while(fast != null && fast.next != null){
+            fast = fast.next.next;
+            slow = slow.next;
+            
+            if(fast == slow) break;
+        }
+        if(fast == null || fast.next == null) return null;
+        
+        slow = head;
+        while(fast != slow){
+            fast = fast.next;
+            slow = slow.next;
+        }
+        
+        return slow;
+    }
+}
+
+public class Solution {
+    public ListNode detectCycle(ListNode head) {
+        if(head == null || head.next == null) return null;
+        ListNode fast = head;
+        ListNode slow = head;
+        
+        while(fast != null && fast.next != null){
+            fast = fast.next.next;
+            slow = slow.next;
+            
+            if(fast == slow) break;
+        }
+        //if(fast == null || fast.next == null) return null;
+        
+        slow = head;
+        while(fast != slow && fast != null){
+            fast = fast.next;
+            slow = slow.next;
+        }
+        
+        return fast;
+    }
+}

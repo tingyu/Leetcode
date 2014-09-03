@@ -206,6 +206,11 @@ LinkedListNode insertBefore(LinkedListNode list, int data){
     return node;
 }
 
+/*
+Note how we have pulled insertBefore(), padList(), and length() (not listed)
+into their own methods. This makes the code cleaner and easier to read—a wise thing
+to do in your interviews!
+*/
 
 //previous solution: my long solution
 //太多重复性代码了
