@@ -79,6 +79,37 @@ public class Solution{
 	}
 }
 
+//Solution refered from CC150
+//recursion solution
+public class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        return addLists(l1, l2, 0);
+    }
+    
+    private ListNode addLists(ListNode l1, ListNode l2, int carry){
+        /* We're done if both lists are null AND the carry value is 0 */
+        if(l1 == null && l2 == null && carry == 0)
+            return null;
+        
+        ListNode result = new ListNode(carry);
+        
+        //add value, and the data from l1, l2
+        int value = carry;
+        if(l1 != null) value += l1.val;
+        if(l2 != null) value += l2.val;
+        
+        result.val = value%10;//second digital of number
+        
+        //recursive
+        if(l1 != null || l2 != null){
+            ListNode more = addLists(l1 == null?null: l1.next, l2 == null?null: l2.next, value >= 10? 1: 0);
+            result.next = more;
+        }
+        return result;
+    }
+}
+
+
 
 
 //previous solution: my long solution
