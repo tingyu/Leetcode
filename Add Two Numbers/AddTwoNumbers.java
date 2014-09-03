@@ -8,6 +8,46 @@ Add the two numbers and return it as a linked list.
 Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
 Output: 7 -> 0 -> 8
 */
+/*
+这题思路很直观，也很简单。只需要遍历，然后相加进位就好。注意while循环写的时候，按照下面||几种情况是最简便的，这样可以把所有情况归为一类。
+不然会有很多重复性的代码。注意不要忘了p1 = p1.next。注意判断只有p1!=null的时候，不然会产生很明显的bug
+
+这题有个follow up,在CC150上面有说。就是如果数字在链表里面不是逆序，而是顺序存储的情况。
+此时更难，要注意两个特殊情况考虑
+1. 长度不一样时。此时需要padding之后才可以求解
+2. 这题进位是pass forwar，如果是follow up那么进位就是pass backward
+
+cc150上面不管这题还是follow up都是recursion的解法，可以用来开拓思路
+*/
+//my new solution
+public class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode p1 = l1;
+        ListNode p2 = l2;
+        ListNode newHead = new ListNode(0);
+        ListNode p = newHead;
+        int carry = 0;
+        
+        while(p1 != null || p2 != null || carry != 0){
+            int sum = carry;
+            if(p1 != null){
+                sum += p1.val;
+                p1 = p1.next;
+            }
+            if(p2 != null){
+                sum += p2.val;
+                p2 = p2.next;
+            } 
+            p.next = new ListNode(sum%10);
+            carry = sum/10;
+            p = p.next;
+        }
+        
+        return newHead.next;
+    }
+}
+
+
 
 public class Solution{
 	public ListNode addTwoNumbers(ListNode l1, ListNode l2){
@@ -40,7 +80,8 @@ public class Solution{
 }
 
 
-//my long solution
+
+//previous solution: my long solution
 //太多重复性代码了
 public class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
