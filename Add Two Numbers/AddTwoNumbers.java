@@ -109,7 +109,102 @@ public class Solution {
     }
 }
 
+/*
+FOLLOW UP
+Suppose the digits are stored in forward order. Repeat the above problem
 
+自己想了两种解法，一个是先转换成long，然后相加，再转换成linkedList。
+另外一个是遍历两遍，第一遍相加，第二遍处理carry。但是第二种方法没有考虑长短
+不一致的情况，这个陷阱没考虑，这里首先需要padding
+
+下面是CC150给出的recursive的解法
+Part B is conceptually the same (recurse, carry the excess), but has some additional
+complications when it comes to implementation:
+
+1. One list may be shorter than the other, and we cannot handle this "on the fly." For
+example, suppose we were adding (1 -> 2 -> 3 -> 4) and (5 -> 6 -> 7). We need to
+know that the 5 should be "matched" with the 2, not the 1. We can accomplish this
+by comparing the lengths of the lists in the beginning and padding the shorter list
+with zeros.
+
+2. In the first part, successive results were added to the tail (i.e., passed forward). This
+meant that the recursive call would be passed the carry, and would return the result
+(which is then appended to the tail). In this case, however, results are added to the
+head (i.e., passed backward). The recursive call must return the result, as before, as
+well as the carry.This is not terribly challenging to implement, but it is more cumber-
+some. We can solve this issue by creating a wrapper class called Partial Sum
+*/
+
+public class PartialSum{
+    public LinkedListNode sum = null;
+    public int carry = 0;
+}
+
+LinkedListNode addLists(LinkedListNode l1, LinkedListNode l2){
+    int len1 = length(l1);
+    int len2 = length(l2);
+
+    //pad the  shorter list with zeros -- see note 1
+    if(len1 < len2){
+        l1 = padList(l1, len2-len1);
+    }else{
+        l2 = padList(l2, len1-len2);
+    }
+
+    //add lists
+    PartialSum sum = addListsHelper(l1, l2);
+
+    // If there was a carry value left over, insert this at the front of the list. Otherwise, just return the linked list.
+    if(sum.carry == 0){
+        return sum.sum;
+    }else{
+        LinkedListNode result = insertBefore(sum.sum, carry);
+        return result;
+    }
+}
+
+PartialSum addListsHelper(LinkedListNode l1, LinkedListNode l2){
+    if(l1 == null && l2 == null){
+        PartialSum sum = new PartialSum();
+        return sum;
+    }
+
+    //add smaller digits recursively
+    PartialSum sum = addListsHelper(l1.next, l2.next);
+
+    //add carry to current data
+    int val = sum.carry + l1.data + l2.data;
+
+    //insert sum of current digits
+    LinkedListNode full_result = insertBefore(sum.sum, val%10);
+
+    //return sum so far, and the current value
+    sum.sum = full_result;
+    sum.carry = val/10;
+    return sum;
+}
+
+//pad the list with zeros
+LinkedListNode padList(LinkedListNode l, int padding){
+    LinkedListNode head = l;
+    for(int i = 0; i < padding; i++){
+        LinkedListNode n = new LinkedListNode(0, null, null);
+        head.prev = n;
+        n.next = head;
+        head = n;
+    }
+    return head;
+}
+
+// Helper function to insert node in the front of a linked list
+LinkedListNode insertBefore(LinkedListNode list, int data){
+    LinkedListNode node = new LinkedListNode(data, null, null);
+    if(list != null){
+        list.prev = node;
+        node.next = list;
+    }
+    return node;
+}
 
 
 //previous solution: my long solution
