@@ -195,3 +195,59 @@ public LinkedListNode partition(LinkedListNode node, int x){
     beforeEnd.next = afterStart;
     return beforeStart;
 }
+
+
+/*k, we know we have reached the kth to last element of the linked list.
+
+If it bugs you to keep around four different variablesfor tracking two linked lists, you're not alone. 
+We can get rid of some of these, with just a minor hit to the efficiency. 
+
+This drop in efficiency comes because we have to traverse the linked list an extra time. 
+The big-O time will remain the same though, and we get shorter, cleaner code.
+
+The second solution operates in a slightly different way. Instead of inserting nodes into the end of the before 11st 
+and the after list, it inserts nodes into the front of them.
+
+这个解法不适用此题，因为改变了相对顺序，每次都插入在头处，正好逆序了。
+*/
+
+public LinkedListNode partition(LinkedListNode node, int x){
+    LinkedListNode beforeStart = null;
+    LinkedListNode afterStart = null;
+
+    //partition list
+    while(node !=null){
+        LinkedListNode next = node.next;
+        if(node.data < x){
+            //insert node into start of before list
+            node.next = beforeStart; //move node before beforeStart
+            beforeStart = node; //Update before Start Position to Head of list+
+        } else{
+            //insert node into front of after listk, we know we have reached the kth to last element of the linked list.
+            node.next = afterStart;//move node before afterStart
+            afterStart = node;//Update after Start Position to Head of list+
+        }
+        node = next;
+    }
+
+    //merge before list and after list
+    if(beforeStart == null){
+        return afterStart;
+    }
+
+    //find end of before list, and merge the list
+    LinkedListNode head = beforeStart;
+    while(beforeStart.next !=null){
+        beforeStart = beforeStart.next;//move
+    }
+    beforeStart.next = afterStart;
+
+    return head;
+}
+
+
+/*
+Note that in this problem, we need to be very careful about null values. 
+Check out line 7 in the above solution. The line is here because we are modifying the linked list as we're 
+looping through it. We need to store the next node in a temporary variable so that we remember 
+which node should be next in our iteration.
