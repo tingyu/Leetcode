@@ -8,13 +8,31 @@ Given s = "the sky is blue",
 return "blue is sky the".
 
 */
+/*
+这题稍微注意下就可以做到Bug free
+有几个tricky的地方
+1. String[] words = s.trim().split(" ");注意是split,里面是“ ”而不是""
+2. 要判断if(!words[i].equals(""))
+
+不然就会
+Submission Result: Wrong Answer
+
+Input:  "   a   b "
+Output: "b   a"
+Expected:   "b a"
+如果判断if(!words[i].equals(" ")){也会得到上面的结果
+3. 空格的数目要正好
+                if(i > 0){
+                    res.append(" ");
+                }
+*/
 //my solution
 public class Solution {
     public String reverseWords(String s) {
         String[] words = s.trim().split(" ");
         StringBuilder res = new StringBuilder();
         for(int i = words.length-1; i>= 0; i--){
-            if(!words[i].equals("")){
+            if(!words[i].equals("")){//use this to strip whitespace in the String[]
                 res.append(words[i]);
                 if(i >0){
                     res.append(" ");

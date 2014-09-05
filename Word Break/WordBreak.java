@@ -85,7 +85,8 @@ public class Solution {
 /*
 At first glance, this is a practice for recursive strategy. I wrote code based on the idea that 
 from left to right, find out the first match word, then do it recursively on the remain part, 
-until reach the end. (code is in the below). However, this ends up with a “Time Limit Exceed” as a result of large test set.
+until reach the end. (code is in the below). However, this ends up with a “Time Limit Exceed” 
+as a result of large test set.
 
 Another idea is using DP (dynamic programming). The key point of DP is create an array to store 
 the “status” for each subproblems and finding out when and how the status will transit.

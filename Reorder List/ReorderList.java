@@ -51,6 +51,38 @@ while(fast.next != null && fast.next.next !=null){
  *     }
  * }
  */
+//my solution
+//利用stack来反转
+public class Solution {
+    public void reorderList(ListNode head) {
+        if(head == null || head.next == null) return;
+        ListNode fast = head;
+        ListNode slow = head;
+
+        while(fast.next != null && fast.next.next != null){
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        
+        ListNode q = slow.next;
+        slow.next = null;
+        ListNode p = head;
+        
+        Stack<ListNode> stack = new Stack<ListNode>();
+        while(q != null){
+            stack.push(q);
+            q = q.next;
+        }
+        
+        while(p != null && !stack.isEmpty()){
+            ListNode insert = stack.pop();
+            ListNode next = p.next;
+            p.next = insert;
+            insert.next = next;
+            p = next;
+        }
+    }
+}
 /*
 http://blog.csdn.net/whuwangyi/article/details/14146461
 题目思路比较直接：

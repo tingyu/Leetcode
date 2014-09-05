@@ -32,7 +32,8 @@ ArrayList<ArrayList<Integer>> record is as below:
 | | | | | | | |
  4     7 7
  3     
-Since the second argument of substring() is exclusive when get substring, the stored index is the actual ending index plus 1. We can use the ArrayList record to build solution set. The Java solution is listed below.
+Since the second argument of substring() is exclusive when get substring, the stored index is the actual 
+ending index plus 1. We can use the ArrayList record to build solution set. The Java solution is listed below.
 这个算法十分新颖
 关键是对每个character构造了是单词的ending character的index，长度是length
 比如对c,里面存的时ending character的index的List,有3，有4
@@ -49,7 +50,7 @@ public class Solution {
             record.add(new ArrayList<Integer>());
         }
 
-        //each character can be the ending of some word
+        r
         for(int end = length; end >= 0; end--){
             //如果没有下面的判断就会超时，这里相当于剪枝的效果。为什么这样写？最开始的时候肯定都是空的？
             if(end < length && record.get(end).isEmpty())

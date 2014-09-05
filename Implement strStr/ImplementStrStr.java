@@ -15,7 +15,7 @@ public String strStr(String haystack, String needle) {
 	int needleLen = needle.length();
 	int haystackLen = haystack.length();
 
-	if(needleLen == haystackLen && needleLen == 0){
+	if(needleLen == haystackLen && needleLen == 0){//why needleLen == haystackLen
 		return "";
 	}
 

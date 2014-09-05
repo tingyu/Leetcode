@@ -60,6 +60,7 @@ public static double findMedianSortedArrays(int A[], int B[]) {
 	int m = A.length;
 	int n = B.length;
 
+
 	if((m + n) % 2 != 0) //odd
 		return (double) findKth(A, B, (m + n)/2, 0, m -1, 0, n -1);
 	else{
@@ -68,7 +69,7 @@ public static double findMedianSortedArrays(int A[], int B[]) {
 	}
 }
 
-public static int findKth(int A[], int B[], int k, int aStart, int aEnd, int bStart, int bEnd){
+public static int findKth(int A[], int B[], int k, aint aStart, int aEnd, int bStart, int bEnd){
 	int aLen = aEnd - aStart + 1;
 	int bLen = bEnd - bStart + 1;
 

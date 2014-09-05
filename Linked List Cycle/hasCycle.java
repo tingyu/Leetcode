@@ -6,9 +6,9 @@ Follow up:
 Can you solve it without using extra space?
 */
 //my solution
-//一定要注意的是要在fast和slow移动了之后再判断fast == slow。不然会出现很明显的错误。
+//1. 一定要注意的是要在fast和slow移动了之后再判断fast == slow。不然会出现很明显的错误。
 //！！！！！这样错了是必须的啊。因为刚开始的时候两个都指向的head啊啊
-
+//2. 另外一个要注意的时
 /**
  * Definition for singly-linked list.
  * class ListNode {

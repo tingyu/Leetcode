@@ -64,15 +64,7 @@ public class Solution {
 		return ret;
     }
 }
-/*s.length() == 0 指的是""，而空格指的是" "，空格的话要push。""有可能出现在//这种情况
-如果不要这个判断会出现如下问题
-Submission Result: Wrong Answer
-
-Input:	"/..."
-Output:	"//..."
-Expected:	"/..."
-*/
-
+sr
 
 //http://rleetcode.blogspot.com/2014/01/simplify-path-java.html
 //先pop出来的都是sub-dir，所以要不断insert到0位置，这样就不断加到前面。前面那种方法通过stack.removeLast()就直接把栈底的根目录拿出来

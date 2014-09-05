@@ -17,7 +17,8 @@ http://rleetcode.blogspot.com/2014/01/longest-valid-parentheses.html
 Solution:
 Use stack to record  '('  position, then check current valid length when a ')' come.
 then, max length valid Parentheses is decided by two situation
-1) stack is not empty, so the current length is current position i- last second position of '(' in stack, we can calculate it
+1) stack is not empty, so the current length is current position i- last second position of '(' in stack, 
+we can calculate it
 through stack.pop(), then i-stack.peek() and check the length with max
 2) stack is empty, then the longest length we can check currently is i-last (last is the position of last invalid ')')
 

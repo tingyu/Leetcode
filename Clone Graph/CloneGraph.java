@@ -93,8 +93,7 @@ public class Solution {
 
 
 /*
-http://rleetcode.blogspot.com/2014/01/clone-graph-java.html
-Solution2: DFS
+c Solution2: DFS
 Solution: DFS traverse all nodes, meanwhile use HashMap to record the node which has been cloned. 
 use label as key and the new created node as value
 

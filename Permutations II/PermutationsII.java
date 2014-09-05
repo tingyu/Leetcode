@@ -11,7 +11,8 @@ For example,
 /*
 http://www.programcreek.com/2013/02/leetcode-permutations-ii-java/
 
-Basic idea: For each number in the array, swap it with every element after it. To avoid duplicate, need to check it first.
+Basic idea: For each number in the array, swap it with every element after it. To avoid duplicate, 
+need to check it first.
 如果有时间的话可以打印输出看下结果如何。
 */
 
