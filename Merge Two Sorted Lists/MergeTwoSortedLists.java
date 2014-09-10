@@ -47,7 +47,29 @@ Merge two sorted linked lists and return it as a new list. The new list should b
     }
  }
 
-
+//一个更为简练的写法。不需要p1, p2
+public class Solution {
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        ListNode res = new ListNode(-1);
+        ListNode p = res;
+        
+        while(l1 != null && l2 != null){
+            if(l1.val <= l2.val){
+                p.next = l1;
+                l1 = l1.next;
+            }else{
+                p.next = l2;
+                l2 = l2.next;
+            }
+            p = p.next;
+        }
+        
+        if(l1 != null) p.next = l1;
+        if(l2 != null) p.next = l2;
+        
+        return res.next;
+    }
+}
 
 //a second solution
 public class Solution {
