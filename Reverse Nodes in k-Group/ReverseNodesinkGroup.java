@@ -19,6 +19,13 @@ For k = 3, you should return: 3->2->1->4->5
 */
 
 /*
+下面的两种reverse的思路其实是差不多的。都是有两个node,然后不断的把一个node后面的值插入到另外一个Node后面。
+前面一种做法有个last结点，这个结点注定是最后一个。然后还有个pre结点，其实可以算是dummy的。然后不断把last的后面的结点插入到dummy后面。
+
+后面一种做法有个p, q。然后就是不断把p后面的结点插入到q后面。
+这两个区别。上面的last结点是最后一个，后面的往前面的插入。
+第二种q是reverse之后的第一个，也就是原始的末尾。是把前面的插入到最后一个的后面
+/*
 http://www.cnblogs.com/lichen782/p/leetcode_Reverse_Nodes_in_kGroup.html
 首先，搞清楚怎么逆转一个单链表。其实O(n)就可以了。第一个肯定是last one。
 然后我们每遍历到一个node，就把它放到最链表的首位，最后一个么，最后就成为第一个了。下面是一个简单逆转链表的程序。
@@ -166,6 +173,37 @@ public class Solution {
 }
 
 
+//my solution
+public class Solution {
+    public ListNode reverseKGroup(ListNode head, int k) {
+        ListNode dummy = new ListNode(-1);
+        dummy.next = head;
+        head = dummy;
+        ListNode p = head;
+        ListNode q = head.next;
+        while(q!= null){
+            for(int i = 0; i < k -1 && q != null; i++){
+                q = q.next;
+            }
+        
+            if(q == null) return head.next;
+            ListNode next = q.next;    
+            ListNode tmpP = p.next;
+            
+            while(p.next != q){
+                ListNode l = p.next;
+                ListNode m = q.next;
+                p.next = p.next.next;
+                q.next = l;
+                l.next = m;
+            } 
+            
+            p = tmpP;
+            q = next;
+        }
 
+        return head.next;
+    }
+}
 
 

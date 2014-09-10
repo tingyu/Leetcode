@@ -21,6 +21,9 @@ Your algorithm should use only constant space. You may not modify the values in 
  *     }
  * }
  */
+/*
+自己写的解法还是用了p, q模型。写起来略为复杂。下面的这种解法其实就是相当于把原来的linkedlist扭了一下。画下图很好理解的
+*/
 
 public class Solution{
 	public ListNode swapPairs(ListNode head){
@@ -68,4 +71,28 @@ public class Solution{
 		//return header
 		return node;
 	}
+}
+
+
+//my Solution
+public class Solution {
+    public ListNode swapPairs(ListNode head) {
+        if(head == null || head.next == null) return head;
+        ListNode dummy = new ListNode(-1);
+        dummy.next = head;
+        head = dummy;
+        ListNode p = head;
+        ListNode q = head;
+        ListNode next = null;
+        while(p.next != null && p.next.next !=null){
+            q = p.next.next;
+            next = q.next;
+            ListNode tmp = p.next;
+            p.next = q;
+            q.next = tmp;
+            tmp.next = next;
+            p = tmp;
+        }
+        return head.next;
+    }
 }

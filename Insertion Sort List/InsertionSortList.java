@@ -83,3 +83,51 @@ public class Solution {
     }
 }
 
+
+//my another solution
+public class Solution {
+    public ListNode insertionSortList(ListNode head) {
+        if(head == null || head.next == null) return head;
+        ListNode newHead = new ListNode(Integer.MIN_VALUE);
+        ListNode p = head;
+        ListNode q = newHead;
+        
+        while(p != null){
+            q = newHead;
+            ListNode next = p.next;
+            p.next = null;
+            while(q.next != null && q.next.val <= p.val){
+                q = q.next;
+            }
+            ListNode tmp = q.next;
+            q.next = p;
+            q.next.next = tmp;
+            p = next;
+        }
+        return newHead.next;
+    }
+}
+
+public class Solution {
+    public ListNode insertionSortList(ListNode head) {
+        if(head == null || head.next == null) return head;
+        ListNode newHead = new ListNode(Integer.MIN_VALUE);
+        ListNode p = head;
+        ListNode q = newHead;
+        
+        while(p != null){
+            q = newHead;
+            ListNode next = p.next;
+            p.next = null;
+            while(q.next != null && q.next.val <= p.val){
+                q = q.next;
+            }
+            ListNode tmp = q.next;
+            q.next = p;
+            q.next.next = tmp;
+            p = next;
+        }
+        return newHead.next;
+    }
+}
+

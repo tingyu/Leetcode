@@ -12,7 +12,75 @@ thoughts:
 然后recurse调用这个sortList，这样就把left和right的list都sort了。
 然后把这个问题转化成了merge two sorted linked list
 */
-
+//my solution
+/*
+自己写的时候思路是对的。
+不过有两点比较需要注意：
+1. 注意需要返回head1, head2。写的时候出错是这一点错了
+        head1 = sortList(head1);
+        head2 = sortList(head2);
+2. 如果用到了while(fast.next != null && fast.next.next !=null){
+注意一定要在开始进行判断
+        if(head == null || head.next == null)
+            return head;
+因为如果Head是空的时候while循环本身就错了
+*/
+public class Solution {
+    public ListNode sortList(ListNode head) {
+        if(head == null || head.next == null) return head;
+        ListNode fast = head;
+        ListNode slow = head;
+        
+        while(fast.next != null && fast.next.next != null){
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        
+        ListNode head1 = head;
+        ListNode head2 = slow.next;
+        slow.next = null;
+        
+        head1 = sortList(head1);
+        head2 = sortList(head2);
+        
+        ListNode newHead = new ListNode(-1);
+        ListNode p = newHead;
+        ListNode p1 = head1;
+        ListNode p2 = head2;
+        
+        while(p1 != null && p2 != null){
+            if(p1.val <= p2.val){
+                ListNode tmp1 = p1.next;
+                p.next = p1;
+                p1 = tmp1;
+            }else{
+                ListNode tmp2 = p2.next;
+                p.next = p2;
+                p2 = tmp2;
+            }
+            p = p.next;
+        }
+        
+        if(p1 != null){
+            p.next = p1;
+        }
+        if(p2 != null){
+            p.next = p2;
+        }
+        return newHead.next;
+    }
+}
+/*
+这里没有必要记录next结点
+下面写法也是对的
+            if(p1.val <= p2.val){
+                p.next = p1;
+                p1 = p1.next;
+            }else{
+                p.next = p2;
+                p2 = p2.next;
+            }
+           */
 /**
  * Definition for singly-linked list.
  * class ListNode {
