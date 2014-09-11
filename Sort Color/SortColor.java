@@ -37,6 +37,35 @@ public class Solution {
     }
 }
 
+//one pass solution
+//using counting sort, like find misssing positive
+public class Solution {
+    public void sortColors(int[] A) {
+        if(A.length == 0 || A.length == 1) return;
+        int low = 0;
+        int high = A.length - 1;
+        int i = 0;
+        while(i <= high){
+            if(A[i] == 0){
+                swap(A, i, low);
+                low++;
+                i++;
+            }else if(A[i] == 2){
+                swap(A, i, high);
+                high--;
+            }else{
+                i++;
+            }
+        }
+    }
+    
+    public void swap(int[] A, int a, int b){
+        int tmp = A[a];
+        A[a] = A[b];
+        A[b] = tmp;
+    }
+}
+
 /**
 已经有点浆糊了，其实很简单，用i记录0应该放的位置，j记录2应该放的位置。
 cur从0到j扫描，

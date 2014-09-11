@@ -78,3 +78,10 @@ public class Solution {
     	}
     }
 }
+
+/*
+如果不加public 而是直接就会报错int compare(ListNode n1, ListNode n2){
+Submission Result: Compile Error
+
+Line 37: error: compare(ListNode,ListNode) in Solution.NodeComparator cannot implement compare(T,T) in Comparator
+*/
