@@ -37,7 +37,7 @@ public class Solution {
     }
 }
 
-//one pass solution
+//my one pass solution
 //using counting sort, like find misssing positive
 public class Solution {
     public void sortColors(int[] A) {
@@ -50,6 +50,37 @@ public class Solution {
                 swap(A, i, low);
                 low++;
                 i++;
+            }else if(A[i] == 2){
+                swap(A, i, high);
+                high--;
+            }else{
+                i++;
+            }
+        }
+    }
+    
+    public void swap(int[] A, int a, int b){
+        int tmp = A[a];
+        A[a] = A[b];
+        A[b] = tmp;
+    }
+}
+
+//稍微优化了下，在i <= low的时候不用swap这样更直观好懂
+public class Solution {
+    public void sortColors(int[] A) {
+        if(A.length == 0 || A.length == 1) return;
+        int low = 0;
+        int high = A.length - 1;
+        int i = 0;
+        while(i <= high){
+            if(A[i] == 0){
+                if(i > low){
+                    swap(A, i, low++);
+                }else{
+                    low++;
+                    i++;
+                }
             }else if(A[i] == 2){
                 swap(A, i, high);
                 high--;
@@ -85,7 +116,7 @@ cur从0到j扫描，
 2.A[i]==2时，将A[i]与A[blueIdx]交换，blueIdx--，
 
 3.A[i]==1时，i++
-复制代码
+
 
 //自己写的时候一直忽视了对i > redIdx和 i< blueIdx这里面两个sub情况的讨论。然后总是写的出错。
 //注意里面还是要分情况讨论的。在A[i] == 0的时候，要注意这时候if(i > redIdx)只有这种情况需要交换，然后只增加redIdx，不增加i.

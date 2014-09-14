@@ -65,6 +65,7 @@ http://blog.csdn.net/kenden23/article/details/17099987
  	}
 
  	for(int i = 0; i < A.length; i++){
+        //注意交换条件：1.A[i]要不大于A.length，不然会越界 2，A[i] > 0同理 3.A[A[i] - 1] != A[i]不然会死循环
  		if(A[i] <= A.length && A[i] > 0 && A[A[i] - 1] != A[i]){
  			int temp = A[A[i] - 1];
  			A[A[i] - 1] = A[i];
@@ -73,4 +74,53 @@ http://blog.csdn.net/kenden23/article/details/17099987
  		}
  	}
  	
+    for(int i = 0; i < A.length; i++){
+        if(A[i] != i+1){
+            return i+1;
+        }
+    }
+
+    return A.length + 1;
  }
+
+
+ /*
+ 实现中还需要注意一个细节，就是如果当前的数字所对应的下标已经是对应数字了，那么我们也需要跳过，
+ 因为那个位置的数字已经满足要求了，否则会出现一直来回交换的死循环。这样一来我们只需要扫描数组两遍，时间复杂度是O(2*n)=O(n)，
+ 而且利用数组本身空间，只需要一个额外变量，所以空间复杂度是O(1)。
+这道题个人还是比较喜欢的，既有一点算法思想，在实现中又有一些注意细节，而且整体来说模型比较简单，很适合在面试中出现。
+*/
+
+//my solution
+//代码有些乱七八糟的，还改了半天才对。还是有些边界条件没考虑好
+public class Solution {
+    public int firstMissingPositive(int[] A) {
+        int i = 0;
+        int right = A.length-1;
+        while(i <= right){
+            if(A[i] > 0 && A[i] <= A.length){
+                if(A[i]-1 != i && A[A[i] -1] != A[i]){
+                    swap(A, i, A[i]-1);   
+                }else{
+                    i++;   
+                }
+            }else{
+                swap(A, i, right);
+                right--;
+            }
+        }
+        
+        for(i = 0; i < A.length; i++){
+            if(A[i] -1 != i){
+                return i+1;
+            }
+        }
+        return A.length +1;
+    }
+    
+    private void swap(int[] A, int a, int b){
+        int tmp = A[a];
+        A[a] = A[b];
+        A[b] = tmp;
+    }
+}
