@@ -14,6 +14,40 @@ Here are few examples.
 
 */
 
+//my solution
+/*
+自己写写分析，你会发现如果找不到的话返回left，却正好是所需要的
+比如[1,3,5,6], 5 → 2， 后来left = 0, right = 1, mid = 0, 此时2比A[mid]要大，
+left = mid +1 = 1，此时却不满足left <= right的条件，所以直接返回left
+比如[1,3,5,6], 0 → 0，后来left = 0, right = 1, mid = 0, 此时0比A[mid]要小，
+right = mid -1 = 0，然后left = 0 = right , mid = 0, 此时0 还是比A[mid]要小，继续减少
+right = -1, 此时却不满足left <= right的条件，所以直接返回left
+
+int mid = left + (right - left)/2;这样写会比int mid =(start + end)/2;要好，因为后者在数据量太大的时候可能会造成stackoverflow
+*/
+public class Solution {
+    public int searchInsert(int[] A, int target) {
+        int left = 0; 
+        int right = A.length -1;
+        while(left <= right){
+            int mid = left + (right - left)/2;
+            if(A[mid] == target) return mid;
+            else if(A[mid] < target) left = mid +1;
+            else right = mid -1;
+        }
+        return left;
+    }
+}
+
+/*
+需要注意的是while(left <= right){，而不是while(left < right)这样会出错
+Submission Result: Wrong Answer
+
+Input:  [1], 2
+Output: 0
+Expected:   1
+
+*/
 
 /*Solution 1
 

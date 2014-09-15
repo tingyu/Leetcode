@@ -56,7 +56,7 @@ public class Solution {
 			int left = numTrees(i-1);
 			int right = numTrees(n - i);
 			res += left*right;
-		}
+		}c
 		return res;
 	}
 }
@@ -77,6 +77,7 @@ public class Solution {
 }
 
 
+//这个解法是错的。知道上面两个就差不多了
 public class Solution {
 	public int numTrees(int n) {
 		int[] dp = new int[n + 1];

@@ -7,6 +7,31 @@ The brackets must close in the correct order, "()" and "()[]{}" are all valid bu
 
 */
 
+//my solution
+public class Solution {
+    public boolean isValid(String s) {
+        if(s == null || s.length() == 0) return false;
+        Stack<Character> stack = new Stack<Character>();
+        
+        for(int i = 0; i < s.length(); i++){
+            char c = s.charAt(i);
+            if(c == '(' || c == '{' || c == '['){
+                switch(c){
+                    case '(': stack.push(')'); break;
+                    case '{': stack.push('}'); break;
+                    case '[': stack.push(']'); break;                    
+                }
+            }else{
+                if(stack.isEmpty()) return false;
+                char tmp = stack.pop();
+                if(tmp != c) return false;
+            }
+        }
+        if(!stack.isEmpty()) return false;
+        return true;
+    }
+}
+
 /*
 Thoughts about This Problem
 

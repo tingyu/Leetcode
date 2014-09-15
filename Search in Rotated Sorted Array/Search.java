@@ -51,3 +51,36 @@ public class Solution{
 		return -1;
 	}
 }
+
+
+//my Solution
+public class Solution {
+    public int search(int[] A, int target) {
+        int left = 0;
+        int right = A.length - 1;
+        while(left <= right){
+            int mid = left + (right - left)/2;
+            if(A[mid] == target) return mid;
+            
+            if(A[mid] < A[right]){
+                if(target > A[mid] && target <= A[right]) left = mid + 1;
+                else right = mid - 1;
+            }else{
+                if(target < A[mid] && target >= A[left]) right = mid - 1;
+                else left = mid +1;
+            }
+        }
+        return -1;
+    }
+}
+
+
+/*
+如果把target <= A[right]改成target < A[right]
+把target >= A[left]改成target > A[left]
+Submission Result: Wrong Answer
+
+Input:	[1,3], 3
+Output:	-1
+Expected:
+*/
