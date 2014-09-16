@@ -18,6 +18,21 @@ Note:
 */
 
 /*
+summary:
+The solution set must not contain duplicate triplets.
+这题首先想到的是naive的解法，但是这种肯定是不可行的。
+最优解是O(n^2)的，先遍历这个数组，通过固定一个i的值，然后来求j, k。固定了i
+之后就得到了negate，就把三个数的和为0转化为了求两个数的和是一个固定值negate.
+为了保证输出是递增的顺序，同时为了后面的好操作，首先把原来数组sort一下。
+在求另外两个值的时候，用到了双指针的解法，一个从i+1开始，一个从最后开始向
+中间找，看着很像binary search，但是又不一样。
+里面一定要注意很tricky的地方是不能包含重复的，但是数组中有重复的。这两个重复
+的概念不同，前面的是res中不能重复。
+上面的去除duplicates的操作是分别针对i, j, k的。就是对于i 或者 j, 或者k， 考虑其中
+一种的时候不能要重复的。
+*/
+
+/*
 1. Naive Solution
 
 Naive solution is 3 loops, and this gives time complexity O(n^3). Apparently this is not an acceptable solution, 
@@ -94,7 +109,7 @@ public ArrayList<ArrayList<Integer>> threeSum(int[] num) {
 	if(num.length < 3) return result;
 
 	//sort array
-	Arrays.sort(num);
+	Arrays.sort(num);//tricky，只有sort了才可以进行下面的操作
 
 	for(int i = 0; i < num.length -2; i++){
 		//avoid duplicate solution
@@ -109,7 +124,7 @@ public ArrayList<ArrayList<Integer>> threeSum(int[] num) {
 				if(num[start] + num[end] == negate){
 					ArrayList<Integer> tmp = new ArrayList<Integer>();
 					tmp.add(num[i]);
-					tmp.add(num[start]);
+					tmp.add(s[start]);
 					tmp.add(num[end]);
 
 					result.add(tmp);
@@ -133,3 +148,8 @@ public ArrayList<ArrayList<Integer>> threeSum(int[] num) {
 		return result;		
 	}
 }
+
+/*
+上面的去除duplicates的操作是分别针对i, j, k的。就是对于i 或者 j, 或者k， 考虑其中一种的时候不能要重复的。
+如果画个斜线图可以很好的看出来，如果有duplicate那么就是横线了，横线的话移动i或者start或者end就没有意义，因为改变不了什么
+*/

@@ -12,6 +12,16 @@ Output: index1=1, index2=2
 */
 
 /*
+这题有三种思路，面试中可以接受的时后面两种思路
+1，直观的想的话，就是双重循环，但是一般而言这种思路太直观了，面试中不会是面试官想要的. O(n^2)的解法
+2. O(nlogn)的解法，先复制这个数组，然后对复制后的数组排序，再通过binary search找到两个相应的index, 再得到对应的数字。
+然后在原来的数组中找到这个两个数字对应的index，输出。
+注意这里binary search的写法比较tricky，也比较新颖，自己不熟练，一定要学着用
+还有保证index1, 2顺序的写法，也很好
+3. O(n)的解法。 利用HashMap来存储target的值，时间复杂度依赖于HashMap的get和put操作，都是O(1)
+*/
+
+/*
 http://www.programcreek.com/2012/12/leetcode-solution-of-two-sum-in-java/
 Naive Approach
 
@@ -58,7 +68,7 @@ public class Solution {
         //find the two numbers using the sorted arrays
         int first = 0;
         int second = sorted.length - 1;
-        while(first < second){
+        while(first < second){//tricky
         	if(sorted[first] + sorted[second] < target){
         		first++;
         		continue;
@@ -74,16 +84,16 @@ public class Solution {
         //Find the two indexes in the original array
         int index1 = -1, index2 = -1;
         for(int i = 0; i < N; i++){
-        	if((numbers[i] == number1) || (numbers[i] == number2)){
-        		 if(index1 == -1)
-        			 index1 = i + 1;
+        	if((numbers[i] == number1) || (numbers[i] == number2)){//tricky
+        		 if(index1 == -1)//tricky
+        			 index1 = i + 1;//tricky
         		 else
         			 index2 = i + 1;
         	}
         		
         }
         int [] result = new int[]{index1, index2};
-        Arrays.sort(result);
+        //Arrays.sort(result);//前面index1, 2的写法已经保证了顺序，这里其实不需要
 		return result;
     }
 

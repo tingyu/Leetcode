@@ -19,6 +19,12 @@ The solution set must not contain duplicate quadruplets.
 Thoughts
 
 A typical k-sum problem. Time is N to the poser of (k-1).
+
+经典的K-SUM问题，解题思路除了2Sum利用hashMap降维之外，其他的都用了先sort,
+再左右指针往中间移动的方法。
+比如3SUM就是一个for循环，4Sum就是两个for循环
+这里用到了HashSet来判断有没有重复的
+注意在相等情形之后还是要向中间移动指针，如果忽略了这么一点，就会造成死循环
 */
 
 public ArrayList<ArrayList<Integer>> fourSum(int[] num, int target) {
