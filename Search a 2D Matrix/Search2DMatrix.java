@@ -20,6 +20,10 @@ Consider the following matrix:
 
 Given target = 3, return true.
 */
+/*
+binary search还是iterative的好，因为递归是有space开销的
+ me:  stack多出logn空间？对。 binary search，左右各一半所以是logn
+ */
 //my solution
 //1把二维数组展开称为一维数组，然后用二分查找
 public class Solution {
@@ -106,6 +110,25 @@ public class Solution {
                 end = mid -1;
             }
         }
+        return false;
+    }
+}
+
+//my solution
+public class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int left = 0;
+        int right = m*n - 1;
+        
+        while(left <= right){
+            int mid = left + (right - left)/2;
+            if(matrix[mid/n][mid%n] == target) return true;
+            else if(matrix[mid/n][mid%n] > target) right = mid - 1;
+            else left = mid + 1;
+        }
+        
         return false;
     }
 }

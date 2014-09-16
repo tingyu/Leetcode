@@ -36,6 +36,8 @@ With hashMap,do first while loop,  we copy every node in given list and keep the
  *     RandomListNode(int x) { this.label = x; }
  * };
  */
+
+
 public class Solution {
     public RandomListNode copyRandomList(RandomListNode head) {
         if(head == null) return null;
@@ -76,6 +78,7 @@ public class Solution {
 }
 
 //4. Correct Solution Using HashMap
+//弄一个hashmap把原来的和copy的都对应起来。分两次遍历，一次是处理next,一次是处理random
 
 public class Solution {
     public RandomListNode copyRandomList(RandomListNode head) {
@@ -100,7 +103,7 @@ public class Solution {
  		q = newHead;
  		while(p != null) {
  			if(p.random != null){
- 				q.random = map.get(p.random);
+ 				q.random = map.get(p.random);//tricky!!
  			}else{
  				q.random = null;
  			}
@@ -108,5 +111,54 @@ public class Solution {
  			q = q.next;
  		}     
  		return newHead;  
+    }
+}
+
+//my solution
+//直接遍历两遍，一遍copy next, 一遍copy random。
+//原来写的时候一直错了，其实是因为这一句if(head == null || head.next == null)  return head;
+/*
+Submission Result: Wrong Answer
+
+Input:  {-1,#}
+Output: Node with label -1 was not copied but a reference to the original one.
+Expected:   {-1,#}
+
+但是这个代码有点作弊啊， 强制new了一个random的指针
+但是事实上这个random的node之前第一遍pass的时候就已经创建了
+
+对吧，这样能过OJ，但是面试的时候别人会指出来的
+ me:  所以这样还是不对。看来怎么样都要原来的和copy的一一对应起来，这样才可以在copy的里面找random?
+
+所以就是在原来每一个节点之后new一个新的，然后复制random指针到原来的node的之后一个就可以了
+me:  好吧，原来hashmap和insert什么都是干这个用的
+是的
+ me:  那这种解法没法改了。一定要hashmap或者insert再分开这么做才可以了？
+*/
+
+public class Solution {
+    public RandomListNode copyRandomList(RandomListNode head) {
+        if(head == null) return head;
+        RandomListNode newHead = new RandomListNode(head.label);
+        RandomListNode p = head;
+        RandomListNode q = newHead;
+        
+        while(p.next != null){
+            q.next = new RandomListNode(p.next.label); 
+            p = p.next;
+            q = q.next;
+        }
+        
+        q = newHead;
+        p = head;
+        while(p != null){
+            if(p.random != null){
+                q.random = new RandomListNode(p.random.label);    
+            }
+            p = p.next;
+            q = q.next;
+        }
+        
+        return newHead;
     }
 }
