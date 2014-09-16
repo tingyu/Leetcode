@@ -13,6 +13,35 @@ return [3, 4].
 
 */
 
+//my solution
+public class Solution {
+    public int[] searchRange(int[] A, int target) {
+        int[] res = {-1, -1};
+        int left = 0;
+        int right = A.length - 1;
+        int index = 0;
+        
+        while(left <= right){
+            int mid = left + (right - left)/2;
+            if(A[mid] == target){
+                index = mid;
+                break;
+            }
+            else if(A[mid] < target) left = mid + 1;
+            else right = mid - 1;
+        }
+        
+        if(A[index] == target){
+            int i = index - 1, j = index + 1;
+            while(i >=0 && A[i] == target) i--;
+            while(j < A.length && A[j] == target) j++;
+            res[0] = i+1;
+            res[1] = j-1;
+        }
+        return res;
+    }
+}
+
 //my solution:
 public class Solution { 
     public int[] searchRange(int[] A, int target) { 
