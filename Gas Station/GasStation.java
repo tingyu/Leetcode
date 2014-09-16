@@ -60,7 +60,7 @@ public class Solution {
 
 		for(int i = 0; i < gas.length; i++){
 			sum += gas[i] - cost[i];
-			total += sum;
+			total += sum;//这里错了吧， 应该是total += gas[i] - cost[i];
 
 			if(sum < 0){
 				start = i + 1;

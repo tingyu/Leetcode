@@ -27,6 +27,36 @@ http://blog.csdn.net/wzy_1988/article/details/17057929
 
 w
 */
+
+//my solution
+public class Solution {
+    public int romanToInt(String s) {
+        HashMap<Character, Integer> map = new HashMap<Character, Integer>();
+        map.put('M', 1000);
+        map.put('D', 500);
+        map.put('C', 100);
+        map.put('L', 50);
+        map.put('X', 10);
+        map.put('V', 5);
+        map.put('I', 1);
+        
+        char[] c = s.toCharArray();
+        int total = map.get(c[0]);
+        int pre, cur;
+        for(int i = 1; i < c.length; i++){
+            pre = map.get(c[i -1]);
+            cur = map.get(c[i]);
+            
+            if(cur <= pre){
+                total += cur;
+            }else{
+                total = total - pre*2 + cur;
+            }
+        }
+        return total;
+    }
+}
+
 import java.util.Scanner;
 
 public class Solution {

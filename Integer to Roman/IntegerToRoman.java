@@ -5,6 +5,11 @@ Given an integer, convert it to a roman numeral.
 Input is guaranteed to be within the range from 1 to 3999.
 */
 
+/*
+两种思路，一个是将相应的数字放到String数组中，然后通过计算num得到相应的数组的Index，最后合并为output
+另一个是使用hashmap。只记录这些值，rivate static int[] bases = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+剩下的通过加减乘除来计算
+*/
 // A very intuitive way to solve the problem
 public class Solution{
 	public String intToRoman(int num) {
@@ -27,6 +32,14 @@ public class Solution{
 		return result.toString();
  	}
 }
+
+/*
+或者下面这样写也是可以的
+        res.append(thousands[num/1000]);
+        res.append(hundreds[(num%1000)/100]);
+        res.append(tens[(num%100)/10]);
+        res.append(digits[(num%10)]);
+        */
 
 
 //you need to think more about this way 
