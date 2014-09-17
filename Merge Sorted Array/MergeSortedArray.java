@@ -39,3 +39,33 @@ public class Solution {
         }
     }
 }
+
+
+//为什么我这样写就错了？
+public class Solution {
+    public void merge(int A[], int m, int B[], int n) {
+        if(A == null || A.length == 0 || B == null || B.length == 0) return;
+        int k = m + n - 1;
+        int i = m - 1;
+        int j = n - 1;
+        while(k >= 0){
+            if(i < 0){
+                A[k] = B[j];
+                j--;
+            }
+            
+            if(j < 0){
+                A[k] = A[i];
+                i--;
+            }
+            if(A[i] >= B[j]){
+                A[k] = A[i];
+                i--;
+            }else{
+                A[k] = B[j];
+                j--;
+            }
+            k--;
+        }
+    }
+}

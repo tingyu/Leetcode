@@ -31,7 +31,7 @@ public class Solution {
         int area = 0;
         int sum = 0;
         
-        while(left < A.length && A[left] == 0){
+        while(left < A.length && A[left] == 0){//这个其实没必要，因为下面for循环中已经处理了这种情况
             left++;
         }
         for(int i = left + 1; i <= right; i++){

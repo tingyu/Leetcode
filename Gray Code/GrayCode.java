@@ -46,6 +46,13 @@ are the same as the the numbers in case n=4.
 Besides, [6,7,5,4] = [2+4,3+4,1+4,0+4].  Which means remaining numbers in case n=3 can also be calculated 
 from the numbers in case n=4 in reversing order.  
 Therefore, we decided to use recursive approach to form the resulting ArrayList.
+
+        
+        res.addAll(preRes);等价于下面的
+        for(int p: preRes){
+            res.add(p);
+        }
+        注意下面代码。Math.pow输出的是double，所以一定要强制转换成int
 */
 
 public class Solution {

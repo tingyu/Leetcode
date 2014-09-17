@@ -110,3 +110,28 @@ public class Solution {
 }
 //for(int e: set){开始写成这样会报错。不要一边遍历，一边在set里面删除东西
 //java.util.ConcurrentModificationException
+
+
+//my solution, why it is wrong
+public class Solution {
+    public int longestConsecutive(int[] num) {
+        HashSet<Integer> set = new HashSet<Integer>();
+        for(int i = 0; i < num.length; i++){
+            set.add(num[i]);
+        }
+        
+        int max = 0;
+        for(int i = 0; i < num.length; i++){
+            int less = num[i];
+            int more = num[i];
+            while(set.contains(less - 1)){
+                less--;
+            }
+            while(set.contains(more + 1)){
+                more++;
+            }
+            max = Math.max(max, more - less + 1);
+        }
+        return max;
+    }
+}
