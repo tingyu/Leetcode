@@ -41,6 +41,8 @@ public class Solution {
     }
 }
 
+
+
 //同样的思路，代码反而比Queen I 要简单，记得把res声明在totalNQueens外面
 
 public class Solution {

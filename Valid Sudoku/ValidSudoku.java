@@ -173,3 +173,46 @@ public class Solution {
  		return true;
     }
 }
+
+//my another Solution
+public class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        //check row
+        for(int i = 0; i < board.length; i++){
+            HashSet<Character> set = new HashSet<Character>();
+            for(int j = 0; j < board[i].length; j++){
+                if(board[i][j] >= '1' && board[i][j] <= '9'){
+                    if(set.add(board[i][j])) continue;
+                    else return false;
+                }
+            }
+        }
+        
+        //check col
+        for(int j = 0; j < board[0].length; j++){
+            HashSet<Character> set = new HashSet<Character>();
+            for(int i = 0; i < board.length; i++){
+                if(board[i][j] >= '1' && board[i][j] <= '9'){
+                    if(set.add(board[i][j])) continue;
+                    else return false;
+                }
+            }
+        }
+        
+        //check 3*3
+        for(int i = 0; i < board.length; i += 3){
+            for(int j = 0; j < board[0].length; j += 3){
+                HashSet<Character> set = new HashSet<Character>();
+                for(int k = i; k < i + 3; k++){
+                    for(int l = j; l < j + 3; l++){
+                        if(board[k][l] >= '1' && board[k][l] <= '9'){
+                            if(set.add(board[k][l])) continue;
+                            else return false;
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
+}

@@ -26,6 +26,8 @@ The first character in the first period is s[i] , where i is the row index.
 Except for the top and the bottom rows, there is (possibly) a second character in each period 
 that is period−2∗i apart from the first one. With this pattern, we can work top-down and pick up 
 characters at certain indices to make up the converted string. 
+
+一定要注意if(nRows == 1) return s; 的判断，不然后面的size可能会<0，从而造成死循环
 */
 
 

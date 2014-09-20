@@ -14,6 +14,28 @@ Return
  [1,4,6,4,1]
 ]
 */
+//my new solution
+public class Solution {
+    public ArrayList<ArrayList<Integer>> generate(int numRows) {
+        ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+        
+        for(int i = 0; i < numRows; i++){
+            ArrayList<Integer> tmp = new ArrayList<Integer>();
+            tmp.add(1);
+            if(i > 1){
+                for(int j = 1; j < res.get(i-1).size(); j++){
+                    tmp.add(res.get(i-1).get(j-1) + res.get(i-1).get(j));
+                }
+            }
+            if(i > 0){
+                tmp.add(1);
+            }
+            res.add(tmp);
+        }
+        return res;
+    }
+}
+
 //my solution:
 public class Solution {
     public ArrayList<ArrayList<Integer>> generate(int numRows) {

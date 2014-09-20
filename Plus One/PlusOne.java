@@ -33,6 +33,32 @@ public class Solution {
     }
 }
 
+//my solution
+public class Solution {
+    public int[] plusOne(int[] digits) {
+        int carry = 1;
+        for(int i = digits.length -1; i >= 0; i--){
+            digits[i] = digits[i] + carry;
+            if(digits[i] < 10){
+                carry = 0;
+                continue;
+            }else{
+                carry = digits[i]/10;
+                digits[i] = digits[i]%10;                
+            }
+        }
+        
+        if(carry == 1){
+            int[] res = new int[digits.length + 1];
+            res[0] = carry;
+            for(int i = 1; i < res.length; i++){
+                res[i] = digits[i -1];
+            }
+            return res;
+        }
+        return digits;
+    }
+}
 
 //my Solution
 //我的解法是分情况讨论的，当digits[i] < 9，carry =0，此时具体的分两种情况，最后一位的话digits[i] += 1;其他位的话digits[i] += carry;
