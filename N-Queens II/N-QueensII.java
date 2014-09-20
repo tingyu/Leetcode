@@ -41,7 +41,38 @@ public class Solution {
     }
 }
 
-
+//my another solution
+public class Solution {
+    public int totalNQueens(int n) {
+        int[] res = new int[1];
+        int[] position = new int[n];
+        dfs(n, position, 0, res);
+        return res[0];
+    }
+    
+    private void dfs(int n, int[] position, int row, int[] res){
+        if(row == n){
+            res[0]++;
+            return;
+        }
+        
+        for(int j = 0; j < n; j++){
+            position[row] = j;
+            if(isValid(position, row)){
+                dfs(n, position, row + 1, res);
+            }
+        }
+    }
+    
+    private boolean isValid(int[] position, int row){
+        for(int i = 0; i < row; i++){
+            if(position[i] == position[row] || Math.abs(position[row] - position[i]) == (row - i)){
+                return false;
+            }
+        }
+        return true;
+    }
+}
 
 //同样的思路，代码反而比Queen I 要简单，记得把res声明在totalNQueens外面
 
