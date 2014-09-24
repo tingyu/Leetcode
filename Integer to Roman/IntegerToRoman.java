@@ -8,7 +8,7 @@ Input is guaranteed to be within the range from 1 to 3999.
 /*
 两种思路，一个是将相应的数字放到String数组中，然后通过计算num得到相应的数组的Index，最后合并为output
 另一个是使用hashmap。只记录这些值，rivate static int[] bases = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
-剩下的通过加减乘除来计算
+剩下的通过加减乘除来计算.第二种方法很巧妙，自己不是很熟悉。多练习
 */
 // A very intuitive way to solve the problem
 public class Solution{

@@ -55,7 +55,44 @@ public class Solution {
 }
 
 
+//CC150 上有这道题的另外一种解法。前面的解法因为isBalanced和height()都要对同一个subtree做recursion，所以重复了，其实可以在求
+//height的时候一起做，如果不是balanced的话返回-1，否则就返回正常的高度。
+//这样做下来
+//This code runs in 0(N) time and 0(H) space, where H is the height of the tree.
 
+public class Solution {
+    private int checkHeight(TreeNode root){
+        if(root == null) return 0;
+        
+        //check left height
+        int leftHeight = checkHeight(root.left);
+        if(leftHeight == -1){ //Not balanced
+            return -1;
+        }
+        
+        //check right height
+        int rightHeight = checkHeight(root.right);
+        if(rightHeight == -1){ //Not Balanced 
+            return -1;
+        }
+        
+        int heightDiff = leftHeight - rightHeight;
+        if(Math.abs(heightDiff) > 1){
+            return -1;
+        }
+        
+        return Math.max(leftHeight, rightHeight) + 1;
+    }
+    public boolean isBalanced(TreeNode root) {
+        if(checkHeight(root) == -1){
+            return false;
+        }else{
+            return true;
+        }
+    } 
+}
+
+//可以更为简化下代码，如下
  public class Solution{
  	public boolean isBalanced(TreeNode root) {
  		if(root == null)

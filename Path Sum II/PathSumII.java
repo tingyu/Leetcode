@@ -44,6 +44,9 @@ public class Solution {
         tmp.remove(tmp.size() -1);
     }
 }
+
+
+
 /*
 上面的解法，把最后部分改成
         if(node.left != null){
@@ -66,6 +69,54 @@ public class Solution {
         tmp.remove(tmp.size() -1);
 也是对的
 */
+
+//my another solution
+public class Solution {
+    public ArrayList<ArrayList<Integer>> pathSum(TreeNode root, int sum) {
+        ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+        if(root == null) return res;
+        ArrayList<Integer> tmp = new ArrayList<Integer>();
+        helper(root, sum, res, tmp);
+        return res;
+    }
+    
+    private void helper(TreeNode node, int sum, ArrayList<ArrayList<Integer>> res, ArrayList<Integer> tmp){
+        if(node == null) return;
+        tmp.add(node.val);
+        
+        if(node.left == null && node.right == null){
+            int tmpSum = 0;
+            for(int a: tmp){
+                tmpSum += a;
+            }
+            if(tmpSum == sum){
+                res.add(new ArrayList<Integer>(tmp));
+            }
+        }
+        
+        helper(node.left, sum, res, tmp);
+        helper(node.right, sum, res, tmp);
+        tmp.remove(tmp.size() - 1);
+    }
+}
+/*
+if we         //tmp.remove(tmp.size() - 1);
+Submission Result: Wrong Answer
+
+Input:  {0,1,1}, 1
+Output: [[0,1]]
+Expected:   [[0,1],[0,1]]
+
+if we                 //res.add(new ArrayList<Integer>(tmp));
+                res.add(tmp);
+Submission Result: Wrong Answer
+
+Input:  {1}, 1
+Output: [[]]
+Expected:   [[1]]
+
+*/
+
 /*
 Solution:  DFS
 

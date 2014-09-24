@@ -22,6 +22,21 @@ return its level order traversal as:
 
 confused what "{1,#,2,3}" means? > read more on how binary tree is serialized on OJ.
 */
+/*
+1，recursion的level order的解法，注意需要一个depth和在recursion函数类声明的
+arraylist。然后注意递归返回的base case:if(node == null) return;
+2. iterative的level order的解法，用的是BFS，两个Queue，一个存TreeNode，一个
+存depth。
+如果把depth root定义为1，
+            if(res.size() <= depth) res.add(tmp);
+            else tmp = res.get(depth);
+如果把depth root定义为0
+如果把depth root定义为1，
+            if(res.size() < depth) res.add(tmp);
+            else tmp = res.get(depth -1);
+不过感觉还是写1更好
+3. 一个Queue的解法，用一个leftCount记录下每一层的剩下的数目 
+*/
 
 /**
  * Definition for binary tree
@@ -56,7 +71,42 @@ public class Solution {
     }
 }
 
-//use queue
+//my queue solution
+public class Solution {
+    public ArrayList<ArrayList<Integer>> levelOrder(TreeNode root) {
+        ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+        if(root == null) return res;
+        
+        Queue<TreeNode> queue = new LinkedList<TreeNode>();
+        Queue<Integer> depthQ = new LinkedList<Integer>();
+        queue.add(root);
+        depthQ.add(1);
+        
+
+        while(!queue.isEmpty()){
+            TreeNode node = queue.poll();
+            int depth = depthQ.poll();
+            ArrayList<Integer> tmp = new ArrayList<Integer>();
+            if(res.size() < depth) res.add(tmp);
+            else tmp = res.get(depth - 1);
+            
+            tmp.add(node.val);
+            
+            if(node.left != null){
+                queue.add(node.left);
+                depthQ.add(depth + 1);
+            }
+            
+            if(node.right != null){
+                queue.add(node.right);
+                depthQ.add(depth + 1);
+            }
+        }
+        return res;
+    }
+}
+
+//another use queue solution
 public class Solution {
     public ArrayList<ArrayList<Integer>> levelOrder(TreeNode root) {
         ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
@@ -85,6 +135,8 @@ public class Solution {
 
 //Line 15: error: Queue is abstract; cannot be instantiated
 //这里使用queue.offer(root);和add都是没有区别的
+//I guess the difference is in the contract, that when element can not be added to collection 
+//the add method throws an exception and offer does'nt.
 //可以先把一个空的list加到res中，然后再修改这个空的List,res中的内容会随之发生变化
 /*
 居然要层次遍历，那么我们如果一层层放入到queue中，然后取出这一层结点，并把值放入到一个ArrayList<Integer>中，

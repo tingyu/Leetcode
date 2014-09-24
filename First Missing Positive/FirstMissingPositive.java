@@ -99,7 +99,7 @@ public class Solution {
         int right = A.length-1;
         while(i <= right){
             if(A[i] > 0 && A[i] <= A.length){
-                if(A[i]-1 != i && A[A[i] -1] != A[i]){
+                if(A[i]-1 != i && A[A[i] -1]!= A[i]){
                     swap(A, i, A[i]-1);   
                 }else{
                     i++;   

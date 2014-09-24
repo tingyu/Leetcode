@@ -86,6 +86,25 @@ public class Solution {
     }
 }
 
+public class Solution {
+    public int sumNumbers(TreeNode root) {
+        int[] sum = {0};
+        helper(root, sum, 0);
+        return sum[0];
+    }
+    
+    private void helper(TreeNode node, int[] sum, int current){
+        if(node == null) return;
+        current = current*10 + node.val;
+        
+        if(node.left == null && node.right == null){
+            sum[0] += current;
+        }
+        
+        helper(node.left, sum, current);
+        helper(node.right, sum, current);
+    }
+}
 
 public class Solution {
     public int sumNumbers(TreeNode root) {
@@ -112,6 +131,40 @@ public class Solution {
         int sum = 0;
         for(String s : res){
             sum += Integer.valueOf(s);
+        }
+        return sum;
+    }
+}
+
+//一个比较麻烦，复杂度高的解法
+public class Solution {
+    public int sumNumbers(TreeNode root) {
+        ArrayList<ArrayList<Integer>> list = new ArrayList<ArrayList<Integer>>();
+        ArrayList<Integer> tmp = new ArrayList<Integer>();
+        helper(root, list, tmp);
+        return sumNumbers(list);
+    }
+    
+    private void helper(TreeNode node, ArrayList<ArrayList<Integer>> list, ArrayList<Integer> tmp){
+        if(node == null) return;
+        tmp.add(node.val);
+        if(node.left == null && node.right == null){
+            list.add(new ArrayList<Integer>(tmp));
+        }
+        
+        helper(node.left, list, tmp);
+        helper(node.right, list, tmp);
+        tmp.remove(tmp.size() -1);
+    }
+    
+    private int sumNumbers(ArrayList<ArrayList<Integer>> list){
+        int sum = 0;
+        for(ArrayList<Integer> l: list){
+            int number = 0;
+            for(int a: l){
+                number = number*10 + a;
+            }
+            sum += number;
         }
         return sum;
     }

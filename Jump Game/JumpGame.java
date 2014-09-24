@@ -21,10 +21,10 @@ public class Solution {
         int[] checker = new int[A.length];
         checker[0] = A[0];
         for(int i = 1; i < A.length; i++){
-            if(i <= checker[i-1]){
+            if(i <= checker[i-1]){//在dp[i-1]可以到达当前位置i的时候，不断更新dp[i]
                 checker[i] = Math.max(checker[i-1], i + A[i]);
-                if(checker[i] >= A.length - 1) return true;
-            }else{
+                if(checker[i] >= A.length - 1) return true;//这里面可以简化复杂度，就是加上个判断，如果对于某一个dp[i]如果到达最后一个位置
+            }else{//另外如果dp[i-1]连当前位置都到达不了，肯定到达不了后面的。所以要return false
                 return false;
             }
         }

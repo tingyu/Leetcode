@@ -76,7 +76,7 @@ public class Solution{
 		l.add(root.left);
 		r.add(root.right);
 
-		while(!l.isEmpty()&&!r.isEmpty()){
+		while(!l.isEmpty()||!r.isEmpty()){
 			TreeNode temp1 = l.poll();
 			TreeNode temp2 = r.poll();
 

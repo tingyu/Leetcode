@@ -112,7 +112,7 @@ public class Solution {
 //java.util.ConcurrentModificationException
 
 
-//my solution, why it is wrong
+//my solution, why it is wrong? TLE
 public class Solution {
     public int longestConsecutive(int[] num) {
         HashSet<Integer> set = new HashSet<Integer>();

@@ -25,7 +25,7 @@ import java.util.HashSet;
 
 public class Solution {
 	public boolean isValid(char[][] board, int a, int b){
-		boolean[] flag = new boolean[9];
+		//boolean[] flag = new boolean[9];
 
 		Set<Character> contained = new HashSet<Character>();
 		for(int j = 0; j < 9; j++){
