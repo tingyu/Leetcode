@@ -161,7 +161,7 @@ public class Solution {
                     p = p.next;
                 }
                 if(p != null){
-                    root.left.next = pleft == null? p.right: p.left;
+                    root.left.next = p.left == null? p.right: p.left;
                 }
             }
         }
@@ -181,6 +181,55 @@ public class Solution {
         //为什么这里要先right再left?????先left再right就出错、？？？
         connect(root.right);
         connect(root.left);
+    }
+}
+
+/*注意这里要先connect右边再connect左边。因为如果先connect左边，那么在找next的时候可能会由于右边还没有连上而找不到
+
+Input:  {2,1,3,0,7,9,1,2,#,1,0,#,#,8,8,#,#,#,#,7}
+Output: {2,#,1,3,#,0,7,9,1,#,2,1,0,#,7,#}
+Expected:   {2,#,1,3,#,0,7,9,1,#,2,1,0,8,8,#,7,#}
+*/
+/*
+自己想的时候分情况讨论了。
+1. left != null
+1) right != null: left.next = right
+2) rigt == null: left.next = findRightSib
+
+2. right != null: right.next = findRightSib
+对于findRightSib，首先需要一个while循环不断找当前结点的next，如果next存在，就看其左右子树。
+如果左子树存在，直接返回左子树。否则右子树。如果都不存在就找下一个next
+*/
+
+//my solution
+public class Solution {
+    public void connect(TreeLinkNode root) {
+        if(root == null || root.left == null && root.right == null) return;
+        
+        if(root.left != null){
+            if(root.right != null){
+                root.left.next = root.right;
+            }else{
+                root.left.next = findRightSib(root);
+            }
+        }
+        
+        if(root.right != null){
+            root.right.next = findRightSib(root);
+        }
+        
+        connect(root.right);
+        connect(root.left);
+
+    }
+    
+    private TreeLinkNode findRightSib(TreeLinkNode node){
+        while(node.next != null){
+            if(node.next.left != null) return node.next.left;
+            if(node.next.right != null) return node.next.right;
+            node = node.next;
+        }
+        return null;
     }
 }
 

@@ -169,3 +169,12 @@ public class Solution {
         return sum;
     }
 }
+/*
+    private int convertToSum(ArrayList<String> list){
+        int sum = 0;
+        for(String s: list){
+            sum += Integer.valueOf(s);
+        }
+        return sum;
+    }
+*/
