@@ -32,7 +32,7 @@ public class Solution {
  
 		// initialize how many zeros
 		int div = 1;
-		while (x / div >= 10) {
+		while (x / div >= 10) { // >=
 			div *= 10;
 		}
  

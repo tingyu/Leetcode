@@ -39,7 +39,7 @@ public class Solution {
 	int max; 
 	public int maxPathSum(TreeNode root) {
 		max = (root == null)? 0: root.val;
-		findMax(root);
+		findMax(root);//这里返回后不用赋值也可以
 		return max;
 	}
 
@@ -56,6 +56,16 @@ public class Solution {
 		return node.val + Math.max(left, right);
 	}
 }
+
+/*
+		int left = Math.max(findMax(node.left), 0);
+这里一定要加上和0的比较。不然会加上负的
+Submission Result: Wrong Answer
+
+Input:	{1,-2,3}
+Output:	3
+Expected:	4
+*/
 
 
 //We can also use an array to store value for recursive methods.

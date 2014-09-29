@@ -277,3 +277,33 @@ public class Solution {
 
     }
 }
+
+//another this queue. nextQ solution
+public class Solution {
+    public void connect(TreeLinkNode root) {
+        if(root == null) return;
+        Queue<TreeLinkNode> queue = new LinkedList<TreeLinkNode>();
+        queue.add(root);
+        Queue<TreeLinkNode> nextQ = new LinkedList<TreeLinkNode>();
+        TreeLinkNode last = null;
+        
+        while(!queue.isEmpty()){
+            TreeLinkNode node = queue.poll();
+            if(last != null) last.next = node;
+            last = node;
+                
+            if(node.left != null){
+                nextQ.add(node.left);
+            }
+            if(node.right != null){
+                nextQ.add(node.right);
+            }
+        
+            if(queue.isEmpty()){
+                queue = nextQ;
+                nextQ = new LinkedList<TreeLinkNode>();
+                last = null;
+            }
+        }
+    }
+}

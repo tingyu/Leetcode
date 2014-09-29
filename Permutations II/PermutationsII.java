@@ -29,7 +29,7 @@ public class Solution {
     		res.add(iterm);
     	}
 
-    	//依次比较当前的和start是否有重复的，如果重复返回false，不是重复的话才返回true
+    	//依次比较当前的和start之间的是否有重复的，如果重复返回false，不是重复的话才返回true
     	for(int j = start; j <=num.length - 1; j++){
     		if(containsDuplicate(num, start, j)){
     			swap(num, start, j); //swap
@@ -48,7 +48,7 @@ public class Solution {
     }
 
     private boolean containsDuplicate(int[] arr, int start, int end){
-    	for(int i = start; i <= end -1; i++){
+    	for(int i = start; i <= end -1; i++){  //not i <= end!!!!!!!
     		if(arr[i] == arr[end]){
     			return false;
     		}
@@ -120,6 +120,38 @@ public class PermutationsII {
                 // Get back to original state, get ready for appending another unused number
                 current.remove(current.size()-1);
                 used[i] = false;
+            }
+        }
+    }
+}
+
+public class Solution {
+    public ArrayList<ArrayList<Integer>> permuteUnique(int[] num) {
+        ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+        ArrayList<Integer> tmp = new ArrayList<Integer>();
+        boolean[] isVisited = new boolean[num.length];
+        Arrays.sort(num);
+        helper(num, res, tmp, isVisited);
+        return res;
+    }
+    
+    private void helper(int[] num, ArrayList<ArrayList<Integer>> res, ArrayList<Integer> tmp, boolean[] isVisited){
+        if(tmp.size() >= num.length){
+            res.add(new ArrayList<Integer>(tmp));
+            return;
+        }
+        
+        for(int i = 0; i < num.length; i++){
+            if(i != 0 && !isVisited[i-1] && num[i] == num[i-1]){
+                continue;
+            }else{
+                if(isVisited[i] == false){
+                    isVisited[i] = true;
+                    tmp.add(num[i]);
+                    helper(num, res, tmp, isVisited);
+                    tmp.remove(tmp.size() - 1);
+                    isVisited[i] = false;
+                }
             }
         }
     }

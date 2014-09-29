@@ -23,6 +23,13 @@ According to the rule of preorder traversal,  the first item in the preorder arr
 and the question also told us "You may assume that duplicates do not exist in the tree." 
 so we can go through inorder array find the root's position, then  we got left tree and right tree. 
 finally we can apply recursion to got the tree we want base on above logic.
+
+边界条件容易写错。一定要注意
+怎么保证一定写对？？？
+注意算长度，inorder的左右长度，左边的时index -inStart, 右边的是
+inEnd - index。这样来算preoder里面的值
+
+inorder相关的，永远都是inStart, inEnd, k+1, k-1
 */
 public class Solution {
     public TreeNode buildTree(int[] preorder, int[] inorder) {
