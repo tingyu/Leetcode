@@ -10,6 +10,7 @@ For example,
 //my solution
 //太过于经典的dfs题目。开始的想法是找个记录结点的方法，只想到了start+1什么的。结果忘了用一个visited的数组。
 //然后不断的设置visited和取消visited
+//这题的本质：graph中遍历完所有的点，可以有的所有的路径。同时也是个置换的问题
 /*
 1. Create a new array "visited[num.size()]" to keep the which element of the original 
 array has been visited, so as to ensure only the remaining elements will be processed.  
