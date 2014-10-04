@@ -56,7 +56,7 @@ public class Solution {
             }
         }
         
-        for(int j = 1; j < N-1; j++){//top, caution!!!
+        for(int j = 1; j < N-1; j++){//top, caution!!!其实如果写成[0, N]也是对的
             if(board[0][j] == 'O'){
                 queue.add(new Pair(0, j));
                 bfs(queue, board);
@@ -89,6 +89,75 @@ public class Solution {
             queue.add(new Pair(i + 1, j));
             queue.add(new Pair(i, j - 1));
             queue.add(new Pair(i, j + 1));
+        }
+    }
+}
+
+//my right solution for new Integer[]
+{
+    class Pair{
+        int i;
+        int j;
+        Pair(int i, int j){
+            this.i = i;
+            this.j = j;
+        }
+    }
+    
+    public void solve(char[][] board) {
+        if(board == null || board.length == 0) return;
+        int m = board.length - 1;
+        int n = board[0].length - 1;
+        
+        Queue<Integer[]> queue = new LinkedList<Integer[]>();
+        for(int j = 0; j <= n; j++){
+            if(board[0][j] == 'O'){
+                queue.add(new Integer[]{0, j});
+                bfs(board, queue);
+            }
+            if(board[m][j] == 'O' ){
+                queue.add(new Integer[]{m, j});
+                bfs(board, queue);
+            }
+        }
+        
+        for(int i = 0; i <= m; i++){
+            if(board[i][0] == 'O'){
+                queue.add(new Integer[]{i, 0});
+                bfs(board, queue);
+            }
+            if(board[i][n] == 'O'){
+                queue.add(new Integer[]{i, n});
+                bfs(board, queue);
+            }
+        }
+        
+        for(int i = 0; i <= m; i++){
+            for(int j = 0; j <= n; j++){
+                if(board[i][j] == '#'){
+                    board[i][j] = 'O';
+                }else{
+                    board[i][j] = 'X';
+                }
+            }
+        }
+    }
+    
+    private void bfs(char[][] board, Queue<Integer[]> queue){
+        while(!queue.isEmpty()){
+            Integer[] pair = queue.poll();
+            int i = pair[0];
+            int j = pair[1];
+            
+            if(i < 0 || i >= board.length || j < 0 || j >= board[0].length || board[i][j] != 'O'){
+                continue;
+            }
+            
+            board[i][j] = '#';
+            queue.add(new Integer[]{i - 1, j});
+            queue.add(new Integer[]{i + 1, j});
+            queue.add(new Integer[]{i, j - 1});
+            queue.add(new Integer[]{i, j + 1});
         }
     }
 }
@@ -203,4 +272,63 @@ public class Solution {
 		if(y+1<=board[0].length && board[x][y+1] == '0')
 			dfs(board, x, y+1);
 	}
+}
+
+//my dfs solution
+/*
+Submission Result: Runtime Error
+
+Runtime Error Message:  Line 46: java.lang.StackOverflowError
+Last executed input:    ["OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+*/
+public class Solution {
+    public void solve(char[][] board) {
+        if(board == null || board.length == 0) return;
+        int m = board.length - 1;
+        int n = board[0].length - 1;
+        
+        for(int j = 0; j <= n; j++){
+            if(board[0][j] == 'O'){
+                dfs(board, 0, j);
+            }
+            if(board[m][j] == 'O' ){
+                dfs(board, m, j);
+            }
+        }
+        
+        for(int i = 0; i <= m; i++){
+            if(board[i][0] == 'O'){
+                dfs(board, i, 0);
+            }
+            if(board[i][n] == 'O'){
+                dfs(board, i, n);
+            }
+        }
+        
+        for(int i = 0; i <= m; i++){
+            for(int j = 0; j <= n; j++){
+                if(board[i][j] == '#'){
+                    board[i][j] = 'O';
+                }else{
+                    board[i][j] = 'X';
+                }
+            }
+        }
+    }
+    
+    private void dfs(char[][] board, int i, int j){
+        if(i < 0 || i >= board.length || j < 0 || j >= board[0].length){
+            return;
+        }
+        
+        if(board[i][j] == 'O'){
+           board[i][j] = '#'; 
+        }else{
+            return;
+        }
+        dfs(board, i-1, j);
+        dfs(board, i+1, j);
+        dfs(board, i, j-1);
+        dfs(board, i, j+1);
+    }
 }

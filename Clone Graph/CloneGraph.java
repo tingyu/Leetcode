@@ -131,6 +131,34 @@ public class Solution {
     }
 }
 
+//上面两种方法结合起来
+public class Solution {
+    public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
+        if(node == null) return null;
+        UndirectedGraphNode newNode = new UndirectedGraphNode(node.label);
+        Queue<UndirectedGraphNode> queue = new LinkedList<UndirectedGraphNode>();
+        HashMap<Integer, UndirectedGraphNode> map = new HashMap<Integer, UndirectedGraphNode>();
+        queue.add(node);
+        map.put(node.label, newNode);
+        
+        while(!queue.isEmpty()){
+            UndirectedGraphNode nodeT = queue.poll();
+
+            for(UndirectedGraphNode n: nodeT.neighbors){
+                if(map.containsKey(n.label)){
+                    map.get(nodeT.label).neighbors.add(map.get(n.label));
+                    //newNodeT.neighbors.add(map.get(n.label));
+                }else{
+                    UndirectedGraphNode newN = new UndirectedGraphNode(n.label);
+                    map.put(n.label, newN);
+                    map.get(nodeT.label).neighbors.add(newN);
+                    queue.add(n);
+                }
+            }
+        }
+        return newNode;
+    }
+}
 
 /*
 c Solution2: DFS
