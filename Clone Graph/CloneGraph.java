@@ -49,6 +49,46 @@ queue中放置的节点都是未处理neighbors的节点！！！
 如果不存在那么就先把neighbor放到map里面，然后再clone
 */
 
+//my solution
+/**
+ * Definition for undirected graph.
+ * class UndirectedGraphNode {
+ *     int label;
+ *     List<UndirectedGraphNode> neighbors;
+ *     UndirectedGraphNode(int x) { label = x; neighbors = new ArrayList<UndirectedGraphNode>(); }
+ * };
+ */
+public class Solution {
+    public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
+        if(node == null) return null;
+        UndirectedGraphNode newNode = new UndirectedGraphNode(node.label);
+        Queue<UndirectedGraphNode> queue = new LinkedList<UndirectedGraphNode>();
+        Queue<UndirectedGraphNode> newQueue = new LinkedList<UndirectedGraphNode>();
+        HashMap<Integer, UndirectedGraphNode> map = new HashMap<Integer, UndirectedGraphNode>();
+        queue.add(node);
+        newQueue.add(newNode);
+        map.put(node.label, newNode);
+        
+        while(!queue.isEmpty()){
+            UndirectedGraphNode nodeT = queue.poll();
+            UndirectedGraphNode newNodeT = newQueue.poll();
+            
+            for(UndirectedGraphNode n: nodeT.neighbors){
+                if(map.containsKey(n.label)){
+                    newNodeT.neighbors.add(map.get(n.label));
+                }else{
+                    UndirectedGraphNode newN = new UndirectedGraphNode(n.label);
+                    map.put(n.label, newN);
+                    newNodeT.neighbors.add(newN);
+                    queue.add(n);
+                    newQueue.add(map.get(n.label));
+                }
+            }
+        }
+        return newNode;
+    }
+}
+
 
 /**
  * Definition for undirected graph.

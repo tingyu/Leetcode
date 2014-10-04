@@ -13,6 +13,39 @@ Output: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].
 Note:
 Although the above answer is in lexicographical order, your answer could be in any order you want.
 */
+/*
+summary:
+这题需要从一系列的数字中找到对应的字母，将这些combination输出。但是这个combination和Combination那道题的又不一样。Combination
+那题是从一个array里面找出组合，而这里的是从不同的String里面找到。所以就不存在Combination里面那样找了一个之后，只能从后面的一个开始
+找的情况。这里每个都是相互独立的。
+可以用一个变量i记录一下digits里面的哪一个字母，然后找到一个之后dfs找下一个数字的字母的集合。这里没必要弄个双重循环了。递归return的话
+就可以返回上一个重新选择了。
+递归终止条件是到达digits.length()
+*/
+public class Solution {
+    public List<String> letterCombinations(String digits) {
+        ArrayList<String> res = new ArrayList<String>();
+        String[] array = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        StringBuilder tmp = new StringBuilder();
+        dfs(array, digits, res, tmp, 0);
+        return res;
+    }
+    
+    private void dfs(String[] array, String digits, ArrayList<String> res, StringBuilder tmp, int i){
+        if(i == digits.length()){
+            res.add(tmp.toString());
+            return;
+        }
+        
+        //String s = array[Integer.valueOf(digits.charAt(i))];
+        String s = array[digits.charAt(i) - '0'];
+        for(int j = 0; j < s.length(); j++){
+            tmp.append(s.charAt(j));
+            dfs(array, digits, res, tmp, i+1);
+            tmp.deleteCharAt(tmp.length() - 1);
+        }
+    }
+}
 
 //my solution
 public class Solution {
@@ -35,7 +68,7 @@ public class Solution {
         }
         
         for(int i = start; i < digits.length(); i++){
-            //int index = Integer.valueOf(digits.charAt(i));注释掉的这种写法是错的
+            //int index = Integer.valueOf(digits.charAt(i));注释掉的这种写法是错的,为什么？？
             //String s = letters[index];
             String s = letters[digits.charAt(i) - '0'];
             for(int j = 0; j < s.length(); j++){

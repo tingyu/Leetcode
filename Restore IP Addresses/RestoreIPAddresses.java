@@ -11,7 +11,7 @@ return ["255.255.11.135", "255.255.111.35"]. (Order does not matter)
 
 /*
 Submission Result: Wrong Answer
-使用一个count记录recursion的次数，只允许recurse 4次，也就是分别处理4个子substring。每次substring出当前的判断是不是有效，
+使用一个count记录recursion的次数，只允许recurse4次，也就是分别处理4个子substring。每次substring出当前的判断是不是有效，
 如果有效就继续看下一段的substring是不是有效，看下一段时，把之前的去掉会比较方便。也就是s.substring(i)
 另外加上“.”的时候，记住要加在后面tmp + substr + "."，我开始是tmp + “.” + substr错了，因为最初的时候tmp是空，就会出现以点开头的情形。
 
@@ -75,4 +75,56 @@ http://blog.csdn.net/u011095253/article/details/9158449
 4. 字符串转换成数字 Integer.parseInt(); 
 5. 别忘了IP 地址里面的 "."
 6. 到第4个Part的时候我们就可以整体验证剩下的所有字符串（因为第4个Part最后一定要取到结尾才是正确的字符串）
+*/
+
+
+//a wrong Solution
+public class Solution {
+    public List<String> restoreIpAddresses(String s) {
+        ArrayList<String> res = new ArrayList<String>();
+        if(s.length() < 4 || s.length() > 12) return res;
+        helper(s, res, "", 0);
+        return res;
+    }
+    
+    private void helper(String s, ArrayList<String> res, String tmp, int count){
+        if(count == 4){
+            res.add(tmp);    
+            return;
+        }
+        
+        for(int i = 1; i < 4 && i < s.length(); i++){
+            String sub = s.substring(0, i);
+            if(isValid(sub) == true){
+                
+                if(count < 3){
+                    tmp = tmp + sub + ".";
+                }else if(count == 3){
+                    tmp = tmp + sub;
+                }
+                helper(s.substring(i), res, tmp, count+1); 
+                //helper(s.substring(i), res, tmp + sub + ".", count+1);    
+            }
+        }
+    }
+    
+    private boolean isValid(String sub){
+        if(sub.charAt(0) == '0') return sub.equals("0");
+        int num = Integer.parseInt(sub);
+        return num>= 0 && num <= 255;
+    }
+}
+/*
+Submission Result: Wrong Answer
+
+Input:  "0000"
+Output: []
+Expected:   ["0.0.0.0"]
+如果把终止条件改成count == 3
+Submission Result: Wrong Answer
+
+Input:  "0000"
+Output: ["0.0.0."]
+Expected:   ["0.0.0.0"]
+
 */
