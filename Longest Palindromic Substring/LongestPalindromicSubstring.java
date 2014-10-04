@@ -4,6 +4,43 @@ Longest Palindromic Substring
 Given a string S, find the longest palindromic substring in S. You may assume that 
 the maximum length of S is 1000, and there exists one unique longest palindromic substring.
 */
+//my solution
+/*
+基本思路是相当于Leetcode: Palindrome Partitioning II, Word Break中类似的先找到palindromic Substring的table（dict）
+然后遍历这个dict，来找到相应的最大长度的substring
+Time O(n^2) Space O(n^2)
+*/
+public class Solution {
+    public String longestPalindrome(String s) {
+        if(s == null || s.length() == 0) return s;
+        boolean[][] dict = getDict(s);
+        int max = 0;
+        String res = "";
+        for(int i = 0; i < dict.length; i++){
+            for(int j = i; j < dict[0].length; j++){
+                if(dict[i][j]){
+                    if(j - i + 1 > max){
+                        max = j-i+1;
+                        res = s.substring(i, j+1);
+                    }
+                }    
+            }
+        }
+        return res;
+    }
+    
+    private boolean[][] getDict(String s){
+        boolean[][] dict = new boolean[s.length()][s.length()];
+        for(int i = s.length() - 1; i >= 0; i--){
+            for(int j = i; j < s.length(); j++){
+                if(s.charAt(i) == s.charAt(j) && ((j - i) < 2 || dict[i+1][j-1] == true)){
+                    dict[i][j] = true;
+                } 
+            }
+        }
+        return dict;
+    }
+}
 
 /*
 http://www.programcreek.com/2013/12/leetcode-solution-of-longest-palindromic-substring-java/
@@ -178,7 +215,8 @@ public String helper(String s, int begin, int end){
 
 4. Manacher's Algorithm
 
-Manacher's algorithm is much more complicated to figure out, even though it will bring benefit of time complexity of O(n).
+Manacher's algorithm is much more complicated to figure out, even though it will bring benefit of time
+complexity of O(n).
 
 Since it is not typical, there is no need to waste time on that.
 

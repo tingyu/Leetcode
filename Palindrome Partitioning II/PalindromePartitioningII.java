@@ -94,7 +94,7 @@ public class Solution {
         int[] cut_num_array = new int[s.length() + 1];
         
         for(int i = s.length() - 1; i >= 0; i--){
-            cut_num_array[i] = s.length() - i;
+            cut_num_array[i] = s.length() - i;//初始值是这个string的长度
             for(int j = i; j < s.length(); j++){
                 if(s.charAt(i) == s.charAt(j)){
                     if((j - i) < 2|| palindrome_map[i+1][j-1] == true){

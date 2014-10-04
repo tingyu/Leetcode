@@ -97,6 +97,44 @@ public class Solution {
     }
 }
 
+//another one 
+public class Solution {
+    public ArrayList<ArrayList<String>> partition(String s) {
+        ArrayList<ArrayList<String>> res = new ArrayList<ArrayList<String>>();
+        ArrayList<String> tmp = new ArrayList<String>();
+        if(s == null || s.length() == 0) return res;
+        helper(s, res, tmp);
+        return res;
+    }
+    
+    private void helper(String s, ArrayList<ArrayList<String>> res, ArrayList<String> tmp){
+        if(s.length() == 0){
+            res.add(new ArrayList<String>(tmp));
+        }
+        
+        for(int i = 1; i <= s.length(); i++){
+            String sub = s.substring(0, i);
+            if(isPalindrome(sub)){
+                tmp.add(sub);
+                helper(s.substring(i), res, tmp);
+                tmp.remove(tmp.size() -1);
+            }
+        }
+    }
+    
+    private boolean isPalindrome(String s){
+        int i = 0, j = s.length() -1;
+        while(i < j){
+            if(s.charAt(i) != s.charAt(j)){
+                return false;
+            }
+            i++;
+            j--;
+        }
+        return true;
+    }
+}
+
 /*
 这道题是求一个字符串中回文子串的切割，并且输出切割结果，其实是Word Break II和Longest Palindromic Substring结合，
 该做的我们都做过了。首先我们根据Longest Palindromic Substring重大方法建立一个字典，得到字符串中的任意子串是不是回文串的字典，

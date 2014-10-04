@@ -20,6 +20,7 @@ public class Solution {
         if(s.length() == 0) return true;
         s = s.trim().replaceAll("[^a-zA-Z0-9]","").toLowerCase();
         //or s = s.trim().replaceAll("\\W","").toLowerCase();
+        //or s = s.replaceAll("[^a-zA-Z0-9]","").toLowerCase();
         int len = s.length();
         for(int i = 0; i < len/2; i++){
             if(s.charAt(i) != s.charAt(len -1- i)){
@@ -84,7 +85,34 @@ public class Solution {
         return true;
     }
 }
-
+//里面几个判断stack是不是空的其实可以省略的，因为前面的已经决定是一样大小的
+public class Solution {
+    public boolean isPalindrome(String s) {
+        if(s == null || s.length() == 0) return true;
+        s = s.replaceAll("\\W","").toLowerCase();
+        Stack<Character> stack = new Stack<Character>();
+        int index = 0;
+        for(index = 0; index < s.length()/2; index++){
+            stack.push(s.charAt(index));
+        }
+        
+        if(s.length() %2 == 1){
+            index++;
+        }
+        
+        while(index < s.length()){
+           // if(stack.isEmpty()) return false;
+            char c = stack.pop();
+            if(s.charAt(index) != c){
+                return false;
+            }
+            index++;
+        }
+       // if(!stack.isEmpty()) return false;
+        
+        return true;
+    }
+}
 
 //another solution: use stack
 public boolean isPalindrome(String s) {
