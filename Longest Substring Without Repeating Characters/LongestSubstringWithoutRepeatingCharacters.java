@@ -10,6 +10,8 @@ For "bbbbb" the longest substring is "b", with the length of 1.
 关键就是从s中的每一个点开始找没有重复character的substring。i来找头，j来找尾巴。用个HashSet来记录有没有重复的character
 里面注意有一个corner case就是else里面如果一直不走，说明整个都没有重复的，所以需要加个flag最后再确定下max
 注意是j-i而不是j-i+1，因为此时已经是重复的了
+
+Submission Result: Time Limit Exceeded
 */
 public class Solution {
     public int lengthOfLongestSubstring(String s) {
@@ -101,6 +103,7 @@ public class Solution {
   	}
 }
 
+//Submission Result: Time Limit Exceeded
 public static int lengthOfLongestSubstring(String s) {
 	char[] arr = s.toCharArray();
 	int pre = 0;

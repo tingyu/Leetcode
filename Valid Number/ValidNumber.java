@@ -12,6 +12,79 @@ Some examples:
 Note: It is intended for the problem statement to be ambiguous. 
 You should gather all requirements up front before implementing one.
 */
+//my solution
+/*
+*/
+public class Solution{
+	public boolean isNumber(String s) {
+		if(s == null) return false;
+
+		//trim off head and tail zeros which not affect result depend on question
+		s = s.trim();
+		if(s.length() == 0) return false;
+
+		int i = 0;
+		if(s.charAt(i) == '+' || s.charAt(i) == '-'){
+		    i++;
+		}
+		
+		boolean hasExp = false, hasDot = false, firstPart = false, secondPart = false;
+		while(i < s.length()){
+		    char c = s.charAt(i);
+		    if(c == '.'){
+		        if(hasExp || hasDot){//dot cannot exits after E; cannot has two dots 
+		            return false;
+		        }else{
+		            hasDot = true;
+		        }
+		    }else if(c == 'E' || c == 'e'){
+		        if(hasExp || !firstPart){// cannot has two E; first part must exits before E
+		            return false;
+		        }else{
+		            hasExp = true;
+		        }
+		    }else if(c >= '0' && c <='9'){
+		        if(!hasExp){//does not have E yet, here is the firstPart
+		            firstPart = true;
+		        }else{//already has E, here is the secondPart
+		            secondPart = true;
+		        }
+		    }else if(c == '+' || c == '-'){//inner '+''-',can only exist closely after E
+		        if(!hasExp || !(s.charAt(i-1) == 'E' || s.charAt(i-1) == 'e')){
+		            return false;
+		        }
+		    }else if(c == ' '){
+		        return false;
+		    }else{
+		        return false;
+		    }
+		    i++;
+		}
+		
+		if(!firstPart){//first part does not exist. Wrong!
+		    return false;
+		}else if(hasExp && !secondPart){//has E, but does not has second part. Wrong!
+		    return false;
+		}
+		return true;
+	}
+}
+
+/*
+最后面循环外面的两个判断是十分有必要的。如果没有第一个判断
+Submission Result: Wrong Answer
+
+Input:	"."
+Output:	true
+Expected:false
+如果没有第二个判断
+Submission Result: Wrong Answer
+
+Input:	"0e"
+Output:	true
+Expected:	false
+
+*/
 
 public class Solution {
     public boolean isNumber(String s) {
@@ -99,7 +172,6 @@ public class ValidNumber {
 				if(!canE && !hasE){
 					canE = true;
 				}
-
 				canSign = false;
 			}else{
 				return false;
@@ -108,3 +180,6 @@ public class ValidNumber {
 		return hasNum;
 	}
 }
+
+
+

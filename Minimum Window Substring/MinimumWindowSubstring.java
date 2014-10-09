@@ -96,7 +96,7 @@ public class Solution {
     			while(count == T.length()){
     				if(map.containsKey(S.charAt(pre))){
     					map.put(S.charAt(pre), map.get(S.charAt(pre)) + 1);
-    					if(map.get(S.charAt(pre))>0){
+    					if(map.get(S.charAt(pre))>0){//bba, ba的情况，如果负的话？？
     						if(minLen> i - pre + 1){
     							res = S.substring(pre, i + 1);
     							minLen = i - pre + 1;

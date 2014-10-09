@@ -31,7 +31,7 @@ For ease of going back to the parent directory, we can use a stack to which a se
 is pushed as long as it represents a subdirectory. Finally, the stack is converted into an array, 
 and the simplified path is the concatenation of the segments in the stack preceded by a "/".
 
-*/
+*/i
 
 public class Solution {
     public String simplifyPath(String path) {
@@ -64,7 +64,19 @@ public class Solution {
 		return ret;
     }
 }
-sr
+
+/*
+If we remove 
+    if(stack.isEmpty()){// No subdirectory
+      stack.push("");
+    }        
+Then here it is
+Submission Result: Wrong Answer
+
+Input:  "/"
+Output: ""
+Expected: "/"
+*/
 
 //http://rleetcode.blogspot.com/2014/01/simplify-path-java.html
 //先pop出来的都是sub-dir，所以要不断insert到0位置，这样就不断加到前面。前面那种方法通过stack.removeLast()就直接把栈底的根目录拿出来

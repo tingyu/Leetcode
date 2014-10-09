@@ -214,7 +214,31 @@ public ArrayList<String> wordBreak(String s, Set<String> dict) {
     return res;
 }
 
-
+//one LTE solution
+public class Solution {
+    public List<String> wordBreak(String s, Set<String> dict) {
+        ArrayList<String> res = new ArrayList<String>();
+        if(s == null || s.length() == 0 || dict == null) return res;
+        helper(s, dict, res, "");
+        return res;
+    }
+    
+    private void helper(String s, Set<String> dict, ArrayList<String> res, String tmp){
+        if(s.length() == 0){
+            res.add(tmp.trim());
+            return;
+        }
+        
+        for(String d: dict){
+            if(d.length() <= s.length()){
+                String sub = s.substring(0, d.length());
+                if(dict.contains(sub)){
+                    helper(s.substring(d.length()), dict, res, tmp + " " + sub);
+                }               
+            }
+        }
+    }
+}
 /*
 这个solution是错的。为什么？？？？
 Submission Result: Wrong Answer

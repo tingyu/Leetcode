@@ -9,7 +9,25 @@ a) Insert a character
 b) Delete a character
 c) Replace a character
 */
-
+/*
+summary: 
+dp上面String一般都是定义长度是+1，然后dp[0][0] = true;
+首先想到的是dp,然后定义一个二维的dp,dp[len1+1][len2+1]，dp[i][j]表示从word1中0-i位转换到word2中的0-j位所需要的edit distance.
+首先Base Case:
+如果word1是空，那么转换到word2，那么就是二维数组中第一行的情况，需要的是不停的插入，直到word1全部转换成word2，因为根据word2中第i位不停增加
+如果word2是空，那么转换到word2，那么就是二维数组中第一列的情况，需要的是不停的删除
+一般情况求转换方程
+如果已知word1中i-1位转换到word2中j-1位所需要的edit distance。也就是dp[i-1][j-1].
+那么要求dp[i][j]有三种情况。
+abcx-> abcy:
+1, x == y: dp[i][j] = dp[i-1][j-1]
+2, x != y: 此时有三种处理方法：
+    1）replace, 将word1中x替换为y: dp[i][j] = dp[i-1][j-1] + 1
+    2) insert, 在word1中插入x: dp[i][j] = dp[i][j-1] + 1
+        abcx -> abcyw
+    3) delete, 在word1中删除x: dp[i][j] = dp[i-1][j] + 1
+        abcxw -> abcy
+*/
 /*
 http://www.programcreek.com/2013/12/edit-distance-in-java/
 From Wiki:

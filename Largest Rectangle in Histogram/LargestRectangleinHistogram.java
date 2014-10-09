@@ -13,6 +13,63 @@ find the area of largest rectangle in the histogram.
 
 Above is a histogram where width of each bar is 1, given height = [2,1,5,6,2,3].
 */
+//my solution
+//a naive solution, LTE
+public class Solution {
+    public int largestRectangleArea(int[] height) {
+        if(height == null || height.length == 0) return 0;
+        int max = Integer.MIN_VALUE;
+        
+        for(int i = 0; i < height.length; i++){
+            int minH = height[i];
+            for(int j = i; j < height.length; j++){
+                minH = Math.min(minH, height[j]);
+                int area = minH*(j-i+1);
+                max = Math.max(area, max);
+            }
+        }
+        return max;
+    }
+}
+
+//使用双指针向里面移动的也LTE了
+public class Solution {
+    public int largestRectangleArea(int[] height) {
+        if(height == null || height.length == 0) return 0;
+        int max = Integer.MIN_VALUE;
+        
+        int minH = getMinHeight(height, 0, height.length-1);
+        for(int i = 0; i < height.length; i++){
+            minH = Math.min(minH, height[i]);
+        }
+        int i = 0;
+        int j = height.length-1;
+        while(i <= j){
+            int area = minH*(j - i + 1);
+            max = Math.max(max, area);
+            if(height[i] <= height[j]){
+                if(height[i] == minH){
+                    minH = getMinHeight(height, i, j);
+                }
+                    i++;
+            }else{
+                if(height[j] == minH){
+                    minH = getMinHeight(height, i, j);
+                }
+                    j--;
+            }
+        }
+        return max;
+    }
+    
+    private int getMinHeight(int[] height, int start, int end){
+        int min = Integer.MAX_VALUE;
+        for(int i = start; i <= end; i++){
+            min = Math.min(min, height[i]);
+        }
+        return min;
+    }
+}
 
 /*
 http://blog.csdn.net/abcbc/article/details/8943485
@@ -30,7 +87,7 @@ public class Solution {
     				i = k - 1;
     				break;
     			}else{
-    				i = k;
+    				i = k;//如果不加上这句就会超时
     			}
     		}
     		int lowest = height[i];
@@ -50,7 +107,8 @@ public class Solution {
 
 /*
 虽然上面的解法可以过大集合，但是不是最优的方法，下面介绍使用两个栈的优化解法。时间复杂度为O(n).
-此解法的核心思想为：一次性计算连续递增的区间的最大面积，并且考虑完成这个区间之后，考虑其前、后区间的时候，不会受到任何影响。也就是这个连续递增区间的最小高度大于等于其前、后区间。
+此解法的核心思想为：一次性计算连续递增的区间的最大面积，并且考虑完成这个区间之后，考虑其前、后区间的时候，不会受到任何影响。
+也就是这个连续递增区间的最小高度大于等于其前、后区间。
 这个方法非常巧妙，最好通过一个图来理解：
 */
 

@@ -42,7 +42,7 @@ public class Solution {
     			d[i + 1] += carry;
     		}
     	}
-    	    	//trim starting zones
+    	//trim starting zones,举一些例子，会发现只会出现一位的情况
     	while(sb.length() > 1 && sb.charAt(0) == '0'){
     		sb.deleteCharAt(0);
     	}	

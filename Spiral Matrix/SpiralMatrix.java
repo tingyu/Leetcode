@@ -81,6 +81,63 @@ public class Solution {
     }
 }
 
+//my another solution
+public class Solution {
+    public List<Integer> spiralOrder(int[][] matrix) {
+        ArrayList<Integer> res = new ArrayList<Integer>();
+        if(matrix == null || matrix.length == 0 || matrix[0].length == 0) return res;
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int count = 0;
+        int k = 0;
+        for(k = 0; k < m/2 && k < n/2; k++){
+            for(int j = k; j < n-1-k; j++){
+                res.add(matrix[k][j]);
+                count++;
+            }
+            
+            for(int i = k; i <m-1-k; i++){
+                res.add(matrix[i][n-1-k]);
+                count++;
+            }
+            
+            for(int j = n-1-k; j > k; j--){
+                res.add(matrix[m-1-k][j]);
+                count++;
+            }
+            
+            for(int i = m-1-k; i > k; i--){
+                res.add(matrix[i][k]);
+                count++;
+            }
+        }
+        
+        if(count < m*n && k == m/2){
+            for(int j = k; j <= n-1-k; j++){
+                res.add(matrix[k][j]);
+                count++;
+            }
+        }
+        if(count < m*n && k == n/2){
+            for(int i = k; i <= m-1-k; i++){
+                res.add(matrix[i][k]);
+                count++;
+            }
+        }
+        return res;
+    }
+}
+/*
+如果最后面conner case的处理情况for(int j = k; j <= n-1-k; j++){ 中没有加上等号，而是j < n-1-k那么肯定是错的。
+此时无法处理只有一行或者一列的情况。加上=，在有多行多列的时候处理是对的，因为count会终止保证不会取到后面的.
+在只有一行或者一列的时候，会取到最后面
+Submission Result: Wrong Answer
+
+Input:  [[1]]
+Output: []
+Expected:   [1]
+
+*/
 
 /*
 http://www.programcreek.com/2013/01/leetcode-spiral-matrix-java/

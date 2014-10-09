@@ -99,3 +99,13 @@ public class Solution {
         return result;
     }
 }
+
+/*
+注意输出的结果里面可能包含很多的anagram，不止一种
+Input:  ["tea","and","ate","eat","dan"]
+Output: ["tea","ate","eat"]
+Expected:   ["and","dan","tea","ate","eat"]
+
+map.put(sorted, map.get(sorted).add(s));这么写是错的
+Line 14: error: no suitable method found for put(String,boolean)
+*/

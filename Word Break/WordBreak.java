@@ -33,6 +33,29 @@ public class Solution {
     }
 }
 
+public class Solution {
+    public boolean wordBreak(String s, Set<String> dict) {
+        if(s.length() == 0){
+            return true;
+        }
+        
+        for(int i = 0; i < s.length(); i++){
+            for(String d: dict){
+                if(d.length() <= s.length()){
+                    String sub = s.substring(0, d.length());
+                    if(dict.contains(sub)){
+                        if(wordBreak(s.substring(d.length()), dict)){
+                            return true;
+                        }
+                    }   
+                }
+            }
+
+        }
+        return false;
+    }
+}
+
 /*
 http://www.programcreek.com/2012/12/leetcode-solution-word-break/
 1. Naive Approach

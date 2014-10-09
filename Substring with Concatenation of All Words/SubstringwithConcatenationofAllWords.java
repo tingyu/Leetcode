@@ -29,44 +29,43 @@ http://gongxuns.blogspot.com/2012/12/leetcode-substring-with-concatenation.html
 import java.util.Map;
 import java.util.HashMap;
 
-public class Solution {
+{
     public List<Integer> findSubstring(String S, String[] L) {
-		if(L == null || L.length == 0) return null;
-		int n = L.length, m = L[0].length, l = S.length();
-		ArrayList<Integer> res = new ArrayList<Integer>();
+        ArrayList<Integer> res = new ArrayList<Integer>();
+        if(S == null || S.length() == 0 || L.length == 0){
+            return res;
+        }
+        int n = L.length, m = L[0].length(), l = S.length();
+        HashMap<String, Integer> covered = new HashMap<String, Integer>();
+        for(int i = 0; i < n; i++){
+            if(covered.containsKey(L[i])){
+                covered.put(L[i], covered.get(L[i]) + 1);
+            }else{
+                covered.put(L[i], 1);
+            }
+        }
 
-		Map<String, Integer> covered = new HashMap<String, Integer>();
-		for(int j = 0; j < n; j++){
-			if(covered.containsKey(L[j])){
-				covered.put(L[j], covered.get(L[j]) + 1);
-			}else{
-				covered.put(L[j], 1);
-			}
-		}        
-
-		int i = 0;
-		while(l - i >= m*n){
-			Map<String, Integer> temp = new HashMap<String, Integer>(covered);
-			for(int j = 0; j < n; j++){//对于每个开始i，检查接下来的j个m长的string在不在tmp中，如果在的话就count,不在就移动i
-				String testStr = s.substring(i + j*m, i + (j+1)*m);
-				if(temp.containsKey(testStr)){
-					if(temp.get(testStr) -1== 0){
-						temp.remove(testStr);
-					}else{
-						temp.put(testStr, temp.get(testStr)-1);
-					}
-				}else{
-					break;
-				}
-			}
-			if(temp.size() == 0) res.add(i);
-			i++;
-		}
-		return res;
+        int i = 0;
+        while(l - i >= m*n){
+            Map<String, Integer> temp = new HashMap<String, Integer>(covered);
+            for(int j = 0; j < n; j++){//对于每个开始i，检查接下来的j个m长的string在不在tmp中，如果在的话就count,不在就移动i
+                String testStr = S.substring(i + j*m, i + (j+1)*m);
+                if(temp.containsKey(testStr)){
+                    if(temp.get(testStr) - 1 == 0){
+                        temp.remove(testStr);
+                    }else{
+                        temp.put(testStr, temp.get(testStr)-1);
+                    }
+                }else{
+                    break;
+                }
+            }
+            if(temp.size() == 0) res.add(i);
+            i++;
+        }
+        return res;
     }
 }
-
-
 /*
 这道题看似比较复杂，其实思路和Longest Substring Without Repeating Characters差不多。
 因为那些单词是定长的，所以本质上和单一个字符一样。和Longest Substring Without Repeating Characters的区别只在于我们需要维护一个字典，

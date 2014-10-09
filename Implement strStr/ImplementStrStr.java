@@ -19,18 +19,18 @@ public String strStr(String haystack, String needle) {
 		return "";
 	}
 
-	if(needleLen == 0) return haystack;
+	if(needleLen == 0) return haystack;//tricky
 
 	for(int i = 0; i < haystackLen; i++){
 		//make sure in boundary of needle
-		if(haystackLen - i + 1 < needleLen){
+		if(haystackLen - i + 1 < needleLen){//tricky
 			return null;
 		}
 
 		int k = i;
 		int j = 0;
 
-		while(j < needleLen && k < haystackLen && needle.charAt(j) == haystack.charAt(k)){
+		while(j < needleLen && k < haystackLen && needle.charAt(j) == haystack.charAt(k)){//tricky
 			j++;
 			k++;
 			if(j == needleLen)
