@@ -38,3 +38,33 @@ public class Solution {
         return number;
     }
 }
+
+//my solution
+public class Solution {
+    public String countAndSay(int n) {
+        String s = "1";
+        
+        for(int i = 1; i < n; i++){
+            String newS = new String();
+            for(int j = 0; j < s.length(); j++){
+                int count = 1;
+                char c = s.charAt(j);
+                while(j + 1 < s.length() && s.charAt(j + 1) == c){
+                    j++;
+                    count++;
+                }
+                newS += "" + count + c;
+            }
+            s = new String(newS);
+        }
+        return s;
+    }
+}
+
+/*
+newS += count + c;
+为什么
+Submission Result: Time Limit Exceeded
+Last executed input:    20
+而这样就对了newS += + "" + count + c;
+*/

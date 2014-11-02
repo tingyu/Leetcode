@@ -106,6 +106,50 @@ public class Solution {
 }
 
 /*
+stack的解法，应该看这个更好
+http://www.cnblogs.com/lichen782/p/leetcode_Largest_Rectangle_in_Histogram.html
+
+16行，给跪了。。。。
+这个我不去debug下都特么不知道在干嘛。
+那要不就debug下看看这段代码在做神马。例子就用题目中的[2,1,5,6,2,3]吧。
+首先，如果栈是空的，那么索引i入栈。那么第一个i=0就进去吧。注意栈内保存的是索引，不是高度。然后i++。
+然后继续，当i=1的时候，发现h[i]小于了栈内的元素，于是出栈。（由此可以想到，哦，看来stack里面只存放单调递增的索引）
+这时候stack为空，所以面积的计算是h[t] * i.t是刚刚弹出的stack顶元素。也就是蓝色部分的面积。
+继续。这时候stack为空了，继续入栈。注意到只要是连续递增的序列，我们都要keep pushing，直到我们遇到了i=4，h[i]=2小于了栈顶的元素。
+这时候开始计算矩形面积。首先弹出栈顶元素，t=3。即下图绿色部分。
+接下来注意到栈顶的（索引指向的）元素还是大于当前i指向的元素，于是出栈，并继续计算面积，桃红色部分。
+最后，栈顶的（索引指向的）元素大于了当前i指向的元素，循环继续，入栈并推动i前进。直到我们再次遇到下降的元素，也就是我们最后人为添加的dummy元素0.
+同理，我们计算栈内的面积。由于当前i是最小元素，所以所有的栈内元素都要被弹出并参与面积计算。
+
+注意我们在计算面积的时候已经更新过了maxArea。
+
+总结下，我们可以看到，stack中总是保持递增的元素的索引，然后当遇到较小的元素后，依次出栈并计算栈中bar能围成的面积，直到栈中元素小于当前元素。
+
+可是为什么这个方法是正确的呢？ 我也没搞清楚。只是觉得不明觉厉了。
+那h[t]无疑就是Stack.Peek和t之间那些上流社会的短板啦，而它们的跨越就是i - Stack.Peek - 1。
+
+所以说，这个弹栈的过程也是维持程序不变量的方法啊：栈内元素一定是要比当前i指向的元素小的。
+*/
+public class Solution {
+    public int largestRectangleArea(int[] height) {
+        Stack<Integer> stack = new Stack<Integer>();
+        int i = 0;
+        int maxArea = 0;
+        int[] h = new int[height.length + 1];
+        h = Arrays.copyOf(height, height.length + 1);
+        while(i < h.length){
+            if(stack.isEmpty() || h[stack.peek()] <= h[i]){
+                stack.push(i++);
+            }else{
+                int t = stack.pop();
+                maxArea = Math.max(maxArea, h[t]*(stack.isEmpty() ? i: i - stack.peek() - 1));
+            }
+        }
+        return maxArea;
+    }
+}
+
+/*
 虽然上面的解法可以过大集合，但是不是最优的方法，下面介绍使用两个栈的优化解法。时间复杂度为O(n).
 此解法的核心思想为：一次性计算连续递增的区间的最大面积，并且考虑完成这个区间之后，考虑其前、后区间的时候，不会受到任何影响。
 也就是这个连续递增区间的最小高度大于等于其前、后区间。

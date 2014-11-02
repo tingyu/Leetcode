@@ -22,7 +22,7 @@ public class Solution {
 		if(intervals == null || intervals.size() <= 1)
 			return intervals;
 
-		//sort intervals by using self-defined Comparator
+		
 		Collections.sort(intervals, new IntervalComparator());
 
 		ArrayList<Interval> result = new ArrayList<Interval>();

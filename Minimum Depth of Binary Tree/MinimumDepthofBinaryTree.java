@@ -102,7 +102,7 @@ public class Solution {
 
 
 //http://gongxuns.blogspot.com/2012/12/leetcode-minimum-depth-of-binary-tree.html
-//类似于BFS，然后省略了一个queue存depth。用了两个arrayList分别记录当前行和下一行
+//w
 public class Solution {
     public int minDepth(TreeNode root) {
         // Start typing your Java solution below

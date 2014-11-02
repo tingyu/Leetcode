@@ -29,6 +29,47 @@ Try to do this in one pass.
  *     }
  * }
  */
+public class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        if(head == null) return null;
+        ListNode p = head;
+        int len = 0;
+        while(p != null){
+            p = p.next;
+            len++;
+        }
+        if(n == len) return head.next;
+        p = head;
+        for(int i = 1; i < len - n; i++){
+            p = p.next;
+        }
+        p.next = p.next.next;
+        return head;
+    }
+}
+
+
+public class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        if(head == null) return null;
+        ListNode fakeHead = new ListNode(-1);
+        fakeHead.next = head;
+        head = fakeHead;
+        ListNode fast = head;
+        ListNode slow = head;
+        for(int i = 0; i < n; i++){
+            fast = fast.next;
+        }
+        
+        while(fast.next != null){
+            fast = fast.next;
+            slow = slow.next;
+        }
+        
+        slow.next = slow.next.next;
+        return head.next;
+    }
+}
 
 //my solution 1  428 ms
 //a custom solution: count the len, then remove the len-nth node, need to process the special case of removing head.

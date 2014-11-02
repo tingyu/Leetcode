@@ -55,7 +55,7 @@ public class Solution {
  				temp.add(new ArrayList<Integer>(a));//注意要new
  			}
 
- 			//for each arraylist in temp, we append s[i] to the end of the arraylist
+ 			
  			for(ArrayList<Integer> a : temp){
  				a.add(S[i]);
  			}

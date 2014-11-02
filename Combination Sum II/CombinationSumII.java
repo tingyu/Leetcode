@@ -1,7 +1,8 @@
 /**
 Combination Sum II 
 
-Given a collection of candidate numbers (C) and a target number (T), find all unique combinations in C where the candidate numbers sums to T.
+Given a collection of candidate numbers (C) and a target number (T), 
+find all unique combinations in C where the candidate numbers sums to T.
 
 Each number in C may only be used once in the combination.
 
@@ -99,3 +100,5 @@ public class Solution {
 但是为了避免出现重复的结果集，我们只对于第一次得到这个数进行递归，接下来就跳过这个元素了，
 因为接下来的情况会在上一层的递归函数被考虑到，这样就可以避免重复元素的出现。这个问题可能会觉得比较绕，大家仔细想想就明白了哈。
 */
+
+

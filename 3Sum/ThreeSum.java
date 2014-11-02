@@ -3,7 +3,8 @@
 3Sum
 Total Accepted: 13505 Total Submissions: 82155
 
-Given an array S of n integers, are there elements a, b, c in S such that a + b + c = 0? Find all unique triplets in the array which gives the sum of zero.
+Given an array S of n integers, are there elements a, b, c in S such that a + b + c = 0? Find all 
+unique triplets in the array which gives the sum of zero.
 
 Note:
 
@@ -153,3 +154,46 @@ public ArrayList<ArrayList<Integer>> threeSum(int[] num) {
 上面的去除duplicates的操作是分别针对i, j, k的。就是对于i 或者 j, 或者k， 考虑其中一种的时候不能要重复的。
 如果画个斜线图可以很好的看出来，如果有duplicate那么就是横线了，横线的话移动i或者start或者end就没有意义，因为改变不了什么
 */
+
+//HashSet的解法。这种解法好写些，但是复杂度高
+public class Solution {
+    public ArrayList<ArrayList<Integer>> threeSum(int[] num) {
+        ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+        Arrays.sort(num);
+        HashSet<ArrayList<Integer>> set = new HashSet<ArrayList<Integer>>();
+        
+        for(int i = 0; i < num.length - 2; i++){
+            int negate = -num[i];
+            //if(i != 0 && num[i] == num[i-1]) continue;
+            int j = i + 1;
+            int k = num.length - 1;
+            
+            while(j < k){
+                if(num[j] + num[k] == negate){
+                    ArrayList<Integer> tmp = new ArrayList<Integer>();
+                    tmp.add(num[i]);
+                    tmp.add(num[j]);
+                    tmp.add(num[k]);
+                    //res.add(tmp);
+                    j++;
+                    k--;
+                    if(set.add(tmp)){
+                        res.add(tmp);
+                    }
+                    /*
+                    while(j < num.length && num[j] == num[j-1]){
+                        j++;
+                    }
+                    while(k > 0 && num[k] == num[k+1]){
+                        k--;
+                    }*/
+                }else if(num[j] + num[k] < negate){
+                    j++;
+                }else{
+                    k--;
+                }
+            }
+        }
+        return res;
+    }
+}

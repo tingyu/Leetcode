@@ -90,6 +90,33 @@ http://blog.csdn.net/kenden23/article/details/17099987
  而且利用数组本身空间，只需要一个额外变量，所以空间复杂度是O(1)。
 这道题个人还是比较喜欢的，既有一点算法思想，在实现中又有一些注意细节，而且整体来说模型比较简单，很适合在面试中出现。
 */
+//my solution
+public class Solution {
+    public int firstMissingPositive(int[] A) {
+        if(A == null || A.length == 0){ //如果是null或者数组空的时候，返回1
+            return 1;
+        }
+        int i = 0;
+        while(i < A.length){
+            //注意交换条件：1.A[i]要不大于A.length，不然会越界 2，A[i] > 0同理 
+            //3. A[i] - 1 != i 如果当前位置已经是counting sort排好了跳过 4.A[A[i] - 1] != A[i]不然会死循环
+            if(A[i] > 0 && A[i] <= A.length &&A[i] - 1 != i && A[A[i] - 1] != A[i]){
+                int temp = A[A[i] - 1];
+                A[A[i] - 1] = A[i];
+                A[i] = temp;
+            }else{//对于那些不在范围内的数字，我们可以直接跳过，比如说负数，0，或者超过数组长度的正数，这些都不会是我们的答案。
+                i++;
+            }
+        }
+        
+        for(i = 0; i < A.length; i++){
+            if(A[i] -1 != i){
+                return i + 1;
+            }
+        }
+        return A.length + 1;//tricky,注意如果给的是一个完全排好序的数组，那么到结尾的时候都是按counting sort排序的
+    }
+}
 
 //my solution
 //代码有些乱七八糟的，还改了半天才对。还是有些边界条件没考虑好

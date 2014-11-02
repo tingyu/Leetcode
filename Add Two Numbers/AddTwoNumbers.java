@@ -93,7 +93,6 @@ public class Solution {
         
         ListNode result = new ListNode(carry);
         
-        //add value, and the data from l1, l2
         int value = carry;
         if(l1 != null) value += l1.val;
         if(l2 != null) value += l2.val;
@@ -154,7 +153,8 @@ LinkedListNode addLists(LinkedListNode l1, LinkedListNode l2){
     //add lists
     PartialSum sum = addListsHelper(l1, l2);
 
-    // If there was a carry value left over, insert this at the front of the list. Otherwise, just return the linked list.
+    // If there was a carry value left over, insert this at the front of the list. 
+    // Otherwise, just return the linked list.
     if(sum.carry == 0){
         return sum.sum;
     }else{

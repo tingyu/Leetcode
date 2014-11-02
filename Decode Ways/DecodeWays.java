@@ -39,7 +39,7 @@ public class Solution {
 			return 0;
 		}       
 
-		if(s.charAt(0) == '0'){
+		if(s.charAt(0) == '0'){//tricky
 			return 0;
 		} 
 

@@ -45,7 +45,7 @@ For normal cases(all other cases), we need to move the pointer at the pace of ha
     假如A一共有m个数，B一共有n个数。
     那么target(下标是k)后面有且只有n + m – 1 – k个数；
     但是B[kb-1]在B中已经排在n – kb个数之前，加上A中的m – ka + 1(A[ka-a])，也就是说在排序后的整体数组中排在B[kb-1]之后的数，至少有n – kb + m – ka + 1 = n + m – k + 1个。
-    由于n + m – k + 1 > n + m – k – 1，所以B前端kb个数都不可能是target。
+    由于n + m – k + 1 > n + m – k –  fp
     所以此时可以将问题转化为，在A[0,...,m-1]和B[kb,...,n-1]中，寻找下标为k – kb的数。
     否则，A[ka-1] < B[kb-1]
     同上，可以剔除A前端的ka个数。

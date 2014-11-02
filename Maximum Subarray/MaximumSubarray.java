@@ -30,8 +30,9 @@ public class Solution{
 
 /*
 2. Solution #2, Divide and conquer, O(n) also?
-The max range can be in the left half, or in the right half, or across the mid of the array, s
-o we just divide it to tree parts and recursive until we get the max value of each part, and then get the largest value.
+The max range can be in the left half, or in the right half, or across the mid of the array, 
+so we just divide it to tree parts and recursive until we get the max value of each part, 
+and then get the largest value.
 */
 //Devide and conquer
 public class Solution{

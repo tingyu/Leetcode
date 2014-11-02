@@ -14,6 +14,10 @@ You should gather all requirements up front before implementing one.
 */
 //my solution
 /*
+1. null: false
+首先把前后的空格去掉，然后看如果如果剩下的长度如果是0，false, 
+然后看第一个元素是不是+-，如果是的话i++
+
 */
 public class Solution{
 	public boolean isNumber(String s) {

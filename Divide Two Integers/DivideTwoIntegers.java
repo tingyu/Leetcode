@@ -41,15 +41,8 @@ public class Solution {
 }
 
 /*
-2nd solution:
 
-optimize the 1st solution, double the divisor each time.
 
-Running Time: O(lg(n));
-
-note: there's two while loop here, if the temp_divisor bigger than the current dividend, 
-set the temp_divisor to the initial value and start the loop again.
-下面的双层循环写的太好了
 */
 
 public class Solution {

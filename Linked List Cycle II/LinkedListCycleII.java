@@ -28,6 +28,8 @@ Have you been asked this question in an interview?
 和判断是否有cycle类似。在fast和slow相等之后，就把slow移到Head，然后fast和slow
 继续以相同的pace移动，直到下次相遇的位置就是cycle的起始位置。
 注意很容易出现bug的是忽略了没有cycle的情况，所以没有判断
+O(n)
+
 
 解释可以见下面博客
 http://fisherlei.blogspot.com/2013/11/leetcode-linked-list-cycle-ii-solution.html
@@ -51,6 +53,17 @@ image
 =>   X+K  =  (m-2n)Y    ③
 
 这就清晰了，X和K的关系是基于Y互补的。等于说，两个指针相遇以后，再往下走X步就回到Cycle的起点了。这就可以有O(n)的实现了。
+
+
+1. 搞清楚关键是数学问题。要会很熟练的推导
+=>   X+K  =  (m-2n)Y    ③
+这就清晰了，X和K的关系是基于Y互补的。等于说，两个指针相遇以后，再往下走X
+步就回到Cycle的起点了。这就可以有O(n)的实现了。
+两个循环，首先是找到相遇点，然后是把slow挪回head，然后继续同样pace走直到
+相遇
+2. 注意双指针判断一般都是这样：
+while(fast != null && fast.next != null && slow != null){
+注意是&&不是||
 
 */
 public class Solution {

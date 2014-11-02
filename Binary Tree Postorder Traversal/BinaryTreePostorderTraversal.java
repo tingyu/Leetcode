@@ -18,7 +18,8 @@ Note: Recursive solution is trivial, could you do it iteratively?
 */
 
 //http://lei.case.edu/wordpress/2013/12/27/leetcode-preinpost-order-traversal-of-binary-tree/
-
+//p不是空的时候，不停的add, push找右边的节点。p是空的时候pop找左节点
+//最后结束了反转一下list
 public class Solution {
     public List<Integer> postorderTraversal(TreeNode root) {
         ArrayList<Integer> lst = new ArrayList<Integer>();

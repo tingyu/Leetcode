@@ -25,6 +25,8 @@ Quickly summarize 3 cases. Whenever there is intersection, created a new interva
 如果新区间的end < 当前区间的start，把新区间加入res, 然后把当前区间赋值给新区建。
 如果当前区间和新区间发生重合，则start取两者最小的start，end取两者最大的end，生成一个新的区间。
 继续遍历。
+遍历到结尾的时候，还有一个新区间没有加入res中，因此需要在循环外面处理。
+此时同时处理了如果intervals是空的时候的特殊情况。
 
 如果遍历一直到末尾也没发生区间重合，就把新区间插入到原来ArrayList的末尾。
 里面用到了几个通过iterator操作ArrayList的函数：在遍历ArrayList的过程中想删除其中某个element、遍历的过程中插入某个element，有空慢慢总结一下。

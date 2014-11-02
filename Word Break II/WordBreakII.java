@@ -1,7 +1,8 @@
 /**
 Word BreakII
 
-Given a string s and a dictionary of words dict, add spaces in s to construct a sentence where each word is a valid dictionary word.
+Given a string s and a dictionary of words dict, add spaces in s to construct a sentence where each 
+word is a valid dictionary word.
 
 Return all such possible sentences.
 
@@ -50,7 +51,6 @@ public class Solution {
             record.add(new ArrayList<Integer>());
         }
 
-        r
         for(int end = length; end >= 0; end--){
             //如果没有下面的判断就会超时，这里相当于剪枝的效果。为什么这样写？最开始的时候肯定都是空的？
             if(end < length && record.get(end).isEmpty())

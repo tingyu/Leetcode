@@ -29,6 +29,30 @@ http://blog.csdn.net/linhuanmars/article/details/21424783
 大的情况，相等的话就和比左边的小一样的情况
 比如[1 2 2]，里面该给的数目应该是[1 2 1]而不是[1 2 2]
 */
+//my solution
+public class Solution {
+    public int candy(int[] ratings) {
+        int[] num = new int[ratings.length];
+        int res = 0;
+        for(int i = 0; i < ratings.length; i++){
+            if(i != 0 && ratings[i] > ratings[i-1]){
+                num[i] = num[i-1] + 1;
+            }else{
+                num[i] = 1;
+            }
+        }
+        
+        for(int i = ratings.length - 1; i >= 0; i--){
+            if(i != ratings.length - 1 && ratings[i] > ratings[i+1]){
+                int tmp = num[i+1] + 1;
+                num[i] = Math.max(num[i], tmp);
+            }
+            res += num[i];
+        }
+        return res;
+    }
+}
+
 
 public class Solution {
     public int candy(int[] ratings) {

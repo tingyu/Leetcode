@@ -49,8 +49,8 @@ public class Solution {
 
         int max = 0;
         //dp数组保存左边和右边利润的最大值
-        int[] left = new int[prices.length]; //计算[0, i]区间的最大值，也就是某天之前的最大值
-        int[] right = new int[prices.length]; //计算[i, len -1]区间的最大值，也就是某天之后的最大值
+        int[] left = new int[prices.length]; //计算[0, i]区间的最大值，也就是某天之前做一次transaction的最大值
+        int[] right = new int[prices.length]; //计算[i, len -1]区间的最大值，也就是某天之后做一次transaction的最大值
 
         process(prices, left, right);
 
@@ -87,6 +87,25 @@ public class Solution {
     }
 }
 
+/*
+下面这样写是错的，因为maxPro没有更新
+    private void process(int[] prices, int[] left, int[] right){
+        int maxPro = 0;
+        int min = Integer.MAX_VALUE;
+        for(int i = 0; i < prices.length; i++){
+            left[i] = Math.max(maxPro, prices[i] - min);
+            min = Math.min(min, prices[i]);
+        }
+        
+        int max = 0;
+        maxPro = 0;
+        for(int i = prices.length - 1; i >= 0; i--){
+            right[i] = Math.max(maxPro, max - prices[i]);
+            max = Math.max(max, prices[i]);
+        }
+    }
+*/
+
 //更为简洁的写法：
 //https://github.com/francis-liberty/oj/blob/master/leetcode/Best%20Time%20to%20Buy%20and%20Sell%20Stock%20III.java
 public class Solution {
@@ -100,7 +119,8 @@ public class Solution {
         for (int i = 0; i < N; i++) {
             min = Math.min(min, prices[i]);
             numL[i] = Math.max(0, prices[i] - min);
-m                numL[i] = Math.max(numL[i], numL[i-1]);
+            if (i > 0)
+                numL[i] = Math.max(numL[i], numL[i-1]);
         }
         // from right to left:
         int max = Integer.MIN_VALUE;

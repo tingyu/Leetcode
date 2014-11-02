@@ -33,7 +33,7 @@ public class Solution {
         
         for(int i = start; i <= n; i++){//这样写是关键
             tmp.add(i);
-            helper(res, tmp, n, k, i+1);
+            helper(res, tmp, n, k, i+1);//我这里写的start + 1的时候就错了
             tmp.remove(tmp.size() - 1);
         }
     }

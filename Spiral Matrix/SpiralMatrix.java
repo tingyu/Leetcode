@@ -57,6 +57,7 @@ public class Solution {
                     res.add(matrix[x][y++]);
                 }
                 
+                
                 //right - move down
                 for(int k = 0; k < m - 1; k++){
                     res.add(matrix[x++][y]);

@@ -31,7 +31,7 @@ For ease of going back to the parent directory, we can use a stack to which a se
 is pushed as long as it represents a subdirectory. Finally, the stack is converted into an array, 
 and the simplified path is the concatenation of the segments in the stack preceded by a "/".
 
-*/i
+*/
 
 public class Solution {
     public String simplifyPath(String path) {

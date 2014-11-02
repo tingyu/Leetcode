@@ -1,7 +1,6 @@
 /**
 
 Longest Consecutive Sequence
-Total Accepted: 11367 Total Submissions: 41784
 
 Given an unsorted array of integers, find the length of the longest consecutive elements sequence.
 
@@ -23,6 +22,31 @@ Java Solution 1
 We can use a HashSet to add and remove elements. HashSet is implemented by using a hash table. 
 Elements are not ordered. The add, remove and contains methods have constant time complexity O(1).
 */
+
+public class Solution {
+    public int longestConsecutive(int[] num) {
+        HashSet<Integer> set = new HashSet<Integer>();
+        for(int i = 0; i < num.length; i++){
+            set.add(num[i]);
+        }
+        
+        int max = 0;
+        for(int i = 0; i < num.length; i++){
+            int less = num[i];
+            int more = num[i];
+            while(set.contains(less - 1)){
+                set.remove(less);
+                less--;
+            }
+            while(set.contains(more + 1)){
+                set.remove(more);
+                more++;
+            }
+            max = Math.max(max, more - less + 1);
+        }
+        return max;
+    }
+}
 
 public int longestConsecutive(int[] num) {
 	Set<Integer> set = new HashSet<Integer>();

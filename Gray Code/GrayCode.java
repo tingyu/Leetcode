@@ -2,7 +2,8 @@
 Gray Code
 The gray code is a binary numeral system where two successive values differ in only one bit.
 
-Given a non-negative integer n representing the total number of bits in the code, print the sequence of gray code. A gray code sequence must begin with 0.
+Given a non-negative integer n representing the total number of bits in the code, print the sequence of gray code. 
+A gray code sequence must begin with 0.
 
 For example, given n = 2, return [0,1,3,2]. Its gray code sequence is:
 
@@ -53,6 +54,7 @@ Therefore, we decided to use recursive approach to form the resulting ArrayList.
             res.add(p);
         }
         注意下面代码。Math.pow输出的是double，所以一定要强制转换成int
+        这里既然用的recursion，那么一定要注意base case
 */
 
 public class Solution {

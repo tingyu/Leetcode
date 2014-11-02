@@ -58,7 +58,7 @@ public class Solution {
 }
 
 /*
-		int left = Math.max(findMax(node.left), 0);
+int left = Math.max(findMax(node.left), 0);
 这里一定要加上和0的比较。不然会加上负的
 Submission Result: Wrong Answer
 
@@ -72,8 +72,8 @@ Expected:	4
 public class Solution {
 	public int maxPathSum(TreeNode root) {
 		int max[] = new int[1];
-		max[0] = Integer.MIN_VALUE;
-		calculateSum(root, max);
+		max[0] = Integer.MIN_VALUE;mcu
+		iM(root, max);
 		return max[0];
 	}
 

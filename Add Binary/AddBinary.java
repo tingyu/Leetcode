@@ -10,6 +10,26 @@ Return "100".
 
 */
 
+/*
+Summary:
+应该用String表示二进制啊，这是你今天犯的错误啊啊啊啊啊啊
+感觉涉及二进制的都涉及了String的操作
+这题开始没想到思路，后来想到了，因为两个长度可能不一样，所以需要先用到
+padding，然后从后往前一位位加，弄一个flag看看需不需要进位。此时分了3种情况
+，其中每一种又根据flag又分两种情况，并且不断更新flag。最后全部扫完之后，如果
+flag是true的。那么就继续再加上一个1.因为是String的处理所以比较简单
+
+//first padding a or b to the longer length, then consider flag and 0, 1 situation
+//you can use flag to indicate a carrier
+// Don't try to convert the string into "int" or "long", the string can get too long
+ to be converted.
+
+2.因为直接从String转的话可能太长了，会溢出。但是如果只转一位的话就没问题
+convert char to int to compute using a.charAt(lastA--) - '0':
+StringBuilder能直接add integer，最后转化成string??
+*/
+
+
 //my solution
 //first padding a or b to the longer length, then consider flag and 0, 1 situation
 //you can use flag to indicate a carrier

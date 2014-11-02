@@ -47,7 +47,7 @@ public class Solution {
 
         while(l <= r){
         	int m = (l + r)/2;
-        	if(m <= x/m && x/(m + 1)< m +1) // m*m <= x <= (m+1)*(m+1)，x正好在m*m和(m+1)(m+1)之间
+        	if(m <= x/m && x/(m + 1)< m +1) // m*m <= x <= (m+1)*(m+1)，x正好在m*m和(m+1)(m+1)之间。
         		return m;
 
         	if(x/m < m){ //x < m*m，表示m大了，所以需要减小
@@ -59,6 +59,11 @@ public class Solution {
         return 0;
     }
 }
+/*
+为什么前面的判断
+但是如果改成if(m*m <= x && x < (m +1)*(m+1)) 就会出错？？？？？
+*/
+
 
 /*
 http://www.cnblogs.com/AnnieKim/archive/2013/04/18/3028607.html
@@ -82,7 +87,8 @@ int sqrt(int x){
     }
     return j;
 }
-//注：在中间过程计算平方的时候可能出现溢出，所以用long long。
+/*
+这个也有问题*/
 
 /*
 二分法在数值计算中非常常见，还是得熟练掌握。其实这个题目还有另一种方法，称为牛顿法。
