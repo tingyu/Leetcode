@@ -44,6 +44,40 @@ public void reverse(ListNode head){
 	head = prev;//如果curr是空，那么最后更新到的prev就是末尾，把末尾置为头
 }
 
+/*
+There's code in one reply that spells it out, but you might find it easier to start from the bottom up, 
+by asking and answering tiny questions (this is the approach in The Little Lisper):
+
+What is the reverse of null (the empty list)? null.
+What is the reverse of a one element list? the element.
+What is the reverse of an n element list? the reverse of the second element on followed by the first element.
+*/
+
+public ListNode Reverse(ListNode list)
+{
+    if (list == null) return null; // first question
+
+    if (list.next == null) return list; // second question
+
+    // third question - in Lisp this is easy, but we don't have cons
+    // so we grab the second element (which will be the last after we reverse it)
+
+    ListNode secondElem = list.next;
+
+    // bug fix - need to unlink list from the rest or you will get a cycle
+    list.next = null;
+
+    // then we reverse everything from the second element on
+    ListNode reverseRest = Reverse(secondElem);
+
+    // then we join the two lists
+    secondElem.Next = list;
+
+    return reverseRest;
+}
+
+
+
 //2) The recursive way:
 public void reverse(ListNode p){
 	if(p == null) return;
